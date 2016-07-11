@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Gank</string>
+
+    <!--首页-->
+    <string name="error">网络请求失败</string>
+
+</resources>

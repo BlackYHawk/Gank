@@ -30,4 +30,9 @@ public class AndroidStringFetcher implements StringFetcher {
     public int getColorRes(int colorId) {
         return mContext.getResources().getColor(colorId);
     }
+
+    @Override
+    public float getDimensionRes(int dimenId) {
+        return mContext.getResources().getDimension(dimenId);
+    }
 }

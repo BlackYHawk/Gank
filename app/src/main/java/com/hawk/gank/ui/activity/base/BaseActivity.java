@@ -12,6 +12,7 @@ import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
 import com.hawk.gank.http.GankIO;
 import com.hawk.gank.interfaces.Logger;
+import com.hawk.gank.interfaces.StringFetcher;
 import com.hawk.gank.modules.ActComponent;
 import com.hawk.gank.modules.ActModule;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
@@ -35,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private Unbinder unbinder;
 	@Inject Logger logger;
 	@Inject GankIO gankIO;
+	@Inject StringFetcher mStringFetcher;
 	@BindView(R.id.toolbar) Toolbar mToolbar;
 
 	@Override

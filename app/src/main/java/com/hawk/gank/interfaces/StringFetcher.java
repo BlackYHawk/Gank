@@ -11,4 +11,6 @@ public interface StringFetcher {
 
     int getColorRes(int colorId);
 
+    float getDimensionRes(int dimenId);
+
 }

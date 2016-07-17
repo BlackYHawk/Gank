@@ -8,8 +8,8 @@
     android:clickable="true" >
 
     <com.hawk.gank.ui.widget.CircleImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/menu_head"
+        android:layout_height="@dimen/menu_head"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_github"
         app:border_color="@color/white"

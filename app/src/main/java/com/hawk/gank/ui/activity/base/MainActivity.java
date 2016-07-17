@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
     private boolean mIsFirstTimeTouchBottom = true;
 
     private int mPage = 1;
-    private List<Gank> mGankList;
+    private ArrayList<Gank> mGankList;
     private boolean mIsRequestDataRefresh = false;
 
     @BindView(R.id.drawLayout) DrawerLayout mDrawer;

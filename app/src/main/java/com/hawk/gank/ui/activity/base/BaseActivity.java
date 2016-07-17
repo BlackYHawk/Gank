@@ -36,11 +36,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private Map<String, WeakReference<BaseFragment>> fragmentRefs;
 	private ActComponent actComponent;
 	private Unbinder unbinder;
-	@Inject Logger logger;
-	@Inject CompositeSubscription mSubscription;
-	@Inject GankIO gankIO;
-	@Inject StringFetcher mStringFetcher;
-	@BindView(R.id.toolbar) Toolbar mToolbar;
+	protected @Inject Logger logger;
+	protected @Inject CompositeSubscription mSubscription;
+	protected @Inject GankIO gankIO;
+	protected @Inject StringFetcher mStringFetcher;
+	protected @BindView(R.id.toolbar) Toolbar mToolbar;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +63,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 		if (mToolbar != null) {
 			setSupportActionBar(mToolbar);
+		}
+	}
+
+	protected void setDisplayBack() {
+		if (getSupportActionBar() != null) {
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayShowHomeEnabled(false);
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
 		}
 	}
 

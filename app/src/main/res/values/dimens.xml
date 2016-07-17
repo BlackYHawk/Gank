@@ -11,8 +11,12 @@
     <dimen name="text_size_gank_title">14sp</dimen>
     <dimen name="text_size_gank_category">18sp</dimen>
     <dimen name="menu_header">150dp</dimen>
+    <dimen name="menu_head">80dp</dimen>
 
-    <!--主页-->
+    <!--图片-->
+    <dimen name="pic_fling_offset">28dp</dimen>
+    <dimen name="pic_margin">10dp</dimen>
+    <dimen name="pic_item_padding">10dp</dimen>
 
 
 </resources>

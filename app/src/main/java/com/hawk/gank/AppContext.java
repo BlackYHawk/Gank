@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
@@ -23,6 +24,8 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 初始化参数依次为 this, AppId, AppKey
+        AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
         enabledStrictMode();
         _context = this;
 

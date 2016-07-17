@@ -1,6 +1,7 @@
 package com.hawk.gank.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,15 @@ import android.widget.TextView;
 
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.Gank;
+import com.hawk.gank.ui.activity.pic.PicActivity;
 import com.hawk.gank.ui.widget.RatioImageView;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by heyong on 16/7/10.
@@ -23,12 +26,12 @@ import butterknife.ButterKnife;
 public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Gank> mGankList;
+    private ArrayList<Gank> mGankList;
     private int limit = 48;
 
-    public MMAdapter(Context context, List<Gank> meizhiList) {
+    public MMAdapter(Context context, ArrayList<Gank> gankList) {
         mContext = context;
-        mGankList = meizhiList;
+        mGankList = gankList;
     }
 
     @Override
@@ -68,6 +71,14 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mmView.setOriginalSize(50, 50);
+        }
+
+        @OnClick(R.id.iv_mm)
+        public void click(View view) {
+            Intent intent = new Intent(mContext, PicActivity.class);
+            intent.putParcelableArrayListExtra("gankData", mGankList);
+            intent.putExtra("current", getAdapterPosition());
+            mContext.startActivity(intent);
         }
 
     }

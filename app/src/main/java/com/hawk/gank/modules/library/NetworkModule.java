@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
 import com.hawk.gank.http.GankIO;
-import com.hawk.gank.http.retrofit.AgeraCallAdapterFactory;
 import com.hawk.gank.qualifiers.ApplicationContext;
 import com.hawk.gank.util.Constant;
 
@@ -23,6 +22,7 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -70,7 +70,7 @@ public class NetworkModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.GANK_SITE)
                 .client(okHttpClient)
-                .addCallAdapterFactory(AgeraCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

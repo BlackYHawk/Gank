@@ -26,6 +26,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private ActComponent actComponent;
 	private Unbinder unbinder;
 	@Inject Logger logger;
+	@Inject CompositeSubscription mSubscription;
 	@Inject GankIO gankIO;
 	@Inject StringFetcher mStringFetcher;
 	@BindView(R.id.toolbar) Toolbar mToolbar;
@@ -61,6 +64,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 		if (mToolbar != null) {
 			setSupportActionBar(mToolbar);
 		}
+	}
+
+	protected void addSubscription(Subscription subscription) {
+		mSubscription.add(subscription);
 	}
 
 	public void addFragment(String tag, BaseFragment fragment) {

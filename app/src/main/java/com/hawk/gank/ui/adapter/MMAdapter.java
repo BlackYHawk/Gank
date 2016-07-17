@@ -42,13 +42,13 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Gank mm = mGankList.get(position);
 
-        String text = mm.getDesc().length() > limit ? mm.getDesc().substring(0, limit) +
-                "..." : mm.getDesc();
+        String text = mm.desc.length() > limit ? mm.desc.substring(0, limit) +
+                "..." : mm.desc;
 
         viewHolder.titleView.setText(text);
 
         Picasso.with(mContext)
-                .load(mm.getUrl())
+                .load(mm.url)
                 .resize(300, 300)
                 .centerCrop()
                 .into(viewHolder.mmView);

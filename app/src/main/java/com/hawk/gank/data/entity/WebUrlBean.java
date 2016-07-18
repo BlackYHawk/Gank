@@ -1,0 +1,25 @@
+package com.hawk.gank.data.entity;
+
+/**
+ * Created by heyong on 16/7/18.
+ */
+public class WebUrlBean {
+    private String raw;
+    private String forWeibo;
+
+    public String getRaw() {
+        return raw;
+    }
+
+    public void setRaw(String raw) {
+        this.raw = raw;
+    }
+
+    public String getForWeibo() {
+        return forWeibo;
+    }
+
+    public void setForWeibo(String forWeibo) {
+        this.forWeibo = forWeibo;
+    }
+}

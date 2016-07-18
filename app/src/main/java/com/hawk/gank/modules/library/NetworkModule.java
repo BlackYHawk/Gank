@@ -4,7 +4,10 @@ import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
 import com.hawk.gank.http.GankIO;
+import com.hawk.gank.http.OpenEyeIO;
 import com.hawk.gank.qualifiers.ApplicationContext;
+import com.hawk.gank.qualifiers.Eye;
+import com.hawk.gank.qualifiers.Gank;
 import com.hawk.gank.util.Constant;
 
 import java.io.File;
@@ -65,8 +68,8 @@ public class NetworkModule {
         return builder.build();
     }
 
-    @Provides @Singleton
-    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    @Provides @Singleton @Gank
+    public Retrofit provideGankRetrofit(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.GANK_SITE)
                 .client(okHttpClient)
@@ -77,9 +80,26 @@ public class NetworkModule {
         return retrofit;
     }
 
+    @Provides @Singleton @Eye
+    public Retrofit provideEyeRetrofit(OkHttpClient okHttpClient) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.EYE_DAILY_SITE)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return retrofit;
+    }
+
     @Provides @Singleton
-    public GankIO provideGankIO(Retrofit retrofit) {
+    public GankIO provideGankIO(@Gank Retrofit retrofit) {
         return retrofit.create(GankIO.class);
+    }
+
+    @Provides @Singleton
+    public OpenEyeIO provideOpenEyeIO(@Eye Retrofit retrofit) {
+        return retrofit.create(OpenEyeIO.class);
     }
 
 }

@@ -5,7 +5,8 @@
         <item
             android:id="@+id/menu_pic"
             android:title="@string/menu_pic"
-            android:icon="@mipmap/ic_github"/>
+            android:icon="@mipmap/ic_github"
+            android:checked="true"/>
         <item
             android:id="@+id/menu_video"
             android:title="@string/menu_video"

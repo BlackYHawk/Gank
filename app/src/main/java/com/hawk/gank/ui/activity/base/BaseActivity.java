@@ -10,9 +10,7 @@ import android.view.View;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
-import com.hawk.gank.http.GankIO;
 import com.hawk.gank.interfaces.Logger;
-import com.hawk.gank.interfaces.StringFetcher;
 import com.hawk.gank.modules.ActComponent;
 import com.hawk.gank.modules.ActModule;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
@@ -26,20 +24,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-
 	// 当有Fragment Attach到这个Activity的时候，就会保存
 	private Map<String, WeakReference<BaseFragment>> fragmentRefs;
 	private ActComponent actComponent;
 	private Unbinder unbinder;
 	protected @Inject Logger logger;
-	protected @Inject CompositeSubscription mSubscription;
-	protected @Inject GankIO gankIO;
-	protected @Inject StringFetcher mStringFetcher;
 	protected @BindView(R.id.toolbar) Toolbar mToolbar;
 
 	@Override
@@ -74,8 +66,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 		}
 	}
 
-	protected void addSubscription(Subscription subscription) {
-		mSubscription.add(subscription);
+	protected void setDisplayTitle(int titleRes) {
+		if(getSupportActionBar() != null) {
+			getSupportActionBar().setSubtitle(null);
+			getSupportActionBar().setTitle(titleRes);
+		}
 	}
 
 	public void addFragment(String tag, BaseFragment fragment) {
@@ -123,7 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 		return (AppContext) getApplication();
 	}
 
-	protected ActComponent component() {
+	public ActComponent component() {
 		actComponent = getAppContext().component()
 				.plus(new ActModule(this));
 

@@ -1,10 +1,10 @@
 package com.hawk.gank.modules;
 
 
-import android.support.v4.app.Fragment;
-
 import com.hawk.gank.qualifiers.ActivityScope;
 import com.hawk.gank.ui.activity.base.BaseActivity;
+import com.hawk.gank.ui.fragment.gank.BaseGankFragment;
+import com.hawk.gank.ui.fragment.openeye.BaseEyeFragment;
 
 import dagger.Subcomponent;
 
@@ -17,7 +17,9 @@ public interface ActComponent {
 
     void inject(BaseActivity baseActivity);
 
-    void inject(Fragment baseFragment);
+    void inject(BaseGankFragment baseFragment);
+
+    void inject(BaseEyeFragment baseFragment);
 
     BaseActivity activity();
 

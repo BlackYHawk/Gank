@@ -12,5 +12,11 @@
     <string name="menu_pic">图片</string>
     <string name="menu_video">视频</string>
 
+    <!--Gank-->
+    <string name="gank_list_title">Gank</string>
+
+    <!--OpenEye-->
+    <string name="eye_list_title">开眼视频</string>
+
 
 </resources>

@@ -1,9 +1,11 @@
 package com.hawk.gank.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by heyong on 16/7/18.
  */
-public class TagBean {
+public class TagBean implements Serializable {
     private int id;
     private String name;
     private String actionUrl;

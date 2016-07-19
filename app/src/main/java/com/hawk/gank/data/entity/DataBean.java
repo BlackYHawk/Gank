@@ -1,15 +1,17 @@
 package com.hawk.gank.data.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by heyong on 16/7/18.
  */
-public class DataBean {
+public class DataBean implements Serializable {
     private String dataType;
     private int id;
     private String title;
     private String description;
+    private String text;
     /**
      * name : YouTube
      * alias : youtube
@@ -106,6 +108,14 @@ public class DataBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public ProviderBean getProvider() {

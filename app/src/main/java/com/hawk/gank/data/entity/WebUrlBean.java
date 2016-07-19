@@ -1,9 +1,11 @@
 package com.hawk.gank.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by heyong on 16/7/18.
  */
-public class WebUrlBean {
+public class WebUrlBean implements Serializable {
     private String raw;
     private String forWeibo;
 

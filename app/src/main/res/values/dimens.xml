@@ -6,7 +6,7 @@
     <dimen name="card_elevation">5dp</dimen>
     <dimen name="card_margin">5dp</dimen>
     <dimen name="padding_mm">10dp</dimen>
-    <dimen name="padding_gank_item">16dp</dimen>
+    <dimen name="padding_gank_item">8dp</dimen>
     <dimen name="padding_vertical_gank_item">8dp</dimen>
     <dimen name="text_size_gank_title">14sp</dimen>
     <dimen name="text_size_gank_category">18sp</dimen>

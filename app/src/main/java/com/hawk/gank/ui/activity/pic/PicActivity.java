@@ -22,7 +22,6 @@ public class PicActivity extends BaseActivity {
     @BindView(R.id.swipeFlingView) SwipeFlingAdapterView mSwipeFlingView;
 
     private ArrayList<Gank> mGankList;
-    private int mCurrent;
     private SwipeFlingAdapter mAdapter;
 
     @Override
@@ -31,7 +30,6 @@ public class PicActivity extends BaseActivity {
         logger.e(TAG, "onCreate");
         setContentView(R.layout.ac_ui_pic);
         mGankList = getIntent().getParcelableArrayListExtra("gankData");
-        mCurrent = (Integer) getIntent().getIntExtra("current", 0);
 
         setDisplayBack();
         initData();
@@ -40,7 +38,6 @@ public class PicActivity extends BaseActivity {
 
     private void initData() {
         mAdapter = new SwipeFlingAdapter(this, mGankList);
-        mAdapter.setSelected(mCurrent);
     }
 
     private void initView() {

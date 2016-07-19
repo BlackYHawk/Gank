@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private ActComponent actComponent;
 	private Unbinder unbinder;
 	protected @Inject Logger logger;
-	protected @BindView(R.id.toolbar) Toolbar mToolbar;
+	protected @Nullable @BindView(R.id.toolbar) Toolbar mToolbar;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {

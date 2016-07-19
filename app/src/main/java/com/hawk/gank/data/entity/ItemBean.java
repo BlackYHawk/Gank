@@ -1,9 +1,12 @@
 package com.hawk.gank.data.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by heyong on 16/7/18.
  */
-public class ItemBean {
+public class ItemBean implements Parcelable {
     private String type;
     /**
      * dataType : VideoBeanForClient
@@ -52,4 +55,34 @@ public class ItemBean {
         this.data = data;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.type);
+        dest.writeSerializable(this.data);
+    }
+
+    public ItemBean() {
+    }
+
+    protected ItemBean(Parcel in) {
+        this.type = in.readString();
+        this.data = (DataBean) in.readSerializable();
+    }
+
+    public static final Creator<ItemBean> CREATOR = new Creator<ItemBean>() {
+        @Override
+        public ItemBean createFromParcel(Parcel source) {
+            return new ItemBean(source);
+        }
+
+        @Override
+        public ItemBean[] newArray(int size) {
+            return new ItemBean[size];
+        }
+    };
 }

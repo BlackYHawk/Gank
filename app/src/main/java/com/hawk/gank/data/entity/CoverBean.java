@@ -1,9 +1,11 @@
 package com.hawk.gank.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by heyong on 16/7/18.
  */
-public class CoverBean {
+public class CoverBean implements Serializable {
     private String feed;
     private String detail;
     private String blurred;

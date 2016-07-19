@@ -13,7 +13,7 @@ import com.hawk.gank.R;
 import com.hawk.gank.data.entity.ItemBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.EyeAdapter;
-import com.hawk.gank.ui.adapter.decoration.SpaceItemDecoration;
+import com.hawk.gank.ui.adapter.decoration.EyeSpaceItemDecoration;
 import com.hawk.gank.ui.fragment.gank.GankListFragment;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class EyeListFragment extends BaseEyeFragment {
 
     private int mPage = 0;
     private String date = "";
-    private static final int PRELOAD_SIZE = 6;
+    private static final int PRELOAD_SIZE = 1;
     private boolean mIsFirstTimeTouchBottom = true;
     private boolean mIsRequestDataRefresh = false;
     private ArrayList<ItemBean> mItemList;
@@ -70,7 +70,7 @@ public class EyeListFragment extends BaseEyeFragment {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration((int)activity.getResources().getDimension(R.dimen.card_margin)));
+        mRecyclerView.addItemDecoration(new EyeSpaceItemDecoration((int)activity.getResources().getDimension(R.dimen.card_margin)));
         mRecyclerView.setAdapter(mEyeAdapter);
         mRecyclerView.addOnScrollListener(onBottomListener(layoutManager));
     }
@@ -85,11 +85,7 @@ public class EyeListFragment extends BaseEyeFragment {
                     if (refresh) {
                         mItemList.clear();
                     }
-                    for (ItemBean itemBean : itemList) {
-                        if(itemBean.getType().equals("video")) {
-                            mItemList.add(itemBean);
-                        }
-                    }
+                    mItemList.addAll(itemList);
                     mEyeAdapter.notifyDataSetChanged();
                     setRefresh(false);
                 }, throwable -> loadError(throwable));
@@ -166,6 +162,7 @@ public class EyeListFragment extends BaseEyeFragment {
     public void onResume() {
         super.onResume();
         new Handler().postDelayed(() -> setRefresh(true), 358);
+        loadRefresh();
         loadData(true);
     }
 

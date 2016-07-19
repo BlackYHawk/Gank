@@ -75,9 +75,11 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
 
         @OnClick(R.id.iv_mm)
         public void click(View view) {
+            ArrayList<Gank> gankList = new ArrayList<Gank>();
+            gankList.addAll(mGankList.subList(getAdapterPosition(), mGankList.size()));
+
             Intent intent = new Intent(mContext, PicActivity.class);
-            intent.putParcelableArrayListExtra("gankData", mGankList);
-            intent.putExtra("current", getAdapterPosition());
+            intent.putParcelableArrayListExtra("gankData", gankList);
             mContext.startActivity(intent);
         }
 

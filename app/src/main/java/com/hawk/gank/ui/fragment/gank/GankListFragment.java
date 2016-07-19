@@ -13,7 +13,7 @@ import com.hawk.gank.R;
 import com.hawk.gank.data.entity.Gank;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.MMAdapter;
-import com.hawk.gank.ui.adapter.decoration.SpaceItemDecoration;
+import com.hawk.gank.ui.adapter.decoration.GankSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class GankListFragment extends BaseGankFragment {
         final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration((int)activity.getResources().getDimension(R.dimen.card_margin)));
+        mRecyclerView.addItemDecoration(new GankSpaceItemDecoration((int)activity.getResources().getDimension(R.dimen.card_margin)));
         mRecyclerView.setAdapter(mMMAdapter);
         mRecyclerView.addOnScrollListener(onBottomListener(layoutManager));
     }
@@ -166,6 +166,7 @@ public class GankListFragment extends BaseGankFragment {
     public void onResume() {
         super.onResume();
         new Handler().postDelayed(() -> setRefresh(true), 358);
+        loadRefresh();
         loadData(true);
     }
 }

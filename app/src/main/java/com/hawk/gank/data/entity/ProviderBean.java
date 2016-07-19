@@ -1,9 +1,11 @@
 package com.hawk.gank.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by heyong on 16/7/18.
  */
-public class ProviderBean {
+public class ProviderBean implements Serializable {
     private String name;
     private String alias;
     private String icon;

@@ -1,9 +1,11 @@
 package com.hawk.gank.data.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by heyong on 16/7/18.
  */
-public class PlayInfoBean {
+public class PlayInfoBean implements Serializable {
     private int height;
     private int width;
     private String name;

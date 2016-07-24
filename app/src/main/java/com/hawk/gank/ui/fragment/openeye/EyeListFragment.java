@@ -75,6 +75,14 @@ public class EyeListFragment extends BaseEyeFragment {
         mRecyclerView.addOnScrollListener(onBottomListener(layoutManager));
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new Handler().postDelayed(() -> setRefresh(true), 358);
+        loadRefresh();
+        loadData(true);
+    }
+
     private void loadData(boolean refresh) {
         Subscription s = openEyeIO.getDailyData(date)
                 .subscribeOn(Schedulers.io())

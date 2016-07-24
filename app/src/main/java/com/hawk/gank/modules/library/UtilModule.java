@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.hawk.gank.interfaces.Logger;
 import com.hawk.gank.interfaces.StringFetcher;
 import com.hawk.gank.qualifiers.ApplicationContext;
-import com.hawk.gank.util.AndroidLogger;
-import com.hawk.gank.util.AndroidStringFetcher;
+import com.hawk.gank.interfaces.impl.AndroidLogger;
+import com.hawk.gank.interfaces.impl.AndroidStringFetcher;
 import com.hawk.gank.util.CharacterParser;
 
 import javax.inject.Singleton;

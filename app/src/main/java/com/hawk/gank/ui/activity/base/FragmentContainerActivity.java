@@ -42,39 +42,36 @@ public class FragmentContainerActivity extends BaseActivity {
         }
 
         int contentId = R.layout.ac_ui_fragment_container;
-        Bundle values = (Bundle) getIntent().getBundleExtra("args");
+        Bundle args = (Bundle) getIntent().getBundleExtra("args");
 
         Fragment fragment = null;
         if (savedInstanceState == null) {
+
             try {
                 Class clazz = Class.forName(className);
                 fragment = (Fragment) clazz.newInstance();
                 // 设置参数给Fragment
-                if (values != null) {
+                if (args != null) {
                     try {
                         Method method = clazz.getMethod("setArguments", new Class[] { Bundle.class });
-                        method.invoke(fragment, values);
+                        method.invoke(fragment, args);
                     } catch (Exception e) {
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 finish();
-                return;
             }
         }
 
         setContentView(contentId);
+        setDisplayBack();
 
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();
         }
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(false);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
     }
+
 }
 

@@ -13,6 +13,17 @@
     <dimen name="menu_header">150dp</dimen>
     <dimen name="menu_head">80dp</dimen>
 
+    <!--账户-->
+    <dimen name="account_head">100dp</dimen>
+    <dimen name="account_head_margin">20dp</dimen>
+    <dimen name="account_input_margin_t">10dp</dimen>
+    <dimen name="account_input_margin_lr">20dp</dimen>
+    <dimen name="account_input_padding">10dp</dimen>
+    <dimen name="account_login_margin_t">20dp</dimen>
+    <dimen name="account_info_appbar_h">200dp</dimen>
+    <dimen name="account_info_margin">20dp</dimen>
+    <dimen name="account_info_padding">15dp</dimen>
+
     <!--图片-->
     <dimen name="pic_fling_offset">28dp</dimen>
     <dimen name="pic_margin">10dp</dimen>

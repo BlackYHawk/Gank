@@ -1,5 +1,6 @@
 package com.hawk.gank.ui.activity.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
@@ -10,6 +11,7 @@ import android.view.View;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
+import com.hawk.gank.http.LeanCloudIO;
 import com.hawk.gank.interfaces.Logger;
 import com.hawk.gank.modules.ActComponent;
 import com.hawk.gank.modules.ActModule;
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private ActComponent actComponent;
 	private Unbinder unbinder;
 	protected @Inject Logger logger;
+	protected @Inject LeanCloudIO leanCloudIO;
 	protected @Nullable @BindView(R.id.toolbar) Toolbar mToolbar;
 
 	@Override
@@ -41,6 +44,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 		component().inject(this);
 
 		fragmentRefs = new ArrayMap<String, WeakReference<BaseFragment>>();
+		handleIntent(getIntent());
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		handleIntent(intent);
+	}
+
+	protected void handleIntent(Intent intent) {
 	}
 
 	@Override
@@ -62,11 +75,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 		if (getSupportActionBar() != null) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setDisplayShowHomeEnabled(false);
-			getSupportActionBar().setDisplayShowTitleEnabled(false);
 		}
 	}
 
-	protected void setDisplayTitle(int titleRes) {
+	public void setDisplayTitle(int titleRes) {
 		if(getSupportActionBar() != null) {
 			getSupportActionBar().setSubtitle(null);
 			getSupportActionBar().setTitle(titleRes);

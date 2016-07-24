@@ -2,15 +2,19 @@ package com.hawk.gank.modules.library;
 
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
+import android.util.Log;
 
+import com.hawk.gank.http.LeanCloudIO;
 import com.hawk.gank.http.GankIO;
 import com.hawk.gank.http.OpenEyeIO;
+import com.hawk.gank.qualifiers.LeanCloud;
 import com.hawk.gank.qualifiers.ApplicationContext;
 import com.hawk.gank.qualifiers.Eye;
 import com.hawk.gank.qualifiers.Gank;
 import com.hawk.gank.util.Constant;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +27,10 @@ import okhttp3.Cache;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -68,6 +75,31 @@ public class NetworkModule {
         return builder.build();
     }
 
+    @Provides @Singleton @LeanCloud
+    public OkHttpClient provideLeanCloudOkHttpClient(OkHttpClient okHttpClient) {
+        OkHttpClient.Builder builder = okHttpClient.newBuilder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+
+                        Request request = original.newBuilder()
+                                .header("X-LC-Id", "7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz")
+                                .header("X-LC-Key", "e3LVEnDLFUVcjNKCCE16lxQz")
+                                .method(original.method(), original.body())
+                                .build();
+                        Log.e("URL", "url:" + request.url() + " headers:" + request.headers().toString()
+                                + " method:" + request.method());
+                        Response response = chain.proceed(request);
+                        Log.e("response", "url:" + response.request().url() + " headers:" + response.headers());
+
+                        return response;
+                    }
+                });
+
+        return builder.build();
+    }
+
     @Provides @Singleton @Gank
     public Retrofit provideGankRetrofit(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -92,6 +124,18 @@ public class NetworkModule {
         return retrofit;
     }
 
+    @Provides @Singleton @LeanCloud
+    public Retrofit provideAccountRetrofit(@LeanCloud OkHttpClient okHttpClient) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.LEAN_CLOUD_SITE)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        return retrofit;
+    }
+
     @Provides @Singleton
     public GankIO provideGankIO(@Gank Retrofit retrofit) {
         return retrofit.create(GankIO.class);
@@ -100,6 +144,11 @@ public class NetworkModule {
     @Provides @Singleton
     public OpenEyeIO provideOpenEyeIO(@Eye Retrofit retrofit) {
         return retrofit.create(OpenEyeIO.class);
+    }
+
+    @Provides @Singleton
+    public LeanCloudIO provideLeanCloudIO(@LeanCloud Retrofit retrofit) {
+        return retrofit.create(LeanCloudIO.class);
     }
 
 }

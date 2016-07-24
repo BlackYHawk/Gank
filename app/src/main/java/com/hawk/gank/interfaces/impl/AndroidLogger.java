@@ -1,4 +1,4 @@
-package com.hawk.gank.util;
+package com.hawk.gank.interfaces.impl;
 
 import android.util.Log;
 

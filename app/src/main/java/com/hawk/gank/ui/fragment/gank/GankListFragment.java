@@ -74,6 +74,14 @@ public class GankListFragment extends BaseGankFragment {
         mRecyclerView.addOnScrollListener(onBottomListener(layoutManager));
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new Handler().postDelayed(() -> setRefresh(true), 358);
+        loadRefresh();
+        loadData(true);
+    }
+
     private void loadData(boolean refresh) {
         Subscription s = gankIO.getMMData(mPage)
                 .subscribeOn(Schedulers.io())
@@ -162,11 +170,4 @@ public class GankListFragment extends BaseGankFragment {
         return R.layout.ac_ui_gank_list;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        new Handler().postDelayed(() -> setRefresh(true), 358);
-        loadRefresh();
-        loadData(true);
-    }
 }

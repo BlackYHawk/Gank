@@ -5,12 +5,31 @@
     <string name="error">网络请求失败</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
+    <string name="error_invalid_phone">手机号格式错误</string>
+    <string name="error_invalid_password">密码为4-12位字符串</string>
 
     <!--首页-->
+
+    <!--账户-->
+    <string name="login_title">登录</string>
+    <string name="account_username">手机号</string>
+    <string name="account_password">密码</string>
+    <string name="account_login">登录</string>
+    <string name="account_login_progress">登录中...</string>
+    <string name="register_title">注册</string>
+    <string name="account_register">注册</string>
+    <string name="account_register_progress">注册中...</string>
+    <string name="account_file_progress">上传头像中...</string>
+    <string name="info_title">个人信息</string>
+    <string name="info_username">用户名</string>
+    <string name="info_phone">手机号</string>
+    <string name="pic_error">拍照/选择图片失败，请检查SD卡.</string>
 
     <!--菜单-->
     <string name="menu_pic">图片</string>
     <string name="menu_video">视频</string>
+    <string name="menu_login">登录</string>
+    <string name="menu_register">注册</string>
 
     <!--Gank-->
     <string name="gank_list_title">Gank</string>
@@ -18,5 +37,10 @@
     <!--OpenEye-->
     <string name="eye_list_title">开眼视频</string>
 
+    <!-- 照片选择 -->
+    <string-array name="picChose">
+        <item>拍照</item>
+        <item>相册</item>
+    </string-array>
 
 </resources>

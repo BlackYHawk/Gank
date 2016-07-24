@@ -3,6 +3,7 @@ package com.hawk.gank.modules;
 
 import com.hawk.gank.qualifiers.ActivityScope;
 import com.hawk.gank.ui.activity.base.BaseActivity;
+import com.hawk.gank.ui.fragment.account.BaseAccountFragment;
 import com.hawk.gank.ui.fragment.gank.BaseGankFragment;
 import com.hawk.gank.ui.fragment.openeye.BaseEyeFragment;
 
@@ -16,6 +17,8 @@ import dagger.Subcomponent;
 public interface ActComponent {
 
     void inject(BaseActivity baseActivity);
+
+    void inject(BaseAccountFragment baseFragment);
 
     void inject(BaseGankFragment baseFragment);
 

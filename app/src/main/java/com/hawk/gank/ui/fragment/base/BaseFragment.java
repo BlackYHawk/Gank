@@ -8,10 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hawk.gank.AppContext;
+import com.hawk.gank.interfaces.Logger;
+import com.hawk.gank.interfaces.StringFetcher;
 import com.hawk.gank.ui.activity.base.BaseActivity;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by lan on 2016/6/29.
@@ -20,6 +27,9 @@ public abstract class BaseFragment extends Fragment {
     protected int titleId = -1;
     private ViewGroup rootView;// 根视图
     private Unbinder unbinder;
+    protected @Inject Logger logger;
+    protected @Inject StringFetcher mStringFetcher;
+    protected @Inject CompositeSubscription mSubscription;
 
     @Override
     public void onAttach(Context context) {
@@ -36,7 +46,7 @@ public abstract class BaseFragment extends Fragment {
         if (getActivity() instanceof BaseActivity) {
 
             if(titleId != -1) {
-                ((BaseActivity) getActivity()).setTitle(titleId);
+                ((BaseActivity) getActivity()).setDisplayTitle(titleId);
             }
         }
     }
@@ -86,8 +96,16 @@ public abstract class BaseFragment extends Fragment {
 
     protected void setTitle(int strId) {
         if (getActivity() != null && getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).setTitle(strId);
+            ((BaseActivity) getActivity()).setDisplayTitle(strId);
         }
+    }
+
+    protected AppContext getAppContext() {
+        return ((BaseActivity) getActivity()).getAppContext();
+    }
+
+    protected void addSubscription(Subscription subscription) {
+        mSubscription.add(subscription);
     }
 
     protected void dismiss() {

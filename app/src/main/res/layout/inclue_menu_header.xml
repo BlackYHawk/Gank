@@ -8,6 +8,7 @@
     android:clickable="true" >
 
     <com.hawk.gank.ui.widget.CircleImageView
+        android:id="@+id/ivHead"
         android:layout_width="@dimen/menu_head"
         android:layout_height="@dimen/menu_head"
         android:scaleType="centerCrop"
@@ -16,6 +17,7 @@
         app:border_width="1dp"/>
 
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

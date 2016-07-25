@@ -26,6 +26,7 @@ import com.hawk.gank.ui.fragment.openeye.EyeListFragment;
 import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.MenuGenerator;
 import com.hawk.gank.util.PreferenceUtil;
+import com.hawk.gank.util.StringUtil;
 import com.hawk.gank.util.UIHelper;
 import com.squareup.picasso.Picasso;
 
@@ -185,9 +186,12 @@ public class MainActivity extends BaseActivity {
             }
         }
         String path = PreferenceUtil.getHeadPath(getAppContext());
-        if(path != null) {
+        if(!StringUtil.isEmpty(path)) {
             getAppContext().setHeadPath(path);
             Picasso.with(this).load(new File(path)).into(ivHead);
+        }
+        else {
+            ivHead.setImageResource(R.mipmap.ic_github);
         }
     }
 

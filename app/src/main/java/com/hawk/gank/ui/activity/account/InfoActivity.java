@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
+import com.hawk.gank.util.PreferenceUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -69,9 +71,23 @@ public class InfoActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_info, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home :
+                finish();
+                break;
+            case R.id.menu_info :
+                getAppContext().setAccountBean(null);
+                getAppContext().setAvUser(null);
+                getAppContext().setHeadPath(null);
+                PreferenceUtil.setPassword(getAppContext(), null);
+                PreferenceUtil.setHeadPath(getAppContext(), null);
                 finish();
                 break;
         }

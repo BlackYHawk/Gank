@@ -17,9 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@android:color/transparent"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:title=""
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -93,6 +90,7 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

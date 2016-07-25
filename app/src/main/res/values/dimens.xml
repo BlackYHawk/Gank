@@ -20,7 +20,7 @@
     <dimen name="account_input_margin_lr">20dp</dimen>
     <dimen name="account_input_padding">10dp</dimen>
     <dimen name="account_login_margin_t">20dp</dimen>
-    <dimen name="account_info_appbar_h">200dp</dimen>
+    <dimen name="account_info_appbar_h">240dp</dimen>
     <dimen name="account_info_margin">20dp</dimen>
     <dimen name="account_info_padding">15dp</dimen>
 

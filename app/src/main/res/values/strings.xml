@@ -13,7 +13,9 @@
     <!--账户-->
     <string name="login_title">登录</string>
     <string name="account_username">手机号</string>
+    <string name="account_sms">验证码</string>
     <string name="account_password">密码</string>
+    <string name="account_send_sms">发送验证码</string>
     <string name="account_login">登录</string>
     <string name="account_login_progress">登录中...</string>
     <string name="register_title">注册</string>
@@ -30,6 +32,7 @@
     <string name="menu_video">视频</string>
     <string name="menu_login">登录</string>
     <string name="menu_register">注册</string>
+    <string name="menu_info">注销</string>
 
     <!--Gank-->
     <string name="gank_list_title">Gank</string>

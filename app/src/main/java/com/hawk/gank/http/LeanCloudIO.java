@@ -1,7 +1,6 @@
 package com.hawk.gank.http;
 
 import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVUser;
 import com.hawk.gank.data.entity.AccountBean;
 
 import okhttp3.RequestBody;
@@ -22,16 +21,20 @@ public interface LeanCloudIO {
 
     @Headers({"Content-Type: application/json"})
     @GET("1.1/login")
-    Observable<AVUser> login(@Query("username") String username, @Query("password") String password);
+    Observable<AccountBean> login(@Query("username") String username, @Query("password") String password);
 
     @Headers({"Content-Type: application/json"})
     @POST("1.1/users")
-    Observable<AVUser> register(@Body AccountBean accountBean);
+    Observable<AccountBean> register(@Body AccountBean accountBean);
 
     @Headers({"Content-Type: image/png"})
     @Multipart
     @POST("1.1/files/{filename}")
     Observable<AVFile> uploadFile(@Path("filename") String filename,
                                   @Part("file\"; filename=\"image.png\"") RequestBody file);
+
+    @Headers({"Content-Type: application/json"})
+    @GET("1.1/classes/Post/{objectId}")
+    Observable<AVFile> getFile(@Path("objectId") String objectId);
 
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVUser;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
@@ -23,8 +22,6 @@ public class AppContext extends Application {
     private static Context _context;
     private AppComponent appComponent;
     private AccountBean accountBean;
-    private AVUser avUser;
-    private String headPath;
 
     @Override
     public void onCreate() {
@@ -60,19 +57,4 @@ public class AppContext extends Application {
         this.accountBean = accountBean;
     }
 
-    public AVUser getAvUser() {
-        return avUser;
-    }
-
-    public void setAvUser(AVUser avUser) {
-        this.avUser = avUser;
-    }
-
-    public String getHeadPath() {
-        return headPath;
-    }
-
-    public void setHeadPath(String headPath) {
-        this.headPath = headPath;
-    }
 }

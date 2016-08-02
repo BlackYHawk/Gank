@@ -14,7 +14,6 @@ import com.hawk.gank.data.entity.ItemBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.EyeAdapter;
 import com.hawk.gank.ui.adapter.decoration.EyeSpaceItemDecoration;
-import com.hawk.gank.ui.fragment.gank.GankListFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +27,7 @@ import rx.schedulers.Schedulers;
  * Created by heyong on 16/7/19.
  */
 public class EyeListFragment extends BaseEyeFragment {
-    private final String TAG = GankListFragment.class.getSimpleName();
+    private final String TAG = EyeListFragment.class.getSimpleName();
     private BaseActivity activity;
     @BindView(R.id.swipeRefreshlayout) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -78,6 +77,7 @@ public class EyeListFragment extends BaseEyeFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        logger.e(TAG, "onActivityCreated");
         new Handler().postDelayed(() -> setRefresh(true), 358);
         loadRefresh();
         loadData(true);
@@ -164,14 +164,6 @@ public class EyeListFragment extends BaseEyeFragment {
     @Override
     protected int inflateContentView() {
         return R.layout.ac_ui_gank_list;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        new Handler().postDelayed(() -> setRefresh(true), 358);
-        loadRefresh();
-        loadData(true);
     }
 
 }

@@ -94,6 +94,14 @@ public abstract class BaseFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onDestroy() {
+        if (this.mSubscription != null) {
+            this.mSubscription.unsubscribe();
+        }
+        super.onDestroy();
+    }
+
     protected void setTitle(int strId) {
         if (getActivity() != null && getActivity() instanceof BaseActivity) {
             ((BaseActivity) getActivity()).setDisplayTitle(strId);

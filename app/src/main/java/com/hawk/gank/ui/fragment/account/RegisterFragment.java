@@ -142,15 +142,14 @@ public class RegisterFragment extends BaseAccountFragment {
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(() -> setRefresh(true))
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(avUser -> {
+                        .subscribe(accountBean -> {
                             setRefresh(false);
 
-                            bean.setSessionToken(avUser.getSessionToken());
+                            bean.setSessionToken(accountBean.getSessionToken());
                             getAppContext().setAccountBean(bean);
-                            getAppContext().setAvUser(avUser);
                             PreferenceUtil.setUsername(getAppContext(), username);
                             PreferenceUtil.setPassword(getAppContext(), password);
-
+                            PreferenceUtil.setHeadPath(getAppContext(), bean.getHeadFile());
                             finish();
                         }, throwable -> loadError(throwable));
                 addSubscription(s);
@@ -291,7 +290,6 @@ public class RegisterFragment extends BaseAccountFragment {
 
                     bean.setHeadFile(avFile.getObjectId());
                     PreferenceUtil.setHeadPath(getAppContext(), path);
-                    getAppContext().setHeadPath(path);
 
                 }, throwable -> loadError(throwable));
         addSubscription(s);

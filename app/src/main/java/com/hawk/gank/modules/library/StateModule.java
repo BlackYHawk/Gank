@@ -1,7 +1,5 @@
 package com.hawk.gank.modules.library;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import rx.subscriptions.CompositeSubscription;
@@ -12,7 +10,7 @@ import rx.subscriptions.CompositeSubscription;
 @Module
 public class StateModule {
 
-    @Provides @Singleton
+    @Provides
     public CompositeSubscription provideCompositeSubscription() {
         return new CompositeSubscription();
     }

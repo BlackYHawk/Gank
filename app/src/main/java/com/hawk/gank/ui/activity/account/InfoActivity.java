@@ -62,7 +62,7 @@ public class InfoActivity extends BaseActivity {
     }
 
     private void initView() {
-        String path = getAppContext().getHeadPath();
+        String path = bean.getHeadFile();
         if(path != null) {
             Picasso.with(this).load(new File(path)).into(ivheadBg);
         }
@@ -84,8 +84,6 @@ public class InfoActivity extends BaseActivity {
                 break;
             case R.id.menu_info :
                 getAppContext().setAccountBean(null);
-                getAppContext().setAvUser(null);
-                getAppContext().setHeadPath(null);
                 PreferenceUtil.setPassword(getAppContext(), null);
                 PreferenceUtil.setHeadPath(getAppContext(), null);
                 finish();

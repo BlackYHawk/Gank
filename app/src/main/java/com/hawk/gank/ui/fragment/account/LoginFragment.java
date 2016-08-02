@@ -113,14 +113,13 @@ public class LoginFragment extends BaseAccountFragment {
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(() -> setRefresh(true))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(avUser -> {
+                .subscribe(accountBean -> {
                     setRefresh(false);
 
-                    bean.setUsername(username);
+                    bean.setUsername(accountBean.getUsername());
                     bean.setPassword(password);
-                    bean.setSessionToken(avUser.getSessionToken());
+                    bean.setSessionToken(accountBean.getSessionToken());
                     getAppContext().setAccountBean(bean);
-                    getAppContext().setAvUser(avUser);
                     PreferenceUtil.setUsername(getAppContext(), username);
                     PreferenceUtil.setPassword(getAppContext(), password);
 

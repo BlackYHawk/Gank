@@ -1,5 +1,7 @@
 package com.hawk.gank.data.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,7 @@ public class AccountBean implements Serializable {
 
     String password;
 
+    @SerializedName("mobilePhoneNumber")
     String phone;
 
     String sessionToken;

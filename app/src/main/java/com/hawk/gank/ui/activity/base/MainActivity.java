@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity {
     private TextView tvName;
     private ActionBarDrawerToggle drawerToggle;
     private AccountBean accountBean;
+    private int mCurrentMenuId = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +62,14 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.ac_ui_main);
 
         initView();
-        onMenuClick(MenuGenerator.generateMenu(R.id.menu_pic));
+
+        mCurrentMenuId = (savedInstanceState != null ? savedInstanceState.getInt("menu") : -1);
+        if(mCurrentMenuId != -1) {
+            onMenuClick(MenuGenerator.generateMenu(mCurrentMenuId));
+        }
+        else {
+            onMenuClick(MenuGenerator.generateMenu(R.id.menu_pic));
+        }
     }
 
     @Override
@@ -107,6 +115,7 @@ public class MainActivity extends BaseActivity {
     };
 
     private void onMenuClick(MenuBean item) {
+        mCurrentMenuId = item.menuId;
         BaseFragment fragment = null;
         switch (item.menuId) {
             case R.id.menu_pic :
@@ -130,7 +139,7 @@ public class MainActivity extends BaseActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.ivHead :
-                    if(getAppContext().getAvUser() == null) {
+                    if(getAppContext().getAccountBean() == null) {
                         LoginActivity.login(MainActivity.this, accountBean);
                     }
                     else {
@@ -140,6 +149,14 @@ public class MainActivity extends BaseActivity {
             }
         }
     };
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (mCurrentMenuId != -1)
+            outState.putInt("mCurrentMenuId", mCurrentMenuId);
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -170,31 +187,25 @@ public class MainActivity extends BaseActivity {
             String password = PreferenceUtil.getPassword(getAppContext());
 
             if(username != null && password != null) {
-                Subscription s = leanCloudIO.login(username, password)
+                Subscription subscription = leanCloudIO.login(username, password)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(avUser -> {
                             tvName.setText(username);
 
-                            accountBean = new AccountBean();
-                            accountBean.setUsername(username);
-                            accountBean.setPassword(password);
-                            accountBean.setSessionToken(avUser.getSessionToken());
+                            accountBean = avUser;
                             getAppContext().setAccountBean(accountBean);
-                            getAppContext().setAvUser(avUser);
                         }, throwable -> loadError(throwable));
             }
         }
         String path = PreferenceUtil.getHeadPath(getAppContext());
         if(!StringUtil.isEmpty(path)) {
-            getAppContext().setHeadPath(path);
             Picasso.with(this).load(new File(path)).into(ivHead);
         }
         else {
             ivHead.setImageResource(R.mipmap.ic_github);
         }
     }
-
 
     private void loadError(Throwable throwable) {
         throwable.printStackTrace();

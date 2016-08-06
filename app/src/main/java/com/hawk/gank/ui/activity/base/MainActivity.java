@@ -30,7 +30,6 @@ import com.hawk.gank.util.StringUtil;
 import com.hawk.gank.util.UIHelper;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -181,30 +180,45 @@ public class MainActivity extends BaseActivity {
         accountBean = getAppContext().getAccountBean();
         if(accountBean != null) {
             tvName.setText(accountBean.getUsername());
+
+            String headUrl = PreferenceUtil.getHeadPath(getAppContext());
+            if(!StringUtil.isEmpty(headUrl)) {
+                Picasso.with(this).load(headUrl).into(ivHead);
+            }
+            else {
+                ivHead.setImageResource(R.mipmap.ic_github);
+            }
         }
         else {
             String username = PreferenceUtil.getUsername(getAppContext());
             String password = PreferenceUtil.getPassword(getAppContext());
 
-            if(username != null && password != null) {
+            if(!StringUtil.isEmpty(username) && !StringUtil.isEmpty(password)) {
                 Subscription subscription = leanCloudIO.login(username, password)
                         .subscribeOn(Schedulers.io())
+                        .filter(accountBean1 -> accountBean1 != null)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(avUser -> {
-                            tvName.setText(username);
-
                             accountBean = avUser;
                             getAppContext().setAccountBean(accountBean);
+
+                            tvName.setText(username);
+                            if(!StringUtil.isEmpty(avUser.getHeadUrl())) {
+                                Picasso.with(MainActivity.this).load(avUser.getHeadUrl()).into(ivHead);
+                            }
                         }, throwable -> loadError(throwable));
+                addSubscription(subscription);
+            }
+            else {
+                tvName.setText(R.string.app_name);
+                ivHead.setImageResource(R.mipmap.ic_github);
             }
         }
-        String path = PreferenceUtil.getHeadPath(getAppContext());
-        if(!StringUtil.isEmpty(path)) {
-            Picasso.with(this).load(new File(path)).into(ivHead);
-        }
-        else {
-            ivHead.setImageResource(R.mipmap.ic_github);
-        }
+    }
+
+    private void refreshData(AccountBean accountBean) {
+        this.accountBean = accountBean;
+        getAppContext().setAccountBean(accountBean);
     }
 
     private void loadError(Throwable throwable) {

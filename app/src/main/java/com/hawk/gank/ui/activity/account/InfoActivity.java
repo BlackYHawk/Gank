@@ -15,8 +15,6 @@ import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.util.PreferenceUtil;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-
 import butterknife.BindView;
 
 /**
@@ -62,9 +60,9 @@ public class InfoActivity extends BaseActivity {
     }
 
     private void initView() {
-        String path = bean.getHeadFile();
+        String path = bean.getHeadUrl();
         if(path != null) {
-            Picasso.with(this).load(new File(path)).into(ivheadBg);
+            Picasso.with(this).load(path).into(ivheadBg);
         }
 
         tvName.setText(bean.getUsername());
@@ -84,6 +82,7 @@ public class InfoActivity extends BaseActivity {
                 break;
             case R.id.menu_info :
                 getAppContext().setAccountBean(null);
+                PreferenceUtil.setUsername(getAppContext(), null);
                 PreferenceUtil.setPassword(getAppContext(), null);
                 PreferenceUtil.setHeadPath(getAppContext(), null);
                 finish();

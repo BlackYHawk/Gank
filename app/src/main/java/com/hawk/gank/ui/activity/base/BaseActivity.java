@@ -26,6 +26,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private Unbinder unbinder;
 	protected @Inject Logger logger;
 	protected @Inject LeanCloudIO leanCloudIO;
+	protected @Inject CompositeSubscription mSubscription;
 	protected @Nullable @BindView(R.id.toolbar) Toolbar mToolbar;
 
 	@Override
@@ -97,6 +100,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 		getSupportFragmentManager().popBackStack();
 	}
 
+	protected void addSubscription(Subscription subscription) {
+		mSubscription.add(subscription);
+	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
@@ -123,6 +130,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		unbinder.unbind();
+		if (this.mSubscription != null) {
+			this.mSubscription.unsubscribe();
+		}
 		super.onDestroy();
 	}
 

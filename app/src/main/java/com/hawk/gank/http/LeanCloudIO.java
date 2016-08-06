@@ -1,6 +1,7 @@
 package com.hawk.gank.http;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
 import com.hawk.gank.data.entity.AccountBean;
 
 import okhttp3.RequestBody;
@@ -35,6 +36,6 @@ public interface LeanCloudIO {
 
     @Headers({"Content-Type: application/json"})
     @GET("1.1/classes/Post/{objectId}")
-    Observable<AVFile> getFile(@Path("objectId") String objectId);
+    Observable<AVObject> getFile(@Path("objectId") String objectId);
 
 }

@@ -18,6 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.SaveCallback;
 import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
@@ -35,13 +38,12 @@ import com.hawk.gank.util.UIHelper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscription;
@@ -149,7 +151,7 @@ public class RegisterFragment extends BaseAccountFragment {
                             getAppContext().setAccountBean(bean);
                             PreferenceUtil.setUsername(getAppContext(), username);
                             PreferenceUtil.setPassword(getAppContext(), password);
-                            PreferenceUtil.setHeadPath(getAppContext(), bean.getHeadFile());
+                            PreferenceUtil.setHeadPath(getAppContext(), bean.getHeadUrl());
                             finish();
                         }, throwable -> loadError(throwable));
                 addSubscription(s);
@@ -272,27 +274,31 @@ public class RegisterFragment extends BaseAccountFragment {
     }
 
     private void doLoadPic(String path) {
-        Picasso.with(activity).load(new File(path)).into(ivHead);
-/*        Bitmap bitmap = ImageUtil.getOriginBitmapByPath(path, null);
-        ivHead.setImageBitmap(bitmap);*/
-
         String picName = FileUtil.getFileName(path);
         File picFile = FileUtil.getFile(path);
-        RequestBody requestBody =
-                RequestBody.create(MediaType.parse("multipart/form-data"), picFile);
 
-        Subscription s = leanCloudIO.uploadFile(picName, requestBody)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(() -> setFileRefresh(true))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(avFile -> {
+        try {
+            setFileRefresh(true);
+            AVFile avFile = AVFile.withFile(picName, picFile);
+            avFile.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(AVException e) {
                     setFileRefresh(false);
+                    if(e == null) {
+                        String url = avFile.getUrl();
 
-                    bean.setHeadFile(avFile.getObjectId());
-                    PreferenceUtil.setHeadPath(getAppContext(), path);
+                        bean.setHeadUrl(url);
+                        Picasso.with(activity).load(new File(path)).into(ivHead);
+                    }
+                    else {
+                        UIHelper.showToast(activity, e.getMessage());
+                    }
+                }
+            });
 
-                }, throwable -> loadError(throwable));
-        addSubscription(s);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

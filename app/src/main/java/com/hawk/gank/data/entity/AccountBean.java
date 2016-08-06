@@ -18,7 +18,7 @@ public class AccountBean implements Serializable {
 
     String sessionToken;
 
-    String headFile;
+    String headUrl;
 
     AccountType type;
 
@@ -54,11 +54,11 @@ public class AccountBean implements Serializable {
         this.sessionToken = sessionToken;
     }
 
-    public String getHeadFile() {
-        return headFile;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setHeadFile(String headFile) {
-        this.headFile = headFile;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 }

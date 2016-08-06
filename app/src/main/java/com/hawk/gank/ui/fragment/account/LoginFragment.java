@@ -49,7 +49,6 @@ public class LoginFragment extends BaseAccountFragment {
         return fragment;
     }
 
-
     private final String TAG = LoginFragment.class.getSimpleName();
     private LoginActivity activity;
     private AccountBean bean;
@@ -119,9 +118,11 @@ public class LoginFragment extends BaseAccountFragment {
                     bean.setUsername(accountBean.getUsername());
                     bean.setPassword(password);
                     bean.setSessionToken(accountBean.getSessionToken());
+                    bean.setHeadUrl(accountBean.getHeadUrl());
                     getAppContext().setAccountBean(bean);
                     PreferenceUtil.setUsername(getAppContext(), username);
                     PreferenceUtil.setPassword(getAppContext(), password);
+                    PreferenceUtil.setHeadPath(getAppContext(), accountBean.getHeadUrl());
 
                     finish();
                 }, throwable -> loadError(throwable));

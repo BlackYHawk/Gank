@@ -2,18 +2,18 @@ package com.hawk.gank.ui.activity.account;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.util.PreferenceUtil;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 
@@ -36,7 +36,7 @@ public class InfoActivity extends BaseActivity {
     private final String TAG = InfoActivity.class.getSimpleName();
     private AccountBean bean;
 
-    @BindView(R.id.ivheadBg) ImageView ivheadBg;
+    @BindView(R.id.ivheadBg) SimpleDraweeView ivheadBg;
     @BindView(R.id.tvName) TextView tvName;
 
     @Override
@@ -62,7 +62,7 @@ public class InfoActivity extends BaseActivity {
     private void initView() {
         String path = bean.getHeadUrl();
         if(path != null) {
-            Picasso.with(this).load(path).into(ivheadBg);
+            ivheadBg.setImageURI(Uri.parse(path));
         }
 
         tvName.setText(bean.getUsername());

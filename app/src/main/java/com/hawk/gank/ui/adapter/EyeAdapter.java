@@ -2,6 +2,7 @@ package com.hawk.gank.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.ItemBean;
 import com.hawk.gank.ui.activity.video.VideoShowActivity;
-import com.hawk.gank.ui.widget.RatioImageView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -60,11 +60,11 @@ public class EyeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String text = item.getData().getTitle();
             holder.tvTitle.setText(text);
 
-            Picasso.with(mContext)
-                    .load(item.getData().getCover().getDetail())
+            holder.ivCover.setImageURI(Uri.parse(item.getData().getCover().getDetail()));
+ /*           Picasso.with(mContext)
                     .resize(500, 500)
                     .centerCrop()
-                    .into(holder.ivCover);
+                    .into(holder.ivCover);*/
         }
         else if(viewHolder instanceof CategoryViewHolder) {
             CategoryViewHolder holder = (CategoryViewHolder) viewHolder;
@@ -94,13 +94,13 @@ public class EyeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class EyeViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.layPlay) RelativeLayout layPlay;
-        @BindView(R.id.ivCover) RatioImageView ivCover;
+        @BindView(R.id.ivCover) SimpleDraweeView ivCover;
         @BindView(R.id.tvTitle) TextView tvTitle;
 
         public EyeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            ivCover.setOriginalSize(50, 50);
+         //   ivCover.setOriginalSize(50, 50);
         }
 
         @OnClick(R.id.layPlay)

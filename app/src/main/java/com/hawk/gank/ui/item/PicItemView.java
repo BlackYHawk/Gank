@@ -1,14 +1,14 @@
 package com.hawk.gank.ui.item;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.Gank;
 import com.hawk.gank.ui.adapter.ABaseAdapter;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 
@@ -18,8 +18,8 @@ import butterknife.BindView;
 public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
     private Context mContext;
     private int width, height;
-    private final int gap = 30;
-    @BindView(R.id.ivPic) ImageView ivPic;
+    private final int gap = 0;
+    @BindView(R.id.ivPic) SimpleDraweeView ivPic;
     @BindView(R.id.tvTitle) TextView tvTitle;
 
     public PicItemView(Context context) {
@@ -35,12 +35,14 @@ public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
     }
 
     @Override
+    public void bindingView(View convertView) {
+        super.bindingView(convertView);
+        ivPic.getLayoutParams().height = height;
+    }
+
+    @Override
     public void bindingData(View convertView, Gank data) {
-        Picasso.with(mContext)
-                .load(data.url)
-                .resize(width, height)
-                .centerCrop()
-                .into(ivPic);
+        ivPic.setImageURI(Uri.parse(data.url));
         tvTitle.setText(data.desc);
     }
 

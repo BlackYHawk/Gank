@@ -41,13 +41,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hawk.gank.ui.widget.RatioImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/ivCover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
                 android:adjustViewBounds="true"
-                android:background="@mipmap/ic_launcher"/>
+                app:roundAsCircle="false"
+                app:actualImageScaleType="centerCrop"
+                app:placeholderImage="@mipmap/ic_launcher"
+                app:placeholderImageScaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/ivPlay"

@@ -2,6 +2,7 @@ package com.hawk.gank.ui.activity.base;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
@@ -23,12 +25,10 @@ import com.hawk.gank.ui.activity.account.LoginActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 import com.hawk.gank.ui.fragment.gank.GankListFragment;
 import com.hawk.gank.ui.fragment.openeye.EyeListFragment;
-import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.MenuGenerator;
 import com.hawk.gank.util.PreferenceUtil;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.gank.util.UIHelper;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
     public static final String FRAGMENT_TAG = "MainFragment";
     @BindView(R.id.drawLayout) DrawerLayout mDrawer;
     @BindView(R.id.navigationView) NavigationView mNavigationView;
-    private CircleImageView ivHead;
+    private SimpleDraweeView ivHead;
     private TextView tvName;
     private ActionBarDrawerToggle drawerToggle;
     private AccountBean accountBean;
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
         drawerToggle.syncState();
 
         View headerView = mNavigationView.getHeaderView(0);
-        ivHead = (CircleImageView) headerView.findViewById(R.id.ivHead);
+        ivHead = (SimpleDraweeView) headerView.findViewById(R.id.ivHead);
         tvName = (TextView) headerView.findViewById(R.id.tvName);
         ivHead.setOnClickListener(onClickListener);
         mNavigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity {
 
             String headUrl = PreferenceUtil.getHeadPath(getAppContext());
             if(!StringUtil.isEmpty(headUrl)) {
-                Picasso.with(this).load(headUrl).into(ivHead);
+                ivHead.setImageURI(Uri.parse(headUrl));
             }
             else {
                 ivHead.setImageResource(R.mipmap.ic_github);
@@ -204,7 +204,7 @@ public class MainActivity extends BaseActivity {
 
                             tvName.setText(username);
                             if(!StringUtil.isEmpty(avUser.getHeadUrl())) {
-                                Picasso.with(MainActivity.this).load(avUser.getHeadUrl()).into(ivHead);
+                                ivHead.setImageURI(Uri.parse(avUser.getHeadUrl()));
                             }
                         }, throwable -> loadError(throwable));
                 addSubscription(subscription);

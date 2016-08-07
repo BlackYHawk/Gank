@@ -7,14 +7,13 @@
     android:gravity="center"
     android:clickable="true" >
 
-    <com.hawk.gank.ui.widget.CircleImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/ivHead"
         android:layout_width="@dimen/menu_head"
         android:layout_height="@dimen/menu_head"
-        android:scaleType="centerCrop"
         android:src="@mipmap/ic_github"
-        app:border_color="@color/white"
-        app:border_width="1dp"/>
+        app:roundAsCircle="true"
+        app:actualImageScaleType="fitCenter" />
 
     <TextView
         android:id="@+id/tvName"

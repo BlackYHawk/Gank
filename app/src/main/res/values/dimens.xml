@@ -26,7 +26,8 @@
 
     <!--图片-->
     <dimen name="pic_fling_offset">28dp</dimen>
-    <dimen name="pic_margin">10dp</dimen>
+    <dimen name="pic_margin">0dp</dimen>
+    <dimen name="pic_radius">5dp</dimen>
     <dimen name="pic_item_padding">10dp</dimen>
 
 

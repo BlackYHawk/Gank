@@ -382,6 +382,11 @@ public class FileUtil {
             if(checkSaveLocationExists()) {    //检查SD是否存在
                 File dir = new File(getSDRoot() + File.separator + directoryName);
                 status = (dir.exists() && dir.isDirectory());
+
+                if(!status) {
+                    dir.mkdirs();
+                    status = true;
+                }
             }
         }
         return status;

@@ -12,6 +12,12 @@ import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
+import com.hawk.gank.util.Constant;
+import com.hawk.gank.util.FileUtil;
+
+import java.io.File;
+
+import cn.jiajixin.nuwa.Nuwa;
 
 /**
  * Created by heyong on 16/7/10.
@@ -36,6 +42,15 @@ public class AppContext extends Application {
         _context = this;
 
         initComponent();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        File patchFile = FileUtil.getFile(Constant.PATCH_DIR, "patch.jar");
+        Nuwa.init(this);
+        Nuwa.loadPatch(this, patchFile.getAbsolutePath());
+
     }
 
     private void initComponent() {

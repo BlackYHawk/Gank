@@ -106,6 +106,8 @@
 -keep class com.google.inject.** { *; }
 -keep class javax.inject.** { *; }
 
+-keep class cn.jiajixin.nuwa.** { *; }
+
 #关键的地方，一定要将model层包 使用 keep class
 -keep class com.hawk.gank.data.entity.** { *; }
 

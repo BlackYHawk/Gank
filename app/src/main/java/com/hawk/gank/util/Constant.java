@@ -21,4 +21,6 @@ public class Constant {
     public static final String IMAGE_ORIGIN = "images_origin";
     public static final String IMAGE_FORMAT = ".png";
 
+    public static final String PATCH_DIR = "Patch";
+
 }

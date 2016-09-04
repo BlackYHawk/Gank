@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +21,7 @@ import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.data.entity.MenuBean;
 import com.hawk.gank.http.convert.Error;
+import com.hawk.gank.task.InstallDexTask;
 import com.hawk.gank.ui.activity.account.InfoActivity;
 import com.hawk.gank.ui.activity.account.LoginActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity {
     private final String TAG = MainActivity.class.getSimpleName();
     public static final String FRAGMENT_TAG = "MainFragment";
     @BindView(R.id.drawLayout) DrawerLayout mDrawer;
+    @BindView(R.id.fabBtn) FloatingActionButton mFabBtn;
     @BindView(R.id.navigationView) NavigationView mNavigationView;
     private SimpleDraweeView ivHead;
     private TextView tvName;
@@ -98,6 +101,7 @@ public class MainActivity extends BaseActivity {
         tvName = (TextView) headerView.findViewById(R.id.tvName);
         ivHead.setOnClickListener(onClickListener);
         mNavigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        mFabBtn.setOnClickListener(onClickListener);
     }
 
     NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
@@ -133,6 +137,10 @@ public class MainActivity extends BaseActivity {
         ft.replace(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();
     }
 
+    private void installDex() {
+        new InstallDexTask(MainActivity.this).execute();
+    }
+
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -144,6 +152,9 @@ public class MainActivity extends BaseActivity {
                     else {
                         InfoActivity.info(MainActivity.this, accountBean);
                     }
+                    break;
+                case R.id.fabBtn :
+                    installDex();
                     break;
             }
         }

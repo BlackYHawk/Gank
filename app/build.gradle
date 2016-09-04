@@ -1,17 +1,19 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: "cn.jiajixin.nuwa"
+apply plugin: 'net.wequick.small'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.0'
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
     defaultConfig {
         applicationId "com.hawk.gank"
-        minSdkVersion 14
-        targetSdkVersion 24
-        versionCode 2
-        versionName "1.0.1"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -41,28 +43,31 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':vitamio')
+    compile project(':lib.vitamio')
+    compile project(':lib.tinker')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:design:24.0.0'
-    compile 'com.android.support:cardview-v7:24.0.0'
-    compile 'cn.jiajixin.nuwa:nuwa:1.0.0'
-    // LeanCloud 基础包
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
-    // LeanCloud 统计包
-    compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
-    compile 'com.facebook.fresco:fresco:0.12.0'
-    compile 'com.squareup:javapoet:1.0.0'
-    compile 'com.google.dagger:dagger:2.4'
-    apt 'com.google.dagger:dagger-compiler:2.4'
-    compile 'com.jakewharton:butterknife:8.1.0'
-    apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["support-v4"]
+    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["cardview-v7"]
+    compile rootProject.ext.dependencies["avoscloud-sdk"]
+    compile rootProject.ext.dependencies["avoscloud-statistics"]
+    compile rootProject.ext.dependencies["retrofit"]
+    compile rootProject.ext.dependencies["converter-gson"]
+    compile rootProject.ext.dependencies["adapter-rxjava"]
+    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxandroid"]
+    compile rootProject.ext.dependencies["gson"]
+    compile rootProject.ext.dependencies["okhttp"]
+    compile rootProject.ext.dependencies["fresco"]
+    compile rootProject.ext.dependencies["javapoet"]
+    compile rootProject.ext.dependencies["dagger"]
+    compile rootProject.ext.dependencies["butterknife"]
+    apt rootProject.ext.dependencies["dagger-compiler"]
+    apt rootProject.ext.dependencies["butterknife-compiler"]
 }
+
+small {
+    aarVersion = '1.0.0'
+}
+apply plugin: com.dim.TinkerPlugin

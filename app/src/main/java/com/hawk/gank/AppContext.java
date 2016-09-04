@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.dim.library.Tinker;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -12,12 +13,6 @@ import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
-import com.hawk.gank.util.Constant;
-import com.hawk.gank.util.FileUtil;
-
-import java.io.File;
-
-import cn.jiajixin.nuwa.Nuwa;
 
 /**
  * Created by heyong on 16/7/10.
@@ -35,6 +30,14 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Tinker.init(this);
+        Tinker.setBackgroundPolicy(new Tinker.BackgroundPolicy() {
+            @Override
+            public boolean isReadyForFix() {
+                return true;
+            }
+        });
+
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
         Fresco.initialize(this, createFrescoConfig());
@@ -45,12 +48,9 @@ public class AppContext extends Application {
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        File patchFile = FileUtil.getFile(Constant.PATCH_DIR, "patch.jar");
-        Nuwa.init(this);
-        Nuwa.loadPatch(this, patchFile.getAbsolutePath());
-
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Tinker.onTrimMemory(level);
     }
 
     private void initComponent() {

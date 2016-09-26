@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'net.wequick.small'
+apply plugin: 'com.antfortune.freeline'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -14,6 +14,9 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         multiDexEnabled true
+        manifestPlaceholders = [
+                SUPPORT_RTL: false
+        ]
     }
     buildTypes {
         release {
@@ -39,12 +42,14 @@ android {
     }
     productFlavors {
     }
+    freeline {
+        hack true
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':lib.vitamio')
-    compile project(':lib.tinker')
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["support-v4"]
@@ -59,15 +64,13 @@ dependencies {
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["okhttp"]
-    compile rootProject.ext.dependencies["fresco"]
+    compile rootProject.ext.dependencies["glide"]
     compile rootProject.ext.dependencies["javapoet"]
     compile rootProject.ext.dependencies["dagger"]
     compile rootProject.ext.dependencies["butterknife"]
     apt rootProject.ext.dependencies["dagger-compiler"]
     apt rootProject.ext.dependencies["butterknife-compiler"]
-}
 
-small {
-    aarVersion = '1.0.0'
+    debugCompile rootProject.ext.dependencies["freeline:runtime"]
+    releaseCompile rootProject.ext.dependencies["freeline:runtime-no-op"]
 }
-apply plugin: com.dim.TinkerPlugin

@@ -21,7 +21,7 @@ import android.widget.EditText;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.SaveCallback;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
@@ -30,6 +30,7 @@ import com.hawk.gank.http.convert.Error;
 import com.hawk.gank.interfaces.impl.ValidMinLenTextWatcher;
 import com.hawk.gank.interfaces.impl.ValidPhoneTextWatcher;
 import com.hawk.gank.ui.activity.account.LoginActivity;
+import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.Constant;
 import com.hawk.gank.util.FileUtil;
 import com.hawk.gank.util.ImageUtil;
@@ -74,7 +75,7 @@ public class RegisterFragment extends BaseAccountFragment {
     private String tempFilePath;
     private String headUrl;
 
-    @BindView(R.id.ivHead) SimpleDraweeView ivHead;
+    @BindView(R.id.ivHead) CircleImageView ivHead;
     @BindView(R.id.textInputAccount) TextInputLayout textInputAccount;
     @BindView(R.id.textInputPassword) TextInputLayout textInputPassword;
     @BindView(R.id.editUsername) EditText editUsername;
@@ -287,7 +288,7 @@ public class RegisterFragment extends BaseAccountFragment {
                         String url = avFile.getUrl();
 
                         bean.setHeadUrl(url);
-                        ivHead.setImageURI(Uri.fromFile(new File(path)));
+                        Glide.with(activity).load(new File(path)).into(ivHead);
                     }
                     else {
                         UIHelper.showToast(activity, e.getMessage());

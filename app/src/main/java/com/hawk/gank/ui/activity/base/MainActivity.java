@@ -2,7 +2,6 @@ package com.hawk.gank.ui.activity.base;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,18 +14,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.data.entity.MenuBean;
 import com.hawk.gank.http.convert.Error;
-import com.hawk.gank.task.InstallDexTask;
 import com.hawk.gank.ui.activity.account.InfoActivity;
 import com.hawk.gank.ui.activity.account.LoginActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 import com.hawk.gank.ui.fragment.gank.GankListFragment;
 import com.hawk.gank.ui.fragment.openeye.EyeListFragment;
+import com.hawk.gank.ui.fragment.setting.SettingFragment;
+import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.MenuGenerator;
 import com.hawk.gank.util.PreferenceUtil;
 import com.hawk.gank.util.StringUtil;
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.drawLayout) DrawerLayout mDrawer;
     @BindView(R.id.fabBtn) FloatingActionButton mFabBtn;
     @BindView(R.id.navigationView) NavigationView mNavigationView;
-    private SimpleDraweeView ivHead;
+    private CircleImageView ivHead;
     private TextView tvName;
     private ActionBarDrawerToggle drawerToggle;
     private AccountBean accountBean;
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
         drawerToggle.syncState();
 
         View headerView = mNavigationView.getHeaderView(0);
-        ivHead = (SimpleDraweeView) headerView.findViewById(R.id.ivHead);
+        ivHead = (CircleImageView) headerView.findViewById(R.id.ivHead);
         tvName = (TextView) headerView.findViewById(R.id.tvName);
         ivHead.setOnClickListener(onClickListener);
         mNavigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
@@ -118,28 +118,34 @@ public class MainActivity extends BaseActivity {
     };
 
     private void onMenuClick(MenuBean item) {
-        mCurrentMenuId = item.menuId;
+        mCurrentMenuId = item != null ? item.menuId : R.id.menu_pic;
         BaseFragment fragment = null;
-        switch (item.menuId) {
+        switch (mCurrentMenuId) {
             case R.id.menu_pic :
                 fragment = GankListFragment.newInstance();
                 break;
             case R.id.menu_video :
                 fragment = EyeListFragment.newInstance();
                 break;
+            case R.id.menu_setting :
+                fragment = SettingFragment.newInstance();
+                break;
         }
         if(fragment == null) {
             return;
         }
-        setDisplayTitle(item.titleRes);
+
+        if(item != null) {
+            setDisplayTitle(item.titleRes);
+        }
+        else {
+            setDisplayTitle(R.string.gank_list_title);
+        }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();
     }
 
-    private void installDex() {
-        new InstallDexTask(MainActivity.this).execute();
-    }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -154,7 +160,7 @@ public class MainActivity extends BaseActivity {
                     }
                     break;
                 case R.id.fabBtn :
-                    installDex();
+
                     break;
             }
         }
@@ -194,7 +200,7 @@ public class MainActivity extends BaseActivity {
 
             String headUrl = PreferenceUtil.getHeadPath(getAppContext());
             if(!StringUtil.isEmpty(headUrl)) {
-                ivHead.setImageURI(Uri.parse(headUrl));
+                Glide.with(this).load(headUrl).into(ivHead);
             }
             else {
                 ivHead.setImageResource(R.mipmap.ic_github);
@@ -215,7 +221,7 @@ public class MainActivity extends BaseActivity {
 
                             tvName.setText(username);
                             if(!StringUtil.isEmpty(avUser.getHeadUrl())) {
-                                ivHead.setImageURI(Uri.parse(avUser.getHeadUrl()));
+                                Glide.with(this).load(avUser.getHeadUrl()).into(ivHead);
                             }
                         }, throwable -> loadError(throwable));
                 addSubscription(subscription);

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/menu_header"
-    android:background="?attr/colorPrimary"
+    android:background="@color/colorPrimary"
     android:gravity="center"
     android:clickable="true" >
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <com.hawk.gank.ui.widget.CircleImageView
         android:id="@+id/ivHead"
         android:layout_width="@dimen/menu_head"
         android:layout_height="@dimen/menu_head"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_github"
-        app:roundAsCircle="true"
-        app:actualImageScaleType="fitCenter" />
+        app:border_color="@color/white"
+        app:border_width="1dp"/>
 
     <TextView
         android:id="@+id/tvName"

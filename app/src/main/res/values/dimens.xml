@@ -30,5 +30,9 @@
     <dimen name="pic_radius">5dp</dimen>
     <dimen name="pic_item_padding">10dp</dimen>
 
+    <!--设置-->
+    <dimen name="setting_padding">10dp</dimen>
+    <dimen name="setting_margin_l">15dp</dimen>
+
 
 </resources>

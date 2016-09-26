@@ -29,7 +29,8 @@
         </activity>
 
         <activity android:name=".ui.activity.account.LoginActivity" />
-        <activity android:name=".ui.activity.account.InfoActivity" />
+        <activity android:name=".ui.activity.account.InfoActivity"
+            android:theme="@style/AppTheme.Translucent" />
         <activity android:name=".ui.activity.base.FragmentContainerActivity" />
         <activity android:name=".ui.activity.pic.PicActivity" />
         <!-- Don't forgot InitActivity -->

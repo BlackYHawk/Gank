@@ -28,6 +28,10 @@ public class MenuGenerator {
             case R.id.menu_video:
                 menuBean = new MenuBean(menuId, R.string.eye_list_title, R.mipmap.ic_github, R.string.menu_video);
                 break;
+            // 设置
+            case R.id.menu_setting:
+                menuBean = new MenuBean(menuId, R.string.setting_title, R.mipmap.ic_setting, R.string.menu_setting);
+                break;
         }
 
         return menuBean;

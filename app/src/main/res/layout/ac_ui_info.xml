@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="?attr/fitSystemWindow" >
+    android:fitsSystemWindows="?attr/fitSystemWindow"
+    android:clipToPadding="?attr/clipPadding">
 
     <android.support.design.widget.AppBarLayout
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -19,14 +20,13 @@
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <ImageView
                 android:id="@+id/ivheadBg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher"
-                app:roundAsCircle="false"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 

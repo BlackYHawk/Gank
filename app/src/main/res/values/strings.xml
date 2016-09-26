@@ -30,6 +30,8 @@
     <!--菜单-->
     <string name="menu_pic">图片</string>
     <string name="menu_video">视频</string>
+    <string name="menu_setting">设置</string>
+
     <string name="menu_login">登录</string>
     <string name="menu_register">注册</string>
     <string name="menu_info">注销</string>
@@ -39,6 +41,10 @@
 
     <!--OpenEye-->
     <string name="eye_list_title">开眼视频</string>
+
+    <!--Setting-->
+    <string name="setting_title">设置</string>
+    <string name="setting_theme">主题</string>
 
     <!-- 照片选择 -->
     <string-array name="picChose">

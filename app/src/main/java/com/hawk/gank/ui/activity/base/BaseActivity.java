@@ -89,10 +89,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	public void addFragment(String tag, BaseFragment fragment) {
+		if(fragmentRefs == null || fragmentRefs.containsKey(tag)) {
+			return;
+		}
 		fragmentRefs.put(tag, new WeakReference<BaseFragment>(fragment));
 	}
 
 	public void removeFragment(String tag) {
+		if(fragmentRefs == null || !fragmentRefs.containsKey(tag)) {
+			return;
+		}
 		fragmentRefs.remove(tag);
 	}
 
@@ -137,7 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	public AppContext getAppContext() {
-		return (AppContext) getApplication();
+		return AppContext.getInstance();
 	}
 
 	public ActComponent component() {

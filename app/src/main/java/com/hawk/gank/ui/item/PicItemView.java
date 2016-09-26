@@ -1,11 +1,11 @@
 package com.hawk.gank.ui.item;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.Gank;
 import com.hawk.gank.ui.adapter.ABaseAdapter;
@@ -19,7 +19,7 @@ public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
     private Context mContext;
     private int width, height;
     private final int gap = 0;
-    @BindView(R.id.ivPic) SimpleDraweeView ivPic;
+    @BindView(R.id.ivPic) ImageView ivPic;
     @BindView(R.id.tvTitle) TextView tvTitle;
 
     public PicItemView(Context context) {
@@ -42,8 +42,12 @@ public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
 
     @Override
     public void bindingData(View convertView, Gank data) {
-        ivPic.setImageURI(Uri.parse(data.url));
         tvTitle.setText(data.desc);
+
+        Glide.with(mContext)
+                .load(data.url)
+                .centerCrop()
+                .into(ivPic);
     }
 
 }

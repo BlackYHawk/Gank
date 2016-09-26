@@ -4,15 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 
+import com.antfortune.freeline.FreelineCore;
 import com.avos.avoscloud.AVOSCloud;
-import com.dim.library.Tinker;
-import com.facebook.cache.disk.DiskCacheConfig;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
+
+import net.wequick.small.Small;
+
 
 /**
  * Created by heyong on 16/7/10.
@@ -30,27 +30,18 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Tinker.init(this);
-        Tinker.setBackgroundPolicy(new Tinker.BackgroundPolicy() {
-            @Override
-            public boolean isReadyForFix() {
-                return true;
-            }
-        });
+        FreelineCore.init(this);
+        // Optional
+        Small.setBaseUri("http://hawk.com/Gank/");
+        // Required
+        Small.preSetUp(this);
 
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
-        Fresco.initialize(this, createFrescoConfig());
         enabledStrictMode();
         _context = this;
 
         initComponent();
-    }
-
-    @Override
-    public void onTrimMemory(int level) {
-        super.onTrimMemory(level);
-        Tinker.onTrimMemory(level);
     }
 
     private void initComponent() {
@@ -61,20 +52,6 @@ public class AppContext extends Application {
 
     public AppComponent component() {
         return appComponent;
-    }
-
-    private ImagePipelineConfig createFrescoConfig() {
-        DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(this)
-                .setBaseDirectoryPath(getExternalCacheDir())
-                .setBaseDirectoryName("fresco cache")
-                .setMaxCacheSize(100 * 1024 * 1024)
-                .setMaxCacheSizeOnLowDiskSpace(10 * 1024 * 1024)
-                .setMaxCacheSizeOnVeryLowDiskSpace(5 * 1024 * 1024)
-                .setVersion(1)
-                .build();
-        return ImagePipelineConfig.newBuilder(this)
-                .setMainDiskCacheConfig(mainDiskCacheConfig)
-                .build();
     }
 
     private void enabledStrictMode() {

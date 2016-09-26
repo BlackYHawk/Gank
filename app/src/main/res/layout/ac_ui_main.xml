@@ -26,9 +26,9 @@
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_gravity="right|bottom"
-            android:src="@mipmap/ic_github"
+            android:src="@mipmap/ic_up"
             app:elevation="4dp"
-            app:layout_anchor="@id/swipeRefreshlayout"
+            app:layout_anchor="@id/fragmentContainer"
             app:borderWidth="0dp"
             app:layout_anchorGravity="right|bottom"
             app:layout_behavior="com.hawk.gank.ui.widget.ScrollAwareFABBehavior"/>

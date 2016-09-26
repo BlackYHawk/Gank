@@ -2,6 +2,8 @@ package com.hawk.gank.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 /**
@@ -60,6 +62,14 @@ public class UIHelper {
             progressDialog.dismiss();
             progressDialog = null;
         }
+    }
+
+    public static void showListDialog(Context context, String[] items,
+                                      DialogInterface.OnClickListener onClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setItems(items, onClickListener)
+                .setCancelable(true);
+        builder.create().show();
     }
 
 }

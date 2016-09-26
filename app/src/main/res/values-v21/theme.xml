@@ -3,10 +3,19 @@
 
     <style name="AppBaseTheme" parent="BaseTheme.Light">
 
+        <item name="fitSystemWindow">true</item>
+        <item name="clipPadding">true</item>
         <!--Translucent system bars-->
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>
 
+    </style>
+
+    <style name="AppTheme.Translucent">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
 </resources>

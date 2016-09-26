@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
@@ -36,7 +36,7 @@ public class InfoActivity extends BaseActivity {
     private final String TAG = InfoActivity.class.getSimpleName();
     private AccountBean bean;
 
-    @BindView(R.id.ivheadBg) SimpleDraweeView ivheadBg;
+    @BindView(R.id.ivheadBg) ImageView ivheadBg;
     @BindView(R.id.tvName) TextView tvName;
 
     @Override

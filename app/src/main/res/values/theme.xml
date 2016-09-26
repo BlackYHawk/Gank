@@ -9,6 +9,8 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="windowActionBar">false</item>
+        <item name="fitSystemWindow">false</item>
+
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
@@ -26,6 +28,10 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="contentInsetStart">24dp</item>
+    </style>
+
+    <style name="AppTheme.Translucent">
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
 </resources>

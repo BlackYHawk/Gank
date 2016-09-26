@@ -2,17 +2,17 @@ package com.hawk.gank.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.Gank;
 import com.hawk.gank.ui.activity.pic.PicActivity;
+import com.hawk.gank.ui.widget.RatioImageView;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,11 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
                 "..." : mm.desc;
 
         viewHolder.titleView.setText(text);
-        viewHolder.mmView.setImageURI(Uri.parse(mm.url));
+
+        Glide.with(mContext)
+                .load(mm.url)
+                .centerCrop()
+                .into(viewHolder.mmView);
     }
 
     @Override
@@ -59,12 +63,13 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.iv_mm) SimpleDraweeView mmView;
+        @BindView(R.id.iv_mm) RatioImageView mmView;
         @BindView(R.id.tv_title) TextView titleView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mmView.setOriginalSize(50, 50);
         }
 
         @OnClick(R.id.iv_mm)

@@ -25,7 +25,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseFragment extends Fragment {
     protected int titleId = -1;
-    private ViewGroup rootView;// 根视图
+    private View rootView;// 根视图
     private Unbinder unbinder;
     protected @Inject Logger logger;
     protected @Inject StringFetcher mStringFetcher;
@@ -55,7 +55,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (inflateContentView() > 0) {
-            rootView = (ViewGroup) inflater.inflate(inflateContentView(), null);
+            rootView = inflater.inflate(inflateContentView(), container, false);
             rootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             unbinder = ButterKnife.bind(this, rootView);

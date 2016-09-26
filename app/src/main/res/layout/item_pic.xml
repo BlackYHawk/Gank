@@ -12,22 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:singleLine="true"
+        android:maxLines="1"
         android:ellipsize="marquee"
         android:padding="@dimen/pic_item_padding"
         android:textAppearance="@style/Text_Brown_18"/>
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/ivPic"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
-        android:contentDescription="@null"
-        fresco:actualImageScaleType="fitCenter"
-        fresco:roundTopLeft="true"
-        fresco:roundTopRight="true"
-        fresco:roundBottomLeft="false"
-        fresco:roundBottomRight="false"
-        fresco:roundedCornerRadius="@dimen/pic_radius"/>
+        android:scaleType="centerCrop"
+        android:contentDescription="@null"/>
 
 </LinearLayout>

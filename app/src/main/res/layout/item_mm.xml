@@ -36,15 +36,13 @@
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <com.hawk.gank.ui.widget.RatioImageView
             android:id="@+id/iv_mm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            app:roundAsCircle="false"
-            app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@mipmap/ic_launcher"
-            app:placeholderImageScaleType="fitCenter" />
+            android:background="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tv_title"

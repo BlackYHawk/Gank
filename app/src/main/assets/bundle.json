@@ -4,6 +4,10 @@
     {
       "uri": "lib.vitamio",
       "pkg": "io.vov.vitamio"
+    },
+    {
+      "uri": "lib.tinker",
+      "pkg": "com.dim"
     }
   ]
 }

@@ -11,8 +11,6 @@ import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
 
-import net.wequick.small.Small;
-
 
 /**
  * Created by heyong on 16/7/10.
@@ -31,10 +29,6 @@ public class AppContext extends Application {
     public void onCreate() {
         super.onCreate();
         FreelineCore.init(this);
-        // Optional
-        Small.setBaseUri("http://hawk.com/Gank/");
-        // Required
-        Small.preSetUp(this);
 
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");

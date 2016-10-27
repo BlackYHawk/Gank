@@ -3,7 +3,6 @@ package com.hawk.gank.lib.module;
 
 import com.hawk.gank.lib.qualifiers.ActivityScope;
 import com.hawk.gank.lib.ui.activity.BaseActivity;
-import com.hawk.gank.lib.ui.presenter.BasePresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,7 +19,7 @@ public class ActModule {
     }
 
     @Provides @ActivityScope
-    public BasePresenter providePresenter() {
+    public BaseActivity provideActivity() {
         return activity;
     }
 

@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements  {
+public abstract class BaseActivity extends AppCompatActivity   {
 	private ActComponent actComponent;
 	private Unbinder unbinder;
 	private BaseDisplay mDisplay;
@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements  {
 		initPresenter();
 		initDisplay();
 		Preconditions.checkState(mPreseneter != null, "Presenter not init");
-		component().inject(mPreseneter);
+		component().inject(this);
 
 		handleIntent(getIntent());
 	}

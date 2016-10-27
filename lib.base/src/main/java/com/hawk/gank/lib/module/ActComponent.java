@@ -2,17 +2,17 @@ package com.hawk.gank.lib.module;
 
 
 import com.hawk.gank.lib.qualifiers.ActivityScope;
-import com.hawk.gank.lib.ui.presenter.BasePresenter;
+import com.hawk.gank.lib.ui.activity.BaseActivity;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by lan on 2016/6/29.
  */
 @ActivityScope
-@Component(dependencies = AppComponent.class, modules = ActModule.class)
+@Subcomponent(modules = ActModule.class)
 public interface ActComponent {
 
-    void inject(BasePresenter basePresenter);
+    void inject(BaseActivity basePresenter);
 
 }

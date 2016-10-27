@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".AppContext"
+        android:name="com.hawk.lib.AppContext"
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"
@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.activity.base.MainActivity"
+            android:name="com.hawk.lib.ui.activity.base.MainActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.account.LoginActivity" />
-        <activity android:name=".ui.activity.account.InfoActivity"
+        <activity android:name="com.hawk.lib.ui.activity.account.LoginActivity" />
+        <activity android:name="com.hawk.lib.ui.activity.account.InfoActivity"
             android:theme="@style/AppTheme.Translucent" />
-        <activity android:name=".ui.activity.base.FragmentContainerActivity" />
-        <activity android:name=".ui.activity.pic.PicActivity" />
+        <activity android:name="com.hawk.lib.ui.activity.base.FragmentContainerActivity" />
+        <activity android:name="com.hawk.lib.ui.activity.pic.PicActivity" />
         <!-- Don't forgot InitActivity -->
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
@@ -40,7 +40,7 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.activity.video.VideoShowActivity"
+        <activity android:name="com.hawk.lib.ui.activity.video.VideoShowActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape" />
 

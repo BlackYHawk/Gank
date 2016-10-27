@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="toolbar" type="id" />
+    <item name="toolbar_title" type="id" />
+    <!-- 内容视图 -->
+    <item name="layoutContent" type="id" />
+    <!-- 加载视图 -->
+    <item name="layoutEmpty" type="id" />
+    <!-- 空视图 -->
+    <item name="layoutLoading" type="id" />
+    <!-- 加载失败视图 -->
+    <item name="layoutLoadFailed" type="id" />
+    <!-- 滑动菜单视图 -->
+    <item name="SWIPE_CONTENT_ID" type="id"></item>
+    <!-- 滑动菜单 -->
+    <item name="SWIPE_MENU_ID" type="id"></item>
+    <!-- 加载进度条 -->
+    <item name="INTERNAL_PROGRESS_ID" type="id"></item>
+    <!-- 列表视图 -->
+    <item name="INTERNAL_LIST_CONTAINER_ID" type="id"></item>
+    <!-- 下拉加载数据时，显示这个ProcessBar视图 -->
+    <item name="INTERNAL_SECONDARY_PROGRESS_ID" type="id"></item>
+    <!-- 空视图 -->
+    <item name="INTERNAL_EMPTY_ID" type="id"></item>
+    <!-- 加载失败视图 -->
+    <item name="INTERNAL_LOAD_FAIL_ID" type="id"></item>
+
+</resources>

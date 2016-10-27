@@ -1,1 +1,1 @@
-include ':app', ':lib.vitamio', ':lib.skin', ':skinred'
+include ':app', ':lib.vitamio', ':lib.skin', ':skinred', ':lib.base'

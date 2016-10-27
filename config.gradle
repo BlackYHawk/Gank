@@ -1,7 +1,7 @@
 ext {
 
     android = [compileSdkVersion: 24,
-               buildToolsVersion: "24.0.2",
+               buildToolsVersion: "24.0.3",
                minSdkVersion    : 14,
                targetSdkVersion : 24,
                versionCode      : 2,
@@ -20,6 +20,9 @@ ext {
                     "adapter-rxjava"         : "com.squareup.retrofit2:adapter-rxjava:2.1.0",
                     "rxjava"                 : "io.reactivex:rxjava:1.0.14",
                     "rxandroid"              : "io.reactivex:rxandroid:1.0.1",
+                    "rxlifecycle"            : "com.trello:rxlifecycle:0.8.0",
+                    "rxlifecycle-components" : "com.trello:rxlifecycle-components:0.8.0",
+                    "rxlifecycle-android"    : "com.trello:rxlifecycle-android:0.8.0",
                     "gson"                   : "com.google.code.gson:gson:2.6.2",
                     "commons-io"             : "commons-io:commons-io:1.4",
                     "okhttp"                 : "com.squareup.okhttp3:okhttp:3.3.1",

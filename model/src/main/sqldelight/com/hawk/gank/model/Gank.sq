@@ -1,0 +1,17 @@
+import org.threeten.bp.ZonedDateTime;
+
+CREATE TABLE Gank (
+    _id TEXT PRIMARY KEY,
+    description TEXT NOT NULL,
+    type TEXT NOT NULL,
+    url TEXT NOT NULL,
+    images TEXT NOT NULL,
+    createdAt TEXT AS ZonedDateTime NOT NULL,
+    publishedAt TEXT AS ZonedDateTime NOT NULL
+  );
+
+delete_all:
+DELETE FROM Gank WHERE 1;
+
+select_all:
+SELECT * FROM Gank;

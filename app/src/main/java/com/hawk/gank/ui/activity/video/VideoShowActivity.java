@@ -12,7 +12,6 @@ import com.hawk.gank.util.StringUtil;
 
 import butterknife.BindView;
 import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
@@ -34,7 +33,7 @@ public class VideoShowActivity extends BaseActivity {
         //设置当前窗体为全屏显示
         window.setFlags(flag, flag);
         //必须写这个，初始化加载库文件
-        Vitamio.isInitialized(getAppContext());
+     //   Vitamio.isInitialized(getAppContext());
         setContentView(R.layout.ac_ui_video_show);
         initData();
     }

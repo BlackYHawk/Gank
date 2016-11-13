@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -18,31 +19,26 @@ import android.view.WindowManager;
 import com.hawk.lib.base.ui.activity.StartActivityDelegate;
 import com.hawk.lib.base.ui.fragment.SupportFragmentTransactionDelegate;
 import com.hawk.lib.base.ui.fragment.TransactionCommitter;
-import com.hawk.lib.mvp.component.BaseComponent;
-import com.hawk.lib.mvp.component.GetComponent;
-import com.hawk.lib.mvp.ui.display.BaseDisplay;
-import com.hawk.lib.mvp.ui.presenter.BasePresenter;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by lan on 2016/10/27.
  */
 
-public abstract class BaseDailogFragment<V extends BaseDisplay, P extends BasePresenter<V>, C extends BaseComponent<V, P>>
-        extends DialogFragment implements TransactionCommitter {
+public abstract class BaseDailogFragment extends DialogFragment implements TransactionCommitter {
     private static final float DEFAULT_DIM_AMOUNT = 0.2F;
-    protected P mPresenter;
 
     private final SupportDialogFragmentDismissDelegate mSupportDialogFragmentDismissDelegate
             = new SupportDialogFragmentDismissDelegate();
     private final SupportFragmentTransactionDelegate mSupportFragmentTransactionDelegate
             = new SupportFragmentTransactionDelegate();
+    private Unbinder mUnBinder;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         // inject argument first
-        final C component = ((GetComponent<C>) getActivity()).getComponent();
-        mPresenter = component.presenter();
-        injectDependence(component);
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
@@ -91,7 +87,20 @@ public abstract class BaseDailogFragment<V extends BaseDisplay, P extends BasePr
                              @Nullable final Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().setCanceledOnTouchOutside(isCanceledOnTouchOutside());
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(getLayoutRes(), container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bindView(view);
+        onInitData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbindView();
     }
 
     @Override
@@ -99,6 +108,11 @@ public abstract class BaseDailogFragment<V extends BaseDisplay, P extends BasePr
         super.onResume();
         mSupportDialogFragmentDismissDelegate.onResumed(this);
         mSupportFragmentTransactionDelegate.onResumed();
+    }
+
+    @Override
+    public boolean isCommitterResumed() {
+        return isResumed();
     }
 
     protected final boolean startActivitySafely(final Intent intent) {
@@ -111,11 +125,6 @@ public abstract class BaseDailogFragment<V extends BaseDisplay, P extends BasePr
 
     public boolean safeDismiss() {
         return mSupportDialogFragmentDismissDelegate.safeDismiss(this);
-    }
-
-    @Override
-    public boolean isCommitterResumed() {
-        return isResumed();
     }
 
     protected float getDimAmount() {
@@ -138,9 +147,27 @@ public abstract class BaseDailogFragment<V extends BaseDisplay, P extends BasePr
         return true;
     }
 
-    /**
-     * inject dependencies.
-     * Normally implementation should be {@code component.inject(this)}
-     */
-    protected abstract void injectDependence(C component);
+    protected abstract int getLayoutRes();
+
+    protected boolean autoBindViews() {
+        return true;
+    }
+
+    @CallSuper
+    protected void bindView(final View rootView) {
+        if (autoBindViews()) {
+            mUnBinder = ButterKnife.bind(this, rootView);
+        }
+    }
+
+    protected void unbindView() {
+        if (autoBindViews() && mUnBinder != null) {
+            mUnBinder.unbind();
+        }
+    }
+
+    protected void onInitData() {
+
+    }
+
 }

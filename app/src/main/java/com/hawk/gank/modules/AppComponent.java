@@ -1,11 +1,11 @@
 package com.hawk.gank.modules;
 
-import android.content.Context;
-
-import com.hawk.gank.modules.library.NetworkModule;
-import com.hawk.gank.modules.library.StateModule;
-import com.hawk.gank.modules.library.UtilModule;
-import com.hawk.gank.qualifiers.ApplicationContext;
+import com.hawk.gank.features.gank.GankComponent;
+import com.hawk.gank.model.GsonConfigProviderModule;
+import com.hawk.lib.base.model.jwdate.JWDateModule;
+import com.hawk.lib.base.model.provider.ProviderModule;
+import com.hawk.lib.base.module.ActModule;
+import com.hawk.lib.base.util.UtilModule;
 
 import javax.inject.Singleton;
 
@@ -18,16 +18,14 @@ import dagger.Component;
 @Component (
         modules = {
                 AppModule.class,
-                StateModule.class,
-                NetworkModule.class,
-                UtilModule.class
+
+                ProviderModule.class, ProviderConfigModule.class, GsonConfigProviderModule.class,
+
+                JWDateModule.class, UtilModule.class
         }
 )
 public interface AppComponent {
 
-        ActComponent plus(ActModule actModule);
-
-        @ApplicationContext
-        Context appContext();
+        GankComponent gankComponent(ActModule activityModule);
 
 }

@@ -10,7 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.Gank;
+import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.MMAdapter;
 import com.hawk.gank.ui.adapter.decoration.GankSpaceItemDecoration;
@@ -19,10 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by heyong on 16/7/18.
@@ -58,7 +54,7 @@ public class GankListFragment extends BaseGankFragment {
         mMMAdapter = new MMAdapter(activity, mGankList);
     }
 
-    @Override
+   // @Override
     protected void layoutInit(LayoutInflater inflater, Bundle savedInstanceSate) {
         mSwipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(activity, R.color.colorPrimary),
@@ -83,24 +79,24 @@ public class GankListFragment extends BaseGankFragment {
     }
 
     private void loadData(boolean refresh) {
-        Subscription s = gankIO.getMMData(mPage)
-                .subscribeOn(Schedulers.io())
-                .map(gankData -> gankData.results)
-                .flatMap(Observable::from)
-                .toSortedList((gankData1, gankData2) ->
-                        gankData2.publishedDate.compareTo(gankData1.publishedDate))
-                .doOnNext(this::saveLocalData)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(() -> setRefresh(false))
-                .subscribe(gankList -> {
-                    if (refresh) {
-                        mGankList.clear();
-                    }
-                    mGankList.addAll(gankList);
-                    mMMAdapter.notifyDataSetChanged();
-                    setRefresh(false);
-                }, throwable -> loadError(throwable));
-        addSubscription(s);
+//        Subscription s = gankIO.getMMData(mPage)
+//                .subscribeOn(Schedulers.io())
+//                .map(gankData -> gankData.results)
+//                .flatMap(Observable::from)
+//                .toSortedList((gankData1, gankData2) ->
+//                        gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+//                .doOnNext(this::saveLocalData)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doAfterTerminate(() -> setRefresh(false))
+//                .subscribe(gankList -> {
+//                    if (refresh) {
+//                        mGankList.clear();
+//                    }
+//                    mGankList.addAll(gankList);
+//                    mMMAdapter.notifyDataSetChanged();
+//                    setRefresh(false);
+//                }, throwable -> loadError(throwable));
+//        addSubscription(s);
     }
 
     private void saveLocalData(List<Gank> gankList) {
@@ -165,7 +161,7 @@ public class GankListFragment extends BaseGankFragment {
         };
     }
 
-    @Override
+  //  @Override
     protected int inflateContentView() {
         return R.layout.ac_ui_gank_list;
     }

@@ -22,11 +22,9 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.data.entity.AccountType;
-import com.hawk.gank.http.convert.Error;
 import com.hawk.gank.interfaces.impl.ValidMinLenTextWatcher;
 import com.hawk.gank.interfaces.impl.ValidPhoneTextWatcher;
 import com.hawk.gank.ui.activity.account.LoginActivity;
@@ -34,21 +32,14 @@ import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.Constant;
 import com.hawk.gank.util.FileUtil;
 import com.hawk.gank.util.ImageUtil;
-import com.hawk.gank.util.PreferenceUtil;
 import com.hawk.gank.util.UIHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by heyong on 16/7/23.
@@ -90,7 +81,7 @@ public class RegisterFragment extends BaseAccountFragment {
         super.onCreate(savedInstanceState);
         activity = (LoginActivity) getActivity();
         setHasOptionsMenu(true);
-        titleId = R.string.register_title;
+   //     titleId = R.string.register_title;
 
         if (savedInstanceState == null) {
             if (getArguments() != null)
@@ -108,7 +99,7 @@ public class RegisterFragment extends BaseAccountFragment {
         }
     }
 
-    @Override
+  //  @Override
     protected void layoutInit(LayoutInflater inflater, Bundle savedInstanceSate) {
         mValidPhoneTextWatcher = new ValidPhoneTextWatcher(textInputAccount);
         textInputAccount.getEditText().addTextChangedListener(mValidPhoneTextWatcher);
@@ -140,21 +131,21 @@ public class RegisterFragment extends BaseAccountFragment {
                 bean.setPassword(password);
                 bean.setPhone(username);
 
-                Subscription s = leanCloudIO.register(bean)
-                        .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(() -> setRefresh(true))
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(accountBean -> {
-                            setRefresh(false);
-
-                            bean.setSessionToken(accountBean.getSessionToken());
-                            getAppContext().setAccountBean(bean);
-                            PreferenceUtil.setUsername(getAppContext(), username);
-                            PreferenceUtil.setPassword(getAppContext(), password);
-                            PreferenceUtil.setHeadPath(getAppContext(), bean.getHeadUrl());
-                            finish();
-                        }, throwable -> loadError(throwable));
-                addSubscription(s);
+//                Subscription s = leanCloudIO.register(bean)
+//                        .subscribeOn(Schedulers.io())
+//                        .doOnSubscribe(() -> setRefresh(true))
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(accountBean -> {
+//                            setRefresh(false);
+//
+//                            bean.setSessionToken(accountBean.getSessionToken());
+//                            getAppContext().setAccountBean(bean);
+//                            PreferenceUtil.setUsername(getAppContext(), username);
+//                            PreferenceUtil.setPassword(getAppContext(), password);
+//                            PreferenceUtil.setHeadPath(getAppContext(), bean.getHeadUrl());
+//                            finish();
+//                        }, throwable -> loadError(throwable));
+//                addSubscription(s);
                 break;
         }
     }
@@ -166,25 +157,25 @@ public class RegisterFragment extends BaseAccountFragment {
             UIHelper.showProgress(activity, R.string.account_register_progress);
         }
     }
-
-    private void loadError(Throwable throwable) {
-        throwable.printStackTrace();
-        setRefresh(false);
-
-        if(throwable instanceof HttpException) {
-            HttpException exception = (HttpException)throwable;
-            Response response = exception.response();
-
-            try {
-                String errorMsg = response.errorBody().string();
-                Error error = new Gson().fromJson(errorMsg, Error.class);
-
-                UIHelper.showToast(getActivity(),error.getError());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//
+//    private void loadError(Throwable throwable) {
+//        throwable.printStackTrace();
+//        setRefresh(false);
+//
+//        if(throwable instanceof HttpException) {
+//            HttpException exception = (HttpException)throwable;
+//            Response response = exception.response();
+//
+//            try {
+//                String errorMsg = response.errorBody().string();
+//                Error error = new Gson().fromJson(errorMsg, Error.class);
+//
+//                UIHelper.showToast(getActivity(),error.getError());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     private void showGetPictureDialog() {
         new AlertDialog.Builder(getActivity())
@@ -363,9 +354,9 @@ public class RegisterFragment extends BaseAccountFragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected int inflateContentView() {
-        return R.layout.ac_ui_register;
-    }
+//
+//    @Override
+//    protected int inflateContentView() {
+//        return R.layout.ac_ui_register;
+//    }
 }

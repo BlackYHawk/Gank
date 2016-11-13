@@ -3,49 +3,51 @@ package com.hawk.gank;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 
 import com.antfortune.freeline.FreelineCore;
 import com.avos.avoscloud.AVOSCloud;
-import com.hawk.gank.data.entity.AccountBean;
+import com.facebook.stetho.Stetho;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
+import com.hawk.gank.modules.IApplicatioin;
+import com.hawk.lib.base.util.UtilModule;
 
 
 /**
  * Created by heyong on 16/7/10.
  */
-public class AppContext extends Application {
-
-    public static AppContext getInstance() {
-        return (AppContext)_context;
-    }
+public class AppContext extends Application implements IApplicatioin {
 
     private static Context _context;
     private AppComponent appComponent;
-    private AccountBean accountBean;
 
     @Override
     public void onCreate() {
         super.onCreate();
         FreelineCore.init(this);
-
+        _context = this;
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
-        enabledStrictMode();
-        _context = this;
 
-        initComponent();
+        if(BuildConfig.DEBUG) {
+            Stetho.initialize(Stetho.newInitializerBuilder(this)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                    .build());
+            enabledStrictMode();
+        }
+
+
+        appComponent = createComponent();
     }
 
-    private void initComponent() {
-        this.appComponent = DaggerAppComponent.builder()
+    protected AppComponent createComponent() {
+        return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
+                .utilModule(new UtilModule(this))
                 .build();
-    }
-
-    public AppComponent component() {
-        return appComponent;
     }
 
     private void enabledStrictMode() {
@@ -53,12 +55,14 @@ public class AppContext extends Application {
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
     }
 
-    public AccountBean getAccountBean() {
-        return accountBean;
+    public static AppContext getInstance() {
+        return (AppContext)_context;
     }
 
-    public void setAccountBean(AccountBean accountBean) {
-        this.accountBean = accountBean;
+    @NonNull
+    @Override
+    public AppComponent appComponent() {
+        return appComponent;
     }
 
 }

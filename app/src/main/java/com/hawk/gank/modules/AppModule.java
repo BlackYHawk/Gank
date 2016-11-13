@@ -1,9 +1,6 @@
 package com.hawk.gank.modules;
 
 import android.app.Application;
-import android.content.Context;
-
-import com.hawk.gank.qualifiers.ApplicationContext;
 
 import javax.inject.Singleton;
 
@@ -15,16 +12,15 @@ import dagger.Provides;
  */
 @Module
 public class AppModule {
-    private Application application;
+    private final Application application;
 
-    public AppModule(Application application) {
+    public AppModule(final Application application) {
         this.application = application;
     }
 
     @Provides
     @Singleton
-    @ApplicationContext
-    public Context provideApplicationContext() {
+    public Application provideApplicationContext() {
         return application;
     }
 

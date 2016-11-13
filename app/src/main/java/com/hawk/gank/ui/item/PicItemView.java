@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.Gank;
+import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.adapter.ABaseAdapter;
 
 import butterknife.BindView;
@@ -42,10 +42,10 @@ public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
 
     @Override
     public void bindingData(View convertView, Gank data) {
-        tvTitle.setText(data.desc);
+        tvTitle.setText(data.description());
 
         Glide.with(mContext)
-                .load(data.url)
+                .load(data.url())
                 .centerCrop()
                 .into(ivPic);
     }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
-import com.hawk.gank.util.PreferenceUtil;
 
 import butterknife.BindView;
 
@@ -42,10 +41,8 @@ public class InfoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logger.e(TAG, "onCreate");
+
         setContentView(R.layout.ac_ui_info);
-        setDisplayBack();
-        setDisplayTitle(R.string.info_title);
 
         if(savedInstanceState == null) {
             bean = (AccountBean) getIntent().getSerializableExtra("bean");
@@ -54,10 +51,6 @@ public class InfoActivity extends BaseActivity {
         initView();
     }
 
-    @Override
-    protected void handleIntent(Intent intent) {
-        super.handleIntent(intent);
-    }
 
     private void initView() {
         String path = bean.getHeadUrl();
@@ -81,10 +74,6 @@ public class InfoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_info :
-                getAppContext().setAccountBean(null);
-                PreferenceUtil.setUsername(getAppContext(), null);
-                PreferenceUtil.setPassword(getAppContext(), null);
-                PreferenceUtil.setHeadPath(getAppContext(), null);
                 finish();
                 break;
         }

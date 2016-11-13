@@ -3,7 +3,6 @@ package com.hawk.gank.ui.fragment.account;
 import android.os.Bundle;
 
 import com.hawk.gank.http.LeanCloudIO;
-import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 
 import javax.inject.Inject;
@@ -18,9 +17,7 @@ public abstract class BaseAccountFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).component().inject(this);
-        }
+
     }
 
 

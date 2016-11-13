@@ -1,6 +1,5 @@
 package com.hawk.gank.ui.activity.base;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,32 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.data.entity.MenuBean;
-import com.hawk.gank.http.convert.Error;
-import com.hawk.gank.ui.activity.account.InfoActivity;
-import com.hawk.gank.ui.activity.account.LoginActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 import com.hawk.gank.ui.fragment.gank.GankListFragment;
 import com.hawk.gank.ui.fragment.openeye.EyeListFragment;
 import com.hawk.gank.ui.fragment.setting.SettingFragment;
 import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.MenuGenerator;
-import com.hawk.gank.util.PreferenceUtil;
-import com.hawk.gank.util.StringUtil;
-import com.hawk.gank.util.UIHelper;
-
-import java.io.IOException;
 
 import butterknife.BindView;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -60,7 +44,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logger.e(TAG, "onCreate");
         setContentView(R.layout.ac_ui_main);
 
         initView();
@@ -74,10 +57,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void handleIntent(Intent intent) {
-        super.handleIntent(intent);
-    }
 
     private void initView() {
         drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar,
@@ -135,12 +114,6 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        if(item != null) {
-            setDisplayTitle(item.titleRes);
-        }
-        else {
-            setDisplayTitle(R.string.gank_list_title);
-        }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();
@@ -152,12 +125,12 @@ public class MainActivity extends BaseActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.ivHead :
-                    if(getAppContext().getAccountBean() == null) {
-                        LoginActivity.login(MainActivity.this, accountBean);
-                    }
-                    else {
-                        InfoActivity.info(MainActivity.this, accountBean);
-                    }
+//                    if(getAppContext().getAccountBean() == null) {
+//                        LoginActivity.login(MainActivity.this, accountBean);
+//                    }
+//                    else {
+//                        InfoActivity.info(MainActivity.this, accountBean);
+//                    }
                     break;
                 case R.id.fabBtn :
 
@@ -189,77 +162,67 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        logger.e(TAG, "onResume");
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        accountBean = getAppContext().getAccountBean();
+//        if(accountBean != null) {
+//            tvName.setText(accountBean.getUsername());
+//
+//            String headUrl = PreferenceUtil.getHeadPath(getAppContext());
+//            if(!StringUtil.isEmpty(headUrl)) {
+//                Glide.with(this).load(headUrl).into(ivHead);
+//            }
+//            else {
+//                ivHead.setImageResource(R.mipmap.ic_github);
+//            }
+//        }
+//        else {
+//            String username = PreferenceUtil.getUsername(getAppContext());
+//            String password = PreferenceUtil.getPassword(getAppContext());
+//
+//            if(!StringUtil.isEmpty(username) && !StringUtil.isEmpty(password)) {
+//                Subscription subscription = leanCloudIO.login(username, password)
+//                        .subscribeOn(Schedulers.io())
+//                        .filter(accountBean1 -> accountBean1 != null)
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(avUser -> {
+//                            accountBean = avUser;
+//                            getAppContext().setAccountBean(accountBean);
+//
+//                            tvName.setText(username);
+//                            if(!StringUtil.isEmpty(avUser.getHeadUrl())) {
+//                                Glide.with(this).load(avUser.getHeadUrl()).into(ivHead);
+//                            }
+//                        }, throwable -> loadError(throwable));
+//                addSubscription(subscription);
+//            }
+//            else {
+//                tvName.setText(R.string.app_name);
+//                ivHead.setImageResource(R.mipmap.ic_github);
+//            }
+//        }
+//    }
+//
+//
+//    private void loadError(Throwable throwable) {
+//        throwable.printStackTrace();
+//
+//        if(throwable instanceof HttpException) {
+//            HttpException exception = (HttpException)throwable;
+//            Response response = exception.response();
+//
+//            try {
+//                String errorMsg = response.errorBody().string();
+//                Error error = new Gson().fromJson(errorMsg, Error.class);
+//
+//                UIHelper.showToast(this, error.getError());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
-        accountBean = getAppContext().getAccountBean();
-        if(accountBean != null) {
-            tvName.setText(accountBean.getUsername());
-
-            String headUrl = PreferenceUtil.getHeadPath(getAppContext());
-            if(!StringUtil.isEmpty(headUrl)) {
-                Glide.with(this).load(headUrl).into(ivHead);
-            }
-            else {
-                ivHead.setImageResource(R.mipmap.ic_github);
-            }
-        }
-        else {
-            String username = PreferenceUtil.getUsername(getAppContext());
-            String password = PreferenceUtil.getPassword(getAppContext());
-
-            if(!StringUtil.isEmpty(username) && !StringUtil.isEmpty(password)) {
-                Subscription subscription = leanCloudIO.login(username, password)
-                        .subscribeOn(Schedulers.io())
-                        .filter(accountBean1 -> accountBean1 != null)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(avUser -> {
-                            accountBean = avUser;
-                            getAppContext().setAccountBean(accountBean);
-
-                            tvName.setText(username);
-                            if(!StringUtil.isEmpty(avUser.getHeadUrl())) {
-                                Glide.with(this).load(avUser.getHeadUrl()).into(ivHead);
-                            }
-                        }, throwable -> loadError(throwable));
-                addSubscription(subscription);
-            }
-            else {
-                tvName.setText(R.string.app_name);
-                ivHead.setImageResource(R.mipmap.ic_github);
-            }
-        }
-    }
-
-    private void refreshData(AccountBean accountBean) {
-        this.accountBean = accountBean;
-        getAppContext().setAccountBean(accountBean);
-    }
-
-    private void loadError(Throwable throwable) {
-        throwable.printStackTrace();
-
-        if(throwable instanceof HttpException) {
-            HttpException exception = (HttpException)throwable;
-            Response response = exception.response();
-
-            try {
-                String errorMsg = response.errorBody().string();
-                Error error = new Gson().fromJson(errorMsg, Error.class);
-
-                UIHelper.showToast(this, error.getError());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        logger.e(TAG, "onDestroy");
-        super.onDestroy();
-    }
 
 }

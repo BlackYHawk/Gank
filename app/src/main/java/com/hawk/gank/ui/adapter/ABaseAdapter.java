@@ -1,12 +1,12 @@
 package com.hawk.gank.ui.adapter;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 /**
  * Created by lan on 2016/7/5.
  */
-public abstract class ABaseAdapter<T extends Serializable> extends BaseAdapter {
+public abstract class ABaseAdapter<T extends Parcelable> extends BaseAdapter {
 
     protected Context context;
     private ArrayList<T> datas;
@@ -162,7 +162,7 @@ public abstract class ABaseAdapter<T extends Serializable> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    abstract public static class AbstractItemView<T extends Serializable> {
+    abstract public static class AbstractItemView<T extends Parcelable> {
 
         private int position;
         private int size;

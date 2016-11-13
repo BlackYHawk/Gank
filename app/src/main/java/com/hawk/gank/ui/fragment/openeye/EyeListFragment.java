@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by heyong on 16/7/19.
@@ -59,7 +56,7 @@ public class EyeListFragment extends BaseEyeFragment {
         date = String.valueOf(System.currentTimeMillis());
     }
 
-    @Override
+   // @Override
     protected void layoutInit(LayoutInflater inflater, Bundle savedInstanceSate) {
         mSwipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(activity, R.color.colorPrimary),
@@ -77,27 +74,27 @@ public class EyeListFragment extends BaseEyeFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        logger.e(TAG, "onActivityCreated");
+    //    logger.e(TAG, "onActivityCreated");
         new Handler().postDelayed(() -> setRefresh(true), 358);
         loadRefresh();
         loadData(true);
     }
 
     private void loadData(boolean refresh) {
-        Subscription s = openEyeIO.getDailyData(date)
-                .subscribeOn(Schedulers.io())
-                .map(eyeData -> eyeData.getIssueList().get(0).getItemList())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(() -> setRefresh(false))
-                .subscribe(itemList -> {
-                    if (refresh) {
-                        mItemList.clear();
-                    }
-                    mItemList.addAll(itemList);
-                    mEyeAdapter.notifyDataSetChanged();
-                    setRefresh(false);
-                }, throwable -> loadError(throwable));
-        addSubscription(s);
+//        Subscription s = openEyeIO.getDailyData(date)
+//                .subscribeOn(Schedulers.io())
+//                .map(eyeData -> eyeData.getIssueList().get(0).getItemList())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doAfterTerminate(() -> setRefresh(false))
+//                .subscribe(itemList -> {
+//                    if (refresh) {
+//                        mItemList.clear();
+//                    }
+//                    mItemList.addAll(itemList);
+//                    mEyeAdapter.notifyDataSetChanged();
+//                    setRefresh(false);
+//                }, throwable -> loadError(throwable));
+//        addSubscription(s);
     }
 
     private void loadError(Throwable throwable) {
@@ -161,7 +158,7 @@ public class EyeListFragment extends BaseEyeFragment {
         };
     }
 
-    @Override
+ //   @Override
     protected int inflateContentView() {
         return R.layout.ac_ui_gank_list;
     }

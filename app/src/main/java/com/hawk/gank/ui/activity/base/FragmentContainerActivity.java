@@ -66,7 +66,6 @@ public class FragmentContainerActivity extends BaseActivity {
         }
 
         setContentView(contentId);
-        setDisplayBack();
 
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();

@@ -4,27 +4,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.hawk.lib.mvp.ui.display.BaseDisplay;
+import com.hawk.lib.mvp.ui.presenter.GetPresenterDelegate;
+import com.hawk.lib.mvp.ui.view.BaseView;
 import com.hawk.lib.mvp.ui.presenter.BasePresenter;
 import com.hawk.lib.mvp.ui.presenter.BasePresenterDelegate;
 
 /**
  * Created by lan on 2016/6/29.
  */
-public abstract class MvpFragment<V extends BaseDisplay, P extends BasePresenter<V>>
-        extends Fragment implements BaseDisplay {
-    private BasePresenterDelegate<V, P> mPresenterDelegate;
+public abstract class MvpFragment<V extends BaseView<VC>, VC, P extends BasePresenter<V, VC>>
+        extends Fragment implements BaseView<VC> {
+
+    private VC mCallbacks;
+    BasePresenterDelegate<V, VC, P> mPresenterDelegate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenterDelegate = new BasePresenterDelegate<V, P>() {
-            @Override
-            protected P createPresenter() {
-                return MvpFragment.this.createPresenter();
-            }
-        };
-        mPresenterDelegate.onCreate();
+        mPresenterDelegate = ((GetPresenterDelegate<V, VC, P>) getActivity()).getPresenterDelegate();
     }
 
     @Override
@@ -36,15 +33,20 @@ public abstract class MvpFragment<V extends BaseDisplay, P extends BasePresenter
     @Override
     public void onStop() {
         super.onStop();
-        mPresenterDelegate.onStop();
+        mPresenterDelegate.onStop((V)this);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenterDelegate.onDestroy();
+    public void setCallbacks(VC callbacks) {
+        mCallbacks = callbacks;
     }
 
-    protected abstract P createPresenter();
+    protected final boolean hasCallbacks() {
+        return mCallbacks != null;
+    }
+
+    protected final VC getCallbacks() {
+        return mCallbacks;
+    }
 
 }

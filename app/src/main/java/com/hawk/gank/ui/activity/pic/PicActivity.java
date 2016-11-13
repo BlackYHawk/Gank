@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.MenuItem;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.Gank;
+import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.SwipeFlingAdapter;
 import com.hawk.gank.ui.widget.flingswipe.SwipeFlingAdapterView;
@@ -27,11 +27,9 @@ public class PicActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logger.e(TAG, "onCreate");
         setContentView(R.layout.ac_ui_pic);
         mGankList = getIntent().getParcelableArrayListExtra("gankData");
 
-        setDisplayBack();
         initData();
         initView();
     }

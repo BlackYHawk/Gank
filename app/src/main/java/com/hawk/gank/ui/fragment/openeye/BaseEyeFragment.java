@@ -3,7 +3,6 @@ package com.hawk.gank.ui.fragment.openeye;
 import android.os.Bundle;
 
 import com.hawk.gank.http.OpenEyeIO;
-import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 
 import javax.inject.Inject;
@@ -18,10 +17,10 @@ public abstract class BaseEyeFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).component().inject(this);
-        }
+//
+//        if (getActivity() instanceof BaseActivity) {
+//            ((BaseActivity) getActivity()).component().inject(this);
+//        }
     }
 
 }

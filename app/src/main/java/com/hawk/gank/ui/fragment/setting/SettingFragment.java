@@ -96,7 +96,7 @@ public class SettingFragment extends BaseFragment {
     }
 
 
-    @Override
+   // @Override
     protected int inflateContentView() {
         return R.layout.ac_ui_setting;
     }

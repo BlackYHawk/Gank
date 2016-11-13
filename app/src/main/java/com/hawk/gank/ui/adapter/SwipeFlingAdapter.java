@@ -2,7 +2,7 @@ package com.hawk.gank.ui.adapter;
 
 import android.content.Context;
 
-import com.hawk.gank.data.entity.Gank;
+import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.item.PicItemView;
 
 import java.util.ArrayList;

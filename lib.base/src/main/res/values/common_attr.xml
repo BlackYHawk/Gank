@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SlidingTabLayout">
+        <attr name="selectedColor" format="color" />
+        <attr name="indicatorHeight" format="reference|dimension" />
+        <attr name="dividerColor" format="color" />
+        <attr name="android:textAppearance" />
+        <attr name="contentInsetStart" />
+    </declare-styleable>
+
+</resources>

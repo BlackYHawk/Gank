@@ -11,27 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.data.entity.AccountType;
-import com.hawk.gank.http.convert.Error;
 import com.hawk.gank.interfaces.impl.ValidMinLenTextWatcher;
 import com.hawk.gank.interfaces.impl.ValidPhoneTextWatcher;
 import com.hawk.gank.ui.activity.account.LoginActivity;
 import com.hawk.gank.ui.widget.CircleImageView;
-import com.hawk.gank.util.PreferenceUtil;
 import com.hawk.gank.util.UIHelper;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by heyong on 16/7/23.
@@ -68,7 +58,7 @@ public class LoginFragment extends BaseAccountFragment {
         super.onCreate(savedInstanceState);
         activity = (LoginActivity) getActivity();
         setHasOptionsMenu(true);
-        titleId = R.string.login_title;
+    //    titleId = R.string.login_title;
 
         if (savedInstanceState == null) {
             if (getArguments() != null)
@@ -86,7 +76,7 @@ public class LoginFragment extends BaseAccountFragment {
         }
     }
 
-    @Override
+  //  @Override
     protected void layoutInit(LayoutInflater inflater, Bundle savedInstanceSate) {
         mValidPhoneTextWatcher = new ValidPhoneTextWatcher(textInputAccount);
         textInputAccount.getEditText().addTextChangedListener(mValidPhoneTextWatcher);
@@ -107,26 +97,26 @@ public class LoginFragment extends BaseAccountFragment {
 
         String username = mValidPhoneTextWatcher.getEditTextValue();
         String password = mValidMinLenTextWatcher.getEditTextValue();
-
-        Subscription s = leanCloudIO.login(username, password)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(() -> setRefresh(true))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(accountBean -> {
-                    setRefresh(false);
-
-                    bean.setUsername(accountBean.getUsername());
-                    bean.setPassword(password);
-                    bean.setSessionToken(accountBean.getSessionToken());
-                    bean.setHeadUrl(accountBean.getHeadUrl());
-                    getAppContext().setAccountBean(bean);
-                    PreferenceUtil.setUsername(getAppContext(), username);
-                    PreferenceUtil.setPassword(getAppContext(), password);
-                    PreferenceUtil.setHeadPath(getAppContext(), accountBean.getHeadUrl());
-
-                    finish();
-                }, throwable -> loadError(throwable));
-        addSubscription(s);
+//
+//        Subscription s = leanCloudIO.login(username, password)
+//                .subscribeOn(Schedulers.io())
+//                .doOnSubscribe(() -> setRefresh(true))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(accountBean -> {
+//                    setRefresh(false);
+//
+//                    bean.setUsername(accountBean.getUsername());
+//                    bean.setPassword(password);
+//                    bean.setSessionToken(accountBean.getSessionToken());
+//                    bean.setHeadUrl(accountBean.getHeadUrl());
+//                    getAppContext().setAccountBean(bean);
+//                    PreferenceUtil.setUsername(getAppContext(), username);
+//                    PreferenceUtil.setPassword(getAppContext(), password);
+//                    PreferenceUtil.setHeadPath(getAppContext(), accountBean.getHeadUrl());
+//
+//                    finish();
+//                }, throwable -> loadError(throwable));
+//        addSubscription(s);
     }
 
     public void setRefresh(boolean requestDataRefresh) {
@@ -136,25 +126,25 @@ public class LoginFragment extends BaseAccountFragment {
             UIHelper.showProgress(activity, R.string.account_login_progress);
         }
     }
-
-    private void loadError(Throwable throwable) {
-        throwable.printStackTrace();
-        setRefresh(false);
-
-        if(throwable instanceof HttpException) {
-            HttpException exception = (HttpException)throwable;
-            Response response = exception.response();
-
-            try {
-                String errorMsg = response.errorBody().string();
-                Error error = new Gson().fromJson(errorMsg, Error.class);
-
-                UIHelper.showToast(getActivity(),error.getError());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//
+//    private void loadError(Throwable throwable) {
+//        throwable.printStackTrace();
+//        setRefresh(false);
+//
+//        if(throwable instanceof HttpException) {
+//            HttpException exception = (HttpException)throwable;
+//            Response response = exception.response();
+//
+//            try {
+//                String errorMsg = response.errorBody().string();
+//                Error error = new Gson().fromJson(errorMsg, Error.class);
+//
+//                UIHelper.showToast(getActivity(),error.getError());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -171,9 +161,9 @@ public class LoginFragment extends BaseAccountFragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected int inflateContentView() {
-        return R.layout.ac_ui_login;
-    }
+//
+//    @Override
+//    protected int inflateContentView() {
+//        return R.layout.ac_ui_login;
+//    }
 }

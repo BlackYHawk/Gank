@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -18,6 +18,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
 
@@ -29,4 +33,33 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["support-v4"]
+    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["cardview-v7"]
+
+    compile rootProject.ext.dependencies["dagger"]
+    compile rootProject.ext.dependencies["okhttp"]
+    compile rootProject.ext.dependencies["okHttpLogging"]
+    compile rootProject.ext.dependencies["stetho"]
+    compile rootProject.ext.dependencies["stetho-okhttp"]
+    compile rootProject.ext.dependencies["butterknife"]
+    compile rootProject.ext.dependencies["sqlDelightRuntime"]
+
+    compile rootProject.ext.dependencies["gson"]
+    compile rootProject.ext.dependencies["retrofit"]
+    compile rootProject.ext.dependencies["converter-gson"]
+    compile rootProject.ext.dependencies["retrofitRxJava2Adapter"]
+
+    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxandroid"]
+    compile rootProject.ext.dependencies["rxjava2"]
+    compile rootProject.ext.dependencies["rxandroid2"]
+
+    compile rootProject.ext.dependencies["threetenabp"]
+    compile rootProject.ext.dependencies["timber"]
+    provided rootProject.ext.aptDependencies["auto-value"]
+
+    annotationProcessor rootProject.ext.aptDependencies["auto-parcel"]
+    annotationProcessor rootProject.ext.aptDependencies["dagger-compiler"]
 }

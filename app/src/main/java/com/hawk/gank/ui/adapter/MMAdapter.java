@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.Gank;
+import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.activity.pic.PicActivity;
 import com.hawk.gank.ui.widget.RatioImageView;
 
@@ -45,13 +45,13 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Gank mm = mGankList.get(position);
 
-        String text = mm.desc.length() > limit ? mm.desc.substring(0, limit) +
-                "..." : mm.desc;
+        String text = mm.description().length() > limit ? mm.description().substring(0, limit) +
+                "..." : mm.description();
 
         viewHolder.titleView.setText(text);
 
         Glide.with(mContext)
-                .load(mm.url)
+                .load(mm.url())
                 .centerCrop()
                 .into(viewHolder.mmView);
     }

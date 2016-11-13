@@ -7,7 +7,6 @@ public class Constant {
 
     //Gank
     public static final String GANK_SITE = "http://gank.io/api/";
-    public static final int GANK_PAGE = 10;
 
     //开眼每日精选
     public static final String EYE_DAILY_SITE = "http://baobab.wandoujia.com/api/v2/";

@@ -1,6 +1,6 @@
 package com.hawk.lib.mvp.rx;
 
-import com.hawk.lib.mvp.ui.display.BaseDisplay;
+import com.hawk.lib.mvp.ui.view.BaseView;
 import com.hawk.lib.mvp.ui.presenter.BasePresenter;
 
 import rx.Subscription;
@@ -9,12 +9,11 @@ import rx.Subscription;
  * Created by lan on 2016/10/27.
  */
 
-public abstract class BaseRxPresenter<V extends BaseDisplay> extends BasePresenter<V> {
+public abstract class BaseRxPresenter<V extends BaseView<VC>, VC> extends BasePresenter<V, VC> {
     private final RxDelegate mRxDelegate;
 
     protected BaseRxPresenter() {
         mRxDelegate = new RxDelegate();
-        mRxDelegate.onCreate();
     }
 
     protected boolean addUtilStop(Subscription subscription) {
@@ -30,20 +29,26 @@ public abstract class BaseRxPresenter<V extends BaseDisplay> extends BasePresent
     }
 
     @Override
-    public void attachUi(V view) {
-        super.attachUi(view);
+    public void init() {
+        super.init();
+        mRxDelegate.onCreate();
+    }
+
+    @Override
+    public void attachView(V view) {
+        super.attachView(view);
         mRxDelegate.onStart();
     }
 
     @Override
-    public void detachUi() {
-        super.detachUi();
+    public void detachView(V view) {
+        super.detachView(view);
         mRxDelegate.onStop();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void suspend() {
+        super.suspend();
         mRxDelegate.onDestroy();
     }
 

@@ -41,9 +41,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logger.e(TAG, "onCreate");
         setContentView(R.layout.ac_ui_account);
-        setDisplayBack();
 
         if(savedInstanceState == null) {
             type = getIntent().getStringExtra("type");

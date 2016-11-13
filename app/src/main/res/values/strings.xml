@@ -9,6 +9,12 @@
     <string name="error_invalid_password">密码为4-12位字符串</string>
 
     <!--首页-->
+    <string name="android_title">Android</string>
+    <string name="ios_title">IOS</string>
+    <string name="welfare_title">福利</string>
+    <string name="video_title">视频</string>
+    <string name="front_title">Web前端</string>
+    <string name="expand_title">其他扩展</string>
 
     <!--账户-->
     <string name="login_title">登录</string>

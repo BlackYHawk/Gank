@@ -1,10 +1,7 @@
-package com.hawk.lib.base.util;
+package com.hawk.lib.base.model.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
-import com.hawk.lib.base.util.impl.CharacterParser;
-import com.hawk.lib.base.util.impl.ResParser;
 
 import javax.inject.Singleton;
 

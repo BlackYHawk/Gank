@@ -1,4 +1,4 @@
-package com.hawk.lib.base.model.provider;
+package com.hawk.lib.base.model.rxbus;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -12,7 +12,7 @@ public class RxBus {
 
     private final Subject<Object, Object> _bus = new SerializedSubject<>(PublishSubject.create());
 
-    public void send(Object o) {
+    public void post(Object o) {
         _bus.onNext(o);
     }
 
@@ -23,6 +23,5 @@ public class RxBus {
     public boolean hasObservers() {
         return _bus.hasObservers();
     }
-
 
 }

@@ -35,14 +35,14 @@ public abstract class BaseRxPresenter<V extends BaseView<VC>, VC> extends BasePr
     }
 
     @Override
-    public void attachView(V view) {
-        super.attachView(view);
+    public void resume() {
+        super.resume();
         mRxDelegate.onStart();
     }
 
     @Override
-    public void detachView(V view) {
-        super.detachView(view);
+    public void pause() {
+        super.pause();
         mRxDelegate.onStop();
     }
 

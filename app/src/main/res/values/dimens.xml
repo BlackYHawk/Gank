@@ -10,6 +10,11 @@
     <dimen name="padding_vertical_gank_item">8dp</dimen>
     <dimen name="text_size_gank_title">14sp</dimen>
     <dimen name="text_size_gank_category">18sp</dimen>
+
+    <dimen name="item_image">150dp</dimen>
+    <dimen name="item_averator">60dp</dimen>
+    <dimen name="item_averator_margin">5dp</dimen>
+
     <dimen name="menu_header">150dp</dimen>
     <dimen name="menu_head">80dp</dimen>
 

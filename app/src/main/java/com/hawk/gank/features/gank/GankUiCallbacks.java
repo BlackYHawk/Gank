@@ -12,4 +12,8 @@ public interface GankUiCallbacks {
 
     void showGankDetail(Gank gank, Bundle bundle);
 
+    void onPulledToTop();
+
+    void onScrolledToBottom();
+
 }

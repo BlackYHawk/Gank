@@ -1,0 +1,27 @@
+package com.hawk.lib.base.util;
+
+import java.util.List;
+
+/**
+ * Created by heyong on 16/9/19.
+ */
+
+public class ObjectUtil {
+
+    public static boolean isEmpty(Object object) {
+        return object == null;
+    }
+
+    public static boolean isEmpty(Object[] objects) {
+        return objects == null || objects.length == 0;
+    }
+
+    public static <T> boolean isEmpty(List<T> objectList) {
+        return objectList == null || objectList.size() == 0;
+    }
+
+    public static <T> boolean equal(List<T> aList, List<T> bList) {
+        return aList != null && bList != null && aList.size() == bList.size();
+    }
+
+}

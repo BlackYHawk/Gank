@@ -45,10 +45,10 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Gank mm = mGankList.get(position);
 
-        String text = mm.description().length() > limit ? mm.description().substring(0, limit) +
-                "..." : mm.description();
+//        String text = mm.description().length() > limit ? mm.description().substring(0, limit) +
+//                "..." : mm.description();
 
-        viewHolder.titleView.setText(text);
+        viewHolder.titleView.setText("");
 
         Glide.with(mContext)
                 .load(mm.url())

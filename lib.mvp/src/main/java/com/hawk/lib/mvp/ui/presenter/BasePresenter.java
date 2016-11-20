@@ -34,6 +34,14 @@ public abstract class BasePresenter<V extends BaseView<VC>, VC> {
         onInited();
     }
 
+    public void resume() {
+
+    }
+
+    public void pause() {
+
+    }
+
     @CallSuper
     public void suspend() {
         Preconditions.checkState(mInited, "Not inited");

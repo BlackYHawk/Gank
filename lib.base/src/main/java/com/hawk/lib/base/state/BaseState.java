@@ -1,0 +1,64 @@
+package com.hawk.lib.base.state;
+
+
+import com.hawk.lib.base.util.ObjectUtil;
+import com.hawk.lib.mvp.util.Preconditions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by heyong on 2016/11/14.
+ */
+
+public interface BaseState {
+
+    void registerForEvent(Object receiver);
+
+    void unregisterForEvent(Object receiver);
+
+
+    class UiCausedEvent {
+        public final int callingId;
+
+        public UiCausedEvent(int callingId) {
+            this.callingId = callingId;
+        }
+    }
+
+    class BaseArgumentEvent<T> extends UiCausedEvent {
+        public final T item;
+
+        public BaseArgumentEvent(int callingId, T item) {
+            super(callingId);
+            this.item = Preconditions.checkNotNull(item, "item cannot be null");
+        }
+    }
+
+    abstract class PagedResult<T> {
+        public List<T> items;
+        public int page;
+        public int totalPages;
+
+        public PagedResult() {
+            items = new ArrayList<>();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            PagedResult that = (PagedResult) o;
+            return ObjectUtil.equal(items, that.items);
+        }
+
+        @Override
+        public int hashCode() {
+            return items != null ? items.hashCode() : 0;
+        }
+    }
+}

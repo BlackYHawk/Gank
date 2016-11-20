@@ -22,6 +22,7 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
     private int mCurrentState = ACTION_IDLE;
     private boolean isLoadMoreEnabled = false;
     private boolean isPullToRefreshEnabled = true;
+    private boolean mIsFirstTimeTouchBottom = true;
     private ILayoutManager mLayoutManager;
     private BaseRecyclerAdapter adapter;
 
@@ -55,10 +56,14 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (mCurrentState == ACTION_IDLE && isLoadMoreEnabled && checkIfNeedLoadMore()) {
-                    mCurrentState = ACTION_LOAD_MORE_REFRESH;
-                    adapter.onLoadMoreStateChanged(true);
-                    mSwipeRefreshLayout.setEnabled(false);
-                    listener.onRefresh(ACTION_LOAD_MORE_REFRESH);
+                    if (!mIsFirstTimeTouchBottom) {
+                        mCurrentState = ACTION_LOAD_MORE_REFRESH;
+                        adapter.onLoadMoreStateChanged(true);
+                        mSwipeRefreshLayout.setEnabled(false);
+                        listener.onRefresh(ACTION_LOAD_MORE_REFRESH);
+                    } else {
+                        mIsFirstTimeTouchBottom = false;
+                    }
                 }
             }
         });

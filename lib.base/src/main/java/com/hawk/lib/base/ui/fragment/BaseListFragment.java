@@ -12,10 +12,11 @@ import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 import com.hawk.lib.base.ui.widget.PullRecycler;
 import com.hawk.lib.base.ui.widget.layoutmanager.ILayoutManager;
 import com.hawk.lib.base.ui.widget.layoutmanager.MyLinearLayoutManager;
+import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.ui.presenter.BasePresenter;
 import com.hawk.lib.mvp.ui.view.BaseView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by heyong on 2016/11/5.
@@ -26,7 +27,7 @@ public abstract class BaseListFragment<T extends Parcelable, V extends BaseView<
 
     protected PullRecycler recycler;
     protected BaseRecyclerAdapter mAdapter;
-    protected ArrayList<T> mDataList;
+    protected List<T> mDataList;
 
     @Override
     protected void bindView(View rootView) {
@@ -35,12 +36,21 @@ public abstract class BaseListFragment<T extends Parcelable, V extends BaseView<
         recycler.setOnRefreshListener(this);
         recycler.setLayoutManager(getLayoutManager());
         recycler.addItemDecoration(getItemDecoration());
+        recycler.enableLoadMore(true);
     }
 
     @Override
     protected void onBindData() {
         mAdapter = new RecyclerAdapter();
         recycler.setAdapter(mAdapter);
+    }
+
+    protected void setDataItems(List<T> items) {
+        if (!ObjectUtil.isEmpty(items)) {
+            mDataList = items;
+            mAdapter.notifyDataSetChanged();
+        }
+        recycler.onRefreshCompleted();
     }
 
     @Override

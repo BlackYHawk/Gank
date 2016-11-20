@@ -42,7 +42,7 @@ public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
 
     @Override
     public void bindingData(View convertView, Gank data) {
-        tvTitle.setText(data.description());
+        tvTitle.setText("");
 
         Glide.with(mContext)
                 .load(data.url())

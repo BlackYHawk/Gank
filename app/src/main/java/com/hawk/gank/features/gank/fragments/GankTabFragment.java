@@ -54,11 +54,11 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
     private Fragment createFragmentForTab(GankPresenter.GankTab tab) {
         switch (tab) {
             case ANDROID:
-                return GankListFragment.newInstance(0);
+                return AndroidListFragment.newInstance();
             case IOS:
-                return GankListFragment.newInstance(1);
-            case EXPAND:
-                return GankListFragment.newInstance(2);
+                return IosListFragment.newInstance();
+            case WELFARE:
+                return WelfareListFragment.newInstance();
         }
         return null;
     }

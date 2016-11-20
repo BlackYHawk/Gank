@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import com.hawk.gank.R;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
-import com.hawk.gank.util.ObjectUtil;
+import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.gank.util.UIHelper;
 
 import butterknife.BindView;

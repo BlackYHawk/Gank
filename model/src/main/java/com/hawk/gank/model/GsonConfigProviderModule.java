@@ -14,7 +14,7 @@ import dagger.Provides;
  */
 @Module
 public class GsonConfigProviderModule {
-    private static final String TIME_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final String TIME_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.S'Z'";
 
     @Singleton
     @Provides

@@ -1,4 +1,4 @@
-package com.hawk.lib.base.util;
+package com.hawk.lib.base.model.util;
 
 /**
  * Created by heyong on 2016/11/4.

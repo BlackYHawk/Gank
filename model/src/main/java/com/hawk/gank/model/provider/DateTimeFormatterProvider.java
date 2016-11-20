@@ -4,7 +4,6 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.chrono.IsoChronology;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
-import org.threeten.bp.format.ResolverStyle;
 import org.threeten.bp.temporal.ChronoField;
 
 /**
@@ -31,9 +30,11 @@ public final class DateTimeFormatterProvider {
                             .optionalStart()
                             .appendLiteral(':')
                             .appendValue(ChronoField.SECOND_OF_MINUTE, 2)
+                            .appendLiteral('.')
+                            .appendValue(ChronoField.MILLI_OF_SECOND)
                             .appendLiteral('Z')
                             .toFormatter()
-                            .withResolverStyle(ResolverStyle.STRICT)
+                         //   .withResolverStyle(ResolverStyle.STRICT)
                             .withChronology(IsoChronology.INSTANCE)
                             .withZone(ZoneId.systemDefault());
                 }

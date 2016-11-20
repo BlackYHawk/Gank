@@ -1,5 +1,7 @@
 package com.hawk.gank.model.gank;
 
+import com.hawk.gank.model.state.GankState;
+import com.hawk.gank.model.state.impl.GankStateImpl;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
 
 import dagger.Module;
@@ -16,6 +18,12 @@ public class GankModule {
     @Provides
     GankIO provideGankIO(final Retrofit retrofit) {
         return retrofit.create(GankIO.class);
+    }
+
+    @ActivityScope
+    @Provides
+    GankState provideGankState(final GankStateImpl gankState) {
+        return gankState;
     }
 
 }

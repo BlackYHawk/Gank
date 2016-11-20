@@ -45,6 +45,18 @@ public abstract class MvpDiActivity<V extends BaseView<VC>, VC, P extends BasePr
 		mPresenterDelegate.onDestroy();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mPresenterDelegate.onStart();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mPresenterDelegate.onStop();
+	}
+
 	protected abstract void initializeDependence();
 
 	protected abstract void initializDisplay();

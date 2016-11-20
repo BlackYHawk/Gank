@@ -6,10 +6,11 @@ package com.hawk.lib.mvp.util;
 
 public class Preconditions {
 
-    public static void checkNotNull(Object object, String errorMsg) {
+    public static <T> T checkNotNull(T object, String errorMsg) {
         if(object == null) {
             throw new NullPointerException(errorMsg);
         }
+        return object;
     }
 
     public static void checkState(boolean state, String errorMsg) {

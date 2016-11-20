@@ -12,7 +12,9 @@ import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
 import com.hawk.gank.modules.IApplicatioin;
-import com.hawk.lib.base.util.UtilModule;
+import com.hawk.lib.base.model.util.UtilModule;
+
+import timber.log.Timber;
 
 
 /**
@@ -32,6 +34,7 @@ public class AppContext extends Application implements IApplicatioin {
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
 
         if(BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
             Stetho.initialize(Stetho.newInitializerBuilder(this)
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                     .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))

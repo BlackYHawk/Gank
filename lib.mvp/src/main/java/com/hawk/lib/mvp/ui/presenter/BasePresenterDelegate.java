@@ -18,12 +18,22 @@ public abstract class BasePresenterDelegate<V extends BaseView<VC>, VC, P extend
         mPresenter.init();
     }
 
-    public void onStart(V view) {
+    public void onStart() {
+        checkPresenter();
+        mPresenter.resume();
+    }
+
+    public void onStop() {
+        checkPresenter();
+        mPresenter.pause();
+    }
+
+    public void attachView(V view) {
         checkPresenter();
         mPresenter.attachView(view);
     }
 
-    public void onStop(V view) {
+    public void detachView(V view) {
         checkPresenter();
         mPresenter.detachView(view);
     }

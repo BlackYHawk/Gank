@@ -62,9 +62,9 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewH
     public void onLoadMoreStateChanged(boolean isShown) {
         this.isLoadMoreFooterShown = isShown;
         if (isShown) {
-            notifyItemInserted(getItemCount());
+         //   notifyItemInserted(getItemCount());
         } else {
-            notifyItemRemoved(getItemCount());
+         //   notifyItemRemoved(getItemCount());
         }
     }
 

@@ -17,6 +17,6 @@ public interface GankIO {
     Observable<GankResult> getAndroidData(@Path("page") int page);
 
     @GET("data/iOS/" + PAGE_SIZE + "/{page}")
-    Observable<GankResult> getIOSData(@Path("page") int page);
+    Observable<GankResult> getIosData(@Path("page") int page);
 
 }

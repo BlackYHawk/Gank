@@ -5,7 +5,7 @@ import com.hawk.gank.model.GsonConfigProviderModule;
 import com.hawk.lib.base.model.jwdate.JWDateModule;
 import com.hawk.lib.base.model.provider.ProviderModule;
 import com.hawk.lib.base.module.ActModule;
-import com.hawk.lib.base.util.UtilModule;
+import com.hawk.lib.base.model.util.UtilModule;
 
 import javax.inject.Singleton;
 

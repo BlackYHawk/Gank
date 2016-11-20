@@ -27,13 +27,13 @@ public abstract class MvpFragment<V extends BaseView<VC>, VC, P extends BasePres
     @Override
     public void onStart() {
         super.onStart();
-        mPresenterDelegate.onStart((V)this);
+        mPresenterDelegate.attachView((V)this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mPresenterDelegate.onStop((V)this);
+        mPresenterDelegate.detachView((V)this);
     }
 
     @Override

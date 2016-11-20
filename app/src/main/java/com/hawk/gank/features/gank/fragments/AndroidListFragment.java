@@ -10,6 +10,7 @@ import com.hawk.gank.R;
 import com.hawk.gank.features.gank.GankPresenter;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.widget.RatioImageView;
+import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 import com.hawk.lib.base.util.ObjectUtil;
 
@@ -27,8 +28,6 @@ public class AndroidListFragment extends BaseGankListFragment {
 
         return fragment;
     }
-
-    private int limit = 48;
 
     @Override
     public GankPresenter.GankQueryType getGankQueryType() {
@@ -52,22 +51,23 @@ public class AndroidListFragment extends BaseGankListFragment {
         RatioImageView ivAverator;
         @BindView(R.id.tvTitle)
         TextView tvTitle;
+        @BindView(R.id.tvTime)
+        TextView tvTime;
 
         public GankViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        //    ivAverator.setOriginalSize(50, 50);
+            ivAverator.setOriginalSize(60, 60);
         }
 
         @Override
         public void onBindViewHolder(int position) {
             Gank mm = mDataList.get(position);
 
-            String text = mm.description().length() > limit ? mm.description().substring(0, limit) +
-                    "..." : mm.description();
+            String publishTime = StringUtil.formatDisplayTime(mm.publishedAt());
 
-            tvTitle.setText(text);
-
+            tvTitle.setText(mm.description());
+            tvTime.setText(publishTime);
             if(!ObjectUtil.isEmpty(mm.images())) {
                 Glide.with(ivAverator.getContext())
                         .load(mm.images().get(0))

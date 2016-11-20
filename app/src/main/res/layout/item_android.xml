@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 
     <com.hawk.gank.ui.widget.RatioImageView
         android:id="@+id/ivAverator"
         android:layout_width="@dimen/item_averator"
         android:layout_height="@dimen/item_averator"
-        android:layout_margin="@dimen/item_averator_margin"
+        android:layout_margin="@dimen/item_margin"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
@@ -17,19 +17,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
+        android:layout_alignTop="@id/ivAverator"
         android:layout_toRightOf="@id/ivAverator"
-        android:layout_toEndOf="@id/ivAverator">
+        android:layout_toEndOf="@id/ivAverator"
+        android:layout_marginRight="@dimen/item_margin"
+        android:layout_marginEnd="@dimen/item_margin">
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:maxLines="1"
-            android:ellipsize="marquee"
-            android:padding="@dimen/pic_item_padding"
-            android:textAppearance="@style/Text_Brown_18"/>
+            android:padding="@dimen/item_text_padding"
+            android:textAppearance="@style/Text_Black_18"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:padding="@dimen/item_text_padding"
+            android:textAppearance="@style/Text_Gray_14"/>
 
     </LinearLayout>
 

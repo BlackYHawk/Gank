@@ -13,7 +13,8 @@
 
     <dimen name="item_image">150dp</dimen>
     <dimen name="item_averator">60dp</dimen>
-    <dimen name="item_averator_margin">5dp</dimen>
+    <dimen name="item_margin">5dp</dimen>
+    <dimen name="item_text_padding">5dp</dimen>
 
     <dimen name="menu_header">150dp</dimen>
     <dimen name="menu_head">80dp</dimen>

@@ -36,18 +36,26 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     }
 
     @Subscribe
-    public void onAndroidListChanged(GankState.AndroidListChangedEvent event) {
-        populateUiFromQueryType(GankQueryType.ANDROID);
+    public void onGankListChanged(GankState.GankListChangedEvent event) {
+        V view = findView(event.callingId);
+
+        if(view != null) {
+            populateView(view);
+        }
+        else {
+            populateViews();
+        }
     }
 
     @Subscribe
-    public void onIosListChanged(GankState.IosListChangedEvent event) {
-        populateUiFromQueryType(GankQueryType.IOS);
-    }
+    public void onGankRxError(GankState.GankRxErrorEvent event) {
+        V view = findView(event.callingId);
 
-    @Subscribe
-    public void onWelfareListChanged(GankState.WelfareListChangedEvent event) {
-        populateUiFromQueryType(GankQueryType.WELFARE);
+        if(view != null && event.item != null) {
+            if (view instanceof GankView) {
+                ((GankView) view).showError(event.item);
+            }
+        }
     }
 
     @Override
@@ -151,34 +159,34 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
-    private void fetchAndroidList(int viewId, @NonNull int page) {
-        addUtilStop(mGankRepo.getAndroidData(page));
-    }
-
-    private void fetchIosList(int viewId, @NonNull int page) {
-        addUtilStop(mGankRepo.getIosData(page));
-    }
-
-    private void fetchWelfareList(int viewId, @NonNull int page) {
-        addUtilStop(mGankRepo.getMMData(page));
-    }
-
-    private void fetchAndroidListIfNeeded(int viewId, @NonNull int page) {
+    private void fetchAndroidListIfNeeded(@NonNull int viewId, @NonNull int page) {
         if (ObjectUtil.isEmpty(mGankState.getGankAndroid())) {
-            addUtilStop(mGankRepo.getAndroidData(page));
+            fetchAndroidList(viewId, page);
         }
     }
 
-    private void fetchIosListIfNeeded(int viewId, @NonNull int page) {
+    private void fetchIosListIfNeeded(@NonNull int viewId, @NonNull int page) {
         if (ObjectUtil.isEmpty(mGankState.getGankIos())) {
-            addUtilStop(mGankRepo.getIosData(page));
+            fetchIosList(viewId, page);
         }
     }
 
-    private void fetchWelfareListIfNeeded(int viewId, @NonNull int page) {
+    private void fetchWelfareListIfNeeded(@NonNull int viewId, @NonNull int page) {
         if (ObjectUtil.isEmpty(mGankState.getGankWelfare())) {
-            addUtilStop(mGankRepo.getMMData(page));
+            fetchWelfareList(viewId, page);
         }
+    }
+
+    private void fetchAndroidList(@NonNull int viewId, @NonNull int page) {
+        addUtilStop(mGankRepo.getAndroidData(viewId, page));
+    }
+
+    private void fetchIosList(@NonNull int viewId, @NonNull int page) {
+        addUtilStop(mGankRepo.getIosData(viewId, page));
+    }
+
+    private void fetchWelfareList(@NonNull int viewId, @NonNull int page) {
+        addUtilStop(mGankRepo.getMMData(viewId, page));
     }
 
     private void populateTabView(GankTabView view) {
@@ -247,6 +255,10 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
     public enum GankTab {
         ANDROID, IOS, WELFARE, VIDEO, FROANT, EXPAND
+    }
+
+    public interface GankSideMenuView extends GankView {
+
     }
 
     public interface GankTabView extends GankView {

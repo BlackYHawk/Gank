@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
     public static final String FRAGMENT_TAG = "MainFragment";
     @BindView(R.id.drawLayout) DrawerLayout mDrawer;
     @BindView(R.id.fabBtn) FloatingActionButton mFabBtn;
-    @BindView(R.id.navigationView) NavigationView mNavigationView;
+   // @BindView(R.id.navigationView) NavigationView mNavigationView;
     private CircleImageView ivHead;
     private TextView tvName;
     private ActionBarDrawerToggle drawerToggle;
@@ -75,12 +75,12 @@ public class MainActivity extends BaseActivity {
         mDrawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        View headerView = mNavigationView.getHeaderView(0);
-        ivHead = (CircleImageView) headerView.findViewById(R.id.ivHead);
-        tvName = (TextView) headerView.findViewById(R.id.tvName);
-        ivHead.setOnClickListener(onClickListener);
-        mNavigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        mFabBtn.setOnClickListener(onClickListener);
+      //  View headerView = mNavigationView.getHeaderView(0);
+//        ivHead = (CircleImageView) headerView.findViewById(R.id.ivHead);
+//        tvName = (TextView) headerView.findViewById(R.id.tvName);
+//        ivHead.setOnClickListener(onClickListener);
+//        mNavigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
+//        mFabBtn.setOnClickListener(onClickListener);
     }
 
     NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {

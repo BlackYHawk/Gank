@@ -5,20 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/Widget.Base.Toolbar" />
-
     <com.hawk.lib.base.ui.widget.SlidingTabLayout
         android:id="@+id/slidingTabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_tab_height"
         android:background="?attr/colorPrimary"
         android:textAppearance="@style/TextAppearance.Tab"
-        app:indicatorHeight="2dp"
-        app:contentInsetStart="56dp"
+        app:indicatorHeight="@dimen/common_indicator_height"
+        app:contentInsetStart="@dimen/common_indicator_start"
         app:selectedColor="?attr/colorAccent"
         android:fadingEdgeLength="@dimen/common_spacing" />
 

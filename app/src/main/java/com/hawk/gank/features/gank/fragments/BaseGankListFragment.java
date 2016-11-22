@@ -2,7 +2,9 @@ package com.hawk.gank.features.gank.fragments;
 
 import com.hawk.gank.features.gank.GankPresenter;
 import com.hawk.gank.features.gank.GankUiCallbacks;
+import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.util.UIHelper;
 import com.hawk.lib.base.ui.fragment.BaseListFragment;
 import com.hawk.lib.base.ui.widget.PullRecycler;
 
@@ -14,6 +16,12 @@ import java.util.List;
 
 public abstract class BaseGankListFragment extends BaseListFragment<Gank, GankPresenter.GankListView, GankUiCallbacks,
         GankPresenter<GankPresenter.GankListView>>  implements GankPresenter.GankListView {
+
+    @Override
+    public void showError(RxError error) {
+        UIHelper.showToast(getActivity(), error.message());
+        recycler.onRefreshCompleted();
+    }
 
     @Override
     public void setItems(List<Gank> listItems) {

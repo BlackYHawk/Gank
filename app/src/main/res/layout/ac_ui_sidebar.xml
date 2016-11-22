@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 侧滑面板 -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingTop="@dimen/sidbar_layout_t">
+
+    <RelativeLayout
+        android:id="@+id/layHead"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sidbar_layout_head_h"
+        android:layout_marginLeft="@dimen/sidbar_head_margin"
+        android:gravity="center_vertical">
+
+        <com.hawk.gank.ui.widget.CircleImageView
+            android:id="@+id/cvHead"
+            android:layout_width="@dimen/sidbar_head"
+            android:layout_height="@dimen/sidbar_head"
+            android:src="@mipmap/default_portrait"
+            app:border_color="@color/white"
+            app:border_width="1dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

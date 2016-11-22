@@ -1,5 +1,6 @@
 package com.hawk.gank.model.state.impl;
 
+import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.model.state.GankState;
 import com.squareup.otto.Bus;
@@ -24,12 +25,12 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public void setGankAndroid(int page, List<Gank> gankList) {
+    public void setGankAndroid(int viewId, int page, List<Gank> gankList) {
         if(mAndroid == null) {
             mAndroid = createPagedResult();
         }
         updatePagedResult(mAndroid, page, gankList);
-        mEventBus.post(new AndroidListChangedEvent());
+        mEventBus.post(new GankListChangedEvent(viewId));
     }
 
     @Override
@@ -38,12 +39,12 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public void setGankIos(int page, List<Gank> gankList) {
+    public void setGankIos(int viewId, int page, List<Gank> gankList) {
         if(mIos == null) {
             mIos = createPagedResult();
         }
         updatePagedResult(mIos, page, gankList);
-        mEventBus.post(new IosListChangedEvent());
+        mEventBus.post(new GankListChangedEvent(viewId));
     }
 
     @Override
@@ -52,12 +53,12 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public void setGankWelfare(int page, List<Gank> welfare) {
+    public void setGankWelfare(int viewId, int page, List<Gank> welfare) {
         if(mWelfare == null) {
             mWelfare = createPagedResult();
         }
         updatePagedResult(mWelfare, page, welfare);
-        mEventBus.post(new WelfareListChangedEvent());
+        mEventBus.post(new GankListChangedEvent(viewId));
     }
 
     @Override
@@ -65,6 +66,10 @@ public class GankStateImpl implements GankState {
         return mWelfare;
     }
 
+    @Override
+    public void notifyRxError(int viewId, RxError rxError) {
+        mEventBus.post(new GankRxErrorEvent(viewId, rxError));
+    }
 
     private void updatePagedResult(MoviePagedResult result, int page, List<Gank> gankList) {
         if (page <= 1) {

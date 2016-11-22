@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/include_toolbar" />
+    <include layout="@layout/include_appbar" />
 
     <com.hawk.gank.ui.widget.flingswipe.SwipeFlingAdapterView
         android:id="@+id/swipeFlingView"

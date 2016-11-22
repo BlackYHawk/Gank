@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 
 import com.hawk.gank.features.gank.GankPresenter;
 import com.hawk.gank.features.gank.GankUiCallbacks;
+import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.util.StringUtil;
+import com.hawk.gank.util.UIHelper;
 import com.hawk.lib.base.ui.fragment.BaseTabFragment;
 import com.hawk.lib.mvp.util.Preconditions;
 
@@ -27,6 +29,11 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
     @Override
     public boolean isModal() {
         return false;
+    }
+
+    @Override
+    public void showError(RxError error) {
+        UIHelper.showToast(getActivity(), error.message());
     }
 
     @Override

@@ -19,6 +19,19 @@
     <dimen name="menu_header">150dp</dimen>
     <dimen name="menu_head">80dp</dimen>
 
+    <!--    侧边栏-->
+    <dimen name="shadow_width">20dp</dimen>
+    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="sidbar_layout_t">20dp</dimen>
+    <dimen name="sidbar_layout_head_h">100dp</dimen>
+    <dimen name="sidbar_head">60dp</dimen>
+    <dimen name="sidbar_head_margin">20dp</dimen>
+    <dimen name="sidbar_head_text_margin">10dp</dimen>
+    <dimen name="sidbar_lay_margin">22dp</dimen>
+    <dimen name="sidbar_icon">25dp</dimen>
+    <dimen name="sidbar_icon_margin">10dp</dimen>
+    <dimen name="sidbar_tv_size">14sp</dimen>
+
     <!--账户-->
     <dimen name="account_head">100dp</dimen>
     <dimen name="account_head_margin">20dp</dimen>

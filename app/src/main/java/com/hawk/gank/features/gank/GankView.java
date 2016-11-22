@@ -1,5 +1,6 @@
 package com.hawk.gank.features.gank;
 
+import com.hawk.gank.model.error.RxError;
 import com.hawk.lib.mvp.ui.view.BaseView;
 
 /**
@@ -9,5 +10,7 @@ import com.hawk.lib.mvp.ui.view.BaseView;
 public interface GankView extends BaseView<GankUiCallbacks> {
 
     GankPresenter.GankQueryType getGankQueryType();
+
+    void showError(RxError error);
 
 }

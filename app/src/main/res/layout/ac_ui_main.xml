@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/include_toolbar" />
+        <include layout="@layout/include_appbar" />
 
         <FrameLayout
-            android:id="@+id/fragmentContainer"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -28,20 +28,18 @@
             android:layout_gravity="right|bottom"
             android:src="@mipmap/ic_up"
             app:elevation="4dp"
-            app:layout_anchor="@id/fragmentContainer"
+            app:layout_anchor="@id/content"
             app:borderWidth="0dp"
             app:layout_anchorGravity="right|bottom"
             app:layout_behavior="com.hawk.gank.ui.widget.ScrollAwareFABBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigationView"
+    <FrameLayout
+        android:id="@+id/slidemenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="?attr/fitSystemWindow"
-        app:headerLayout="@layout/inclue_menu_header"
-        app:menu="@menu/menu_drawer"/>
+        android:layout_gravity="left"
+        android:fitsSystemWindows="?attr/fitSystemWindow" />
 
 </android.support.v4.widget.DrawerLayout>

@@ -3,6 +3,7 @@ package com.hawk.gank.model.gank;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
+import com.hawk.gank.model.error.RxErrorProcessor;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
 
@@ -20,16 +21,18 @@ import rx.schedulers.Schedulers;
 public class GankRepo {
     private final GankIO mGankIO;
     private final GankState mGankState;
+    private final RxErrorProcessor mRxErrorProcessor;
 
     @Inject
-    GankRepo(final GankIO gankIO, final GankState gankState) {
+    GankRepo(final GankIO gankIO, final GankState gankState, final RxErrorProcessor rxErrorProcessor) {
         this.mGankIO = gankIO;
         this.mGankState = gankState;
+        this.mRxErrorProcessor = rxErrorProcessor;
     }
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getAndroidData(@NonNull int page) {
+    public Subscription getAndroidData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getAndroidData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
@@ -37,13 +40,14 @@ public class GankRepo {
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(ganks -> mGankState.setGankAndroid(page, ganks))
-                .subscribe();
+                .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks),
+                        t -> mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError)));
     }
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getIosData(@NonNull int page) {
+    public Subscription getIosData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getIosData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
@@ -51,13 +55,14 @@ public class GankRepo {
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(ganks -> mGankState.setGankIos(page, ganks))
-                .subscribe();
+                .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks),
+                        t -> mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError)));
     }
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getMMData(@NonNull int page) {
+    public Subscription getMMData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getMMData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
@@ -65,8 +70,9 @@ public class GankRepo {
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(ganks -> mGankState.setGankWelfare(page, ganks))
-                .subscribe();
+                .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks),
+                        t -> mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError)));
     }
 
 }

@@ -15,13 +15,16 @@
         android:layout_marginLeft="@dimen/sidbar_head_margin"
         android:gravity="center_vertical">
 
-        <com.hawk.gank.ui.widget.CircleImageView
-            android:id="@+id/cvHead"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivHead"
             android:layout_width="@dimen/sidbar_head"
             android:layout_height="@dimen/sidbar_head"
-            android:src="@mipmap/default_portrait"
-            app:border_color="@color/white"
-            app:border_width="1dp"/>
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/account_head_margin"
+            app:roundAsCircle="true"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@mipmap/default_portrait"
+            app:placeholderImageScaleType="fitCenter"/>
 
     </RelativeLayout>
 

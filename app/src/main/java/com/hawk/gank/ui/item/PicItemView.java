@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.adapter.ABaseAdapter;
@@ -44,10 +43,10 @@ public class PicItemView extends ABaseAdapter.AbstractItemView<Gank> {
     public void bindingData(View convertView, Gank data) {
         tvTitle.setText("");
 
-        Glide.with(mContext)
-                .load(data.url())
-                .centerCrop()
-                .into(ivPic);
+//        Glide.with(mContext)
+//                .load(data.url())
+//                .centerCrop()
+//                .into(ivPic);
     }
 
 }

@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hawk.lib.base.R;
 import com.hawk.lib.base.ui.adapter.BaseRecyclerAdapter;
 import com.hawk.lib.base.ui.widget.layoutmanager.ILayoutManager;
@@ -18,6 +19,7 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
     public static final int ACTION_PULL_TO_REFRESH = 1;
     public static final int ACTION_LOAD_MORE_REFRESH = 2;
     public static final int ACTION_IDLE = 0;
+    private int preScrollState;
     private OnRecyclerRefreshListener listener;
     private int mCurrentState = ACTION_IDLE;
     private boolean isLoadMoreEnabled = false;
@@ -50,6 +52,26 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_IDLE://停止滑动
+                        if (Fresco.getImagePipeline().isPaused())
+                            Fresco.getImagePipeline().resume();
+                        break;
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                        if (preScrollState == RecyclerView.SCROLL_STATE_SETTLING) {
+                            //触摸滑动不需要加载
+                            Fresco.getImagePipeline().pause();
+                        } else {
+                            //触摸滑动需要加载
+                            if (Fresco.getImagePipeline().isPaused())
+                                Fresco.getImagePipeline().resume();
+                        }
+                        break;
+                    case RecyclerView.SCROLL_STATE_SETTLING://惯性滑动
+                        Fresco.getImagePipeline().pause();
+                        break;
+                }
+                preScrollState = newState;
             }
 
             @Override

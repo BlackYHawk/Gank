@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 
 import com.antfortune.freeline.FreelineCore;
 import com.avos.avoscloud.AVOSCloud;
+import com.facebook.cache.disk.DiskCacheConfig;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.stetho.Stetho;
 import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
@@ -32,6 +35,7 @@ public class AppContext extends Application implements IApplicatioin {
         _context = this;
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
+        Fresco.initialize(this, createFrescoConfig());
 
         if(BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -56,6 +60,21 @@ public class AppContext extends Application implements IApplicatioin {
     private void enabledStrictMode() {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
+    }
+
+    private ImagePipelineConfig createFrescoConfig() {
+        DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(this)
+                .setBaseDirectoryPath(getExternalCacheDir())
+                .setBaseDirectoryName("frescoCache")
+                .setMaxCacheSize(100 * 1024 * 1024)
+                .setMaxCacheSizeOnLowDiskSpace(10 * 1024 * 1024)
+                .setMaxCacheSizeOnVeryLowDiskSpace(5 * 1024 * 1024)
+                .setVersion(1)
+                .build();
+        return ImagePipelineConfig.newBuilder(this)
+                .setDownsampleEnabled(true)
+                .setMainDiskCacheConfig(mainDiskCacheConfig)
+                .build();
     }
 
     public static AppContext getInstance() {

@@ -2,7 +2,6 @@ package com.hawk.gank.features.gank;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
@@ -35,8 +34,8 @@ public class GankActivity extends BaseActivity<GankView, GankUiCallbacks, GankPr
     }
 
     @Override
-    protected void bindView(View rootView) {
-        super.bindView(rootView);
+    protected void bindView() {
+        super.bindView();
         display.setDrawerLayout(mDrawerLayout);
     }
 

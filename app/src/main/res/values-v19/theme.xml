@@ -2,6 +2,10 @@
 <resources>
 
     <style name="AppBaseTheme" parent="BaseTheme.Light">
+
+        <item name="fits_windows">true</item>
+        <item name="clip_padding">true</item>
+
         <!--Translucent system bars-->
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>

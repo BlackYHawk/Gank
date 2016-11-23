@@ -1,15 +1,15 @@
 package com.hawk.gank.features.gank.fragments;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.GankPresenter;
 import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.ui.widget.RatioImageView;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 import com.hawk.lib.base.util.ObjectUtil;
@@ -47,17 +47,13 @@ public class AndroidListFragment extends BaseGankListFragment {
 
     class GankViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.ivAverator)
-        RatioImageView ivAverator;
-        @BindView(R.id.tvTitle)
-        TextView tvTitle;
-        @BindView(R.id.tvTime)
-        TextView tvTime;
+        @BindView(R.id.ivAverator) SimpleDraweeView ivAverator;
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvTime) TextView tvTime;
 
         public GankViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            ivAverator.setOriginalSize(60, 60);
         }
 
         @Override
@@ -69,10 +65,7 @@ public class AndroidListFragment extends BaseGankListFragment {
             tvTitle.setText(mm.description());
             tvTime.setText(publishTime);
             if(!ObjectUtil.isEmpty(mm.images())) {
-                Glide.with(ivAverator.getContext())
-                        .load(mm.images().get(0))
-                        .centerCrop()
-                        .into(ivAverator);
+                ivAverator.setImageURI(Uri.parse(mm.images().get(0)));
             }
         }
 

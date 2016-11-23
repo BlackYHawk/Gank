@@ -33,7 +33,7 @@
     <dimen name="sidbar_tv_size">14sp</dimen>
 
     <!--账户-->
-    <dimen name="account_head">100dp</dimen>
+    <dimen name="account_head">60dp</dimen>
     <dimen name="account_head_margin">20dp</dimen>
     <dimen name="account_input_margin_t">10dp</dimen>
     <dimen name="account_input_margin_lr">20dp</dimen>

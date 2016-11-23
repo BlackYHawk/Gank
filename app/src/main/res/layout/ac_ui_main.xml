@@ -5,7 +5,7 @@
     android:id="@+id/drawLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="?attr/fitSystemWindow">
+    android:fitsSystemWindows="?attr/fits_windows">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -35,11 +35,19 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <FrameLayout
+    <!--<FrameLayout-->
+        <!--android:id="@+id/slidemenu"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="left"-->
+        <!--android:fitsSystemWindows="?attr/fitSystemWindow" />-->
+
+    <com.hawk.gank.widget.ScrimInsetsFrameLayout
         android:id="@+id/slidemenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:fitsSystemWindows="?attr/fitSystemWindow" />
+        android:fitsSystemWindows="?attr/fits_windows"
+        app:appInsetForeground="#4000"/>
 
 </android.support.v4.widget.DrawerLayout>

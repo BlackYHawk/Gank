@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.ui.activity.pic.PicActivity;
@@ -50,10 +49,10 @@ public class MMAdapter extends RecyclerView.Adapter<MMAdapter.ViewHolder> {
 
         viewHolder.titleView.setText("");
 
-        Glide.with(mContext)
-                .load(mm.url())
-                .centerCrop()
-                .into(viewHolder.mmView);
+//        Glide.with(mContext)
+//                .load(mm.url())
+//                .centerCrop()
+//                .into(viewHolder.mmView);
     }
 
     @Override

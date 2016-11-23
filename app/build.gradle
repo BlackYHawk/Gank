@@ -64,10 +64,8 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["systembartint"]
     compile rootProject.ext.dependencies["avoscloud-sdk"]
     compile rootProject.ext.dependencies["avoscloud-statistics"]
-    compile rootProject.ext.dependencies["glide"]
 
     annotationProcessor rootProject.ext.aptDependencies["dagger-compiler"]
     annotationProcessor rootProject.ext.aptDependencies["butterknife-compiler"]

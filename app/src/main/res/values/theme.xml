@@ -8,9 +8,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="windowActionBar">false</item>
-        <item name="fitSystemWindow">false</item>
-
+        <item name="fits_windows">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
@@ -20,14 +19,13 @@
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
     <style name="Widget.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="contentInsetStart">24dp</item>
     </style>
 
     <style name="AppTheme.Translucent">

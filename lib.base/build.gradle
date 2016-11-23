@@ -46,6 +46,9 @@ dependencies {
     compile rootProject.ext.dependencies["butterknife"]
     compile rootProject.ext.dependencies["sqlDelightRuntime"]
 
+    compile rootProject.ext.dependencies["fresco"]
+    compile rootProject.ext.dependencies["systembartint"]
+
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["retrofit"]
     compile rootProject.ext.dependencies["converter-gson"]

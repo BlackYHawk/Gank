@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="fitSystemWindow" format="boolean" />
-    <attr name="clipPadding" format="boolean" />
+    <attr name="fits_windows" format="boolean" />
+    <attr name="clip_padding" format="boolean" />
+
+    <declare-styleable name="ScrimInsetsView">
+        <attr name="appInsetForeground" format="reference|color" />
+    </declare-styleable>
 
 </resources>

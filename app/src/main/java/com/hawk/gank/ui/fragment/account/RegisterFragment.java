@@ -21,7 +21,6 @@ import android.widget.EditText;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.SaveCallback;
-import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.AccountBean;
 import com.hawk.gank.data.entity.AccountType;
@@ -279,7 +278,7 @@ public class RegisterFragment extends BaseAccountFragment {
                         String url = avFile.getUrl();
 
                         bean.setHeadUrl(url);
-                        Glide.with(activity).load(new File(path)).into(ivHead);
+                        //Glide.with(activity).load(new File(path)).into(ivHead);
                     }
                     else {
                         UIHelper.showToast(activity, e.getMessage());

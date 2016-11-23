@@ -1,15 +1,15 @@
 package com.hawk.gank.features.gank.fragments;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.GankPresenter;
 import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.ui.widget.RatioImageView;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;
@@ -47,15 +47,12 @@ public class WelfareListFragment extends BaseGankListFragment {
 
     class GankViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.iv_mm)
-        RatioImageView mmView;
-        @BindView(R.id.tv_title)
-        TextView titleView;
+        @BindView(R.id.iv_mm) SimpleDraweeView mmView;
+        @BindView(R.id.tv_title) TextView titleView;
 
         public GankViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            mmView.setOriginalSize(50, 50);
         }
 
         @Override
@@ -66,11 +63,7 @@ public class WelfareListFragment extends BaseGankListFragment {
                     "..." : mm.description();
 
             titleView.setText(text);
-
-            Glide.with(mmView.getContext())
-                    .load(mm.url())
-                    .centerCrop()
-                    .into(mmView);
+            mmView.setImageURI(Uri.parse(mm.url()));
         }
 
     }

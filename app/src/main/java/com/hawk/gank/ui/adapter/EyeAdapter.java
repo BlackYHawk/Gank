@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.hawk.gank.R;
 import com.hawk.gank.data.entity.ItemBean;
 import com.hawk.gank.ui.activity.video.VideoShowActivity;
@@ -60,10 +59,10 @@ public class EyeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String text = item.getData().getTitle();
             holder.tvTitle.setText(text);
 
-            Glide.with(mContext)
-                    .load(item.getData().getCover().getDetail())
-                    .centerCrop()
-                    .into(holder.ivCover);
+//            Glide.with(mContext)
+//                    .load(item.getData().getCover().getDetail())
+//                    .centerCrop()
+//                    .into(holder.ivCover);
         }
         else if(viewHolder instanceof CategoryViewHolder) {
             CategoryViewHolder holder = (CategoryViewHolder) viewHolder;

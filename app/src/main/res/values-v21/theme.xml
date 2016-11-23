@@ -3,8 +3,8 @@
 
     <style name="AppBaseTheme" parent="BaseTheme.Light">
 
-        <item name="fitSystemWindow">true</item>
-        <item name="clipPadding">true</item>
+        <item name="fits_windows">true</item>
+        <item name="clip_padding">true</item>
         <!--Translucent system bars-->
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>

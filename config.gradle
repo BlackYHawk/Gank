@@ -44,6 +44,7 @@ ext {
                     "rxlifecycle-components"   : "com.trello:rxlifecycle-components:0.8.0",
                     "rxlifecycle-android"      : "com.trello:rxlifecycle-android:0.8.0",
 
+                    "fresco"                   : "com.facebook.fresco:fresco:0.14.1",
                     "gson"                     : "com.google.code.gson:gson:2.8.0",
                     "commons-io"               : "commons-io:commons-io:1.4",
                     "glide"                    : "com.github.bumptech.glide:glide:3.7.0",

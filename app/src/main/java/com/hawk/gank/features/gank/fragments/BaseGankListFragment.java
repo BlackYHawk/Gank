@@ -29,6 +29,13 @@ public abstract class BaseGankListFragment extends BaseListFragment<Gank, GankPr
     }
 
     @Override
+    public void scrollToTop() {
+        if(isVisible() && getUserVisibleHint()) {
+            recycler.setSelection(0);
+        }
+    }
+
+    @Override
     public void onRefresh(int action) {
         if (action == PullRecycler.ACTION_PULL_TO_REFRESH) {
             getCallbacks().onPulledToTop();

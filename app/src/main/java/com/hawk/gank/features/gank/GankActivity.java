@@ -2,6 +2,7 @@ package com.hawk.gank.features.gank;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
@@ -10,6 +11,7 @@ import com.hawk.gank.features.gank.fragments.SideMenuFragment;
 import com.hawk.lib.base.ui.activity.BaseActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.hawk.lib.base.ui.fragment.SupportFragmentTransactionBuilder.transaction;
 
@@ -49,6 +51,11 @@ public class GankActivity extends BaseActivity<GankView, GankUiCallbacks, GankPr
         safeCommit(transaction(getSupportFragmentManager())
                 .add(R.id.content, new GankTabFragment(), CURRENT_FRAGMENT)
                 .build());
+    }
+
+    @OnClick(R.id.fabBtn)
+    void onFabOnClick(View view) {
+        mPresenter.onGankFabClick();
     }
 
     @Override

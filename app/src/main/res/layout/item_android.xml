@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@drawable/selectable_background" >
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/ivAverator"
@@ -13,7 +14,7 @@
         android:adjustViewBounds="true"
         app:roundAsCircle="false"
         app:actualImageScaleType="centerCrop"
-        app:placeholderImage="@mipmap/ic_launcher"
+        app:placeholderImage="@mipmap/ic_doc"
         app:placeholderImageScaleType="fitCenter" />
 
     <LinearLayout

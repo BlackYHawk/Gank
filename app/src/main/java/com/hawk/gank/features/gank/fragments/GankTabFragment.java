@@ -1,7 +1,11 @@
 package com.hawk.gank.features.gank.fragments;
 
 import android.support.v4.app.Fragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import com.hawk.gank.R;
 import com.hawk.gank.features.gank.GankPresenter;
 import com.hawk.gank.features.gank.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
@@ -66,8 +70,30 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
                 return IosListFragment.newInstance();
             case WELFARE:
                 return WelfareListFragment.newInstance();
+            case FROANT:
+                return FrontListFragment.newInstance();
+            case EXPAND:
+                return ExpandListFragment.newInstance();
+            case VIDEO:
+                return VideoListFragment.newInstance();
         }
         return null;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_gank_tab, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.filter :
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

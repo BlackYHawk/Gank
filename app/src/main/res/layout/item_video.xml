@@ -44,7 +44,7 @@
             android:adjustViewBounds="true"
             app:roundAsCircle="false"
             app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@mipmap/ic_pic"
+            app:placeholderImage="@mipmap/ic_video"
             app:placeholderImageScaleType="fitCenter" />
 
         <TextView

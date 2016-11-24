@@ -63,11 +63,22 @@ public class IosListFragment extends BaseGankListFragment {
             Gank mm = mDataList.get(position);
 
             String publishTime = StringUtil.formatDisplayTime(mm.publishedAt());
+            String description = mm.description().length() > limit ? mm.description().substring(0, limit) +
+                    "..." : mm.description();
 
-            tvTitle.setText(mm.description());
+            tvTitle.setText(description);
             tvTime.setText(publishTime);
             if(!ObjectUtil.isEmpty(mm.images())) {
                 ivAverator.setImageURI(Uri.parse(mm.images().get(0)));
+            }
+        }
+
+        @Override
+        public void onItemClick(View view, int position) {
+            if (hasCallbacks()) {
+                Gank mm = mDataList.get(position);
+
+                getCallbacks().showGankWeb(mm.url());
             }
         }
 

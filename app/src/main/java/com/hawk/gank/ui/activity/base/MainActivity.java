@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity {
 
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();
+        ft.replace(R.id.content, fragment, FRAGMENT_TAG).commit();
     }
 
 

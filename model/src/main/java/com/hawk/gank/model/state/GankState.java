@@ -24,6 +24,18 @@ public interface GankState extends BaseState {
 
     MoviePagedResult getGankWelfare();
 
+    void setGankFront(int viewId, int page, List<Gank> gankList);
+
+    MoviePagedResult getGankFront();
+
+    void setGankExpand(int viewId, int page, List<Gank> gankList);
+
+    MoviePagedResult getGankExpand();
+
+    void setGankVideo(int viewId, int page, List<Gank> gankList);
+
+    MoviePagedResult getGankVideo();
+
     void notifyRxError(int viewId, RxError rxError);
 
     class GankListChangedEvent extends UiCausedEvent {
@@ -37,6 +49,8 @@ public interface GankState extends BaseState {
             super(callingId, item);
         }
     }
+
+    class GankFabClickEvent {}
 
     class MoviePagedResult extends PagedResult<Gank> {}
 

@@ -10,13 +10,22 @@ import rx.Observable;
 public interface GankIO {
     int PAGE_SIZE = 10;
 
-    @GET("data/福利/" + PAGE_SIZE + "/{page}")
-    Observable<GankResult> getMMData(@Path("page") int page);
-
     @GET("data/Android/" + PAGE_SIZE + "/{page}")
     Observable<GankResult> getAndroidData(@Path("page") int page);
 
     @GET("data/iOS/" + PAGE_SIZE + "/{page}")
     Observable<GankResult> getIosData(@Path("page") int page);
+
+    @GET("data/福利/" + PAGE_SIZE + "/{page}")
+    Observable<GankResult> getMMData(@Path("page") int page);
+
+    @GET("data/前端/" + PAGE_SIZE + "/{page}")
+    Observable<GankResult> getFrontData(@Path("page") int page);
+
+    @GET("data/拓展资源/" + PAGE_SIZE + "/{page}")
+    Observable<GankResult> getExpandData(@Path("page") int page);
+
+    @GET("data/休息视频/" + PAGE_SIZE + "/{page}")
+    Observable<GankResult> getVideoData(@Path("page") int page);
 
 }

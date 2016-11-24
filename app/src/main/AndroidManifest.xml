@@ -37,8 +37,10 @@
         <activity android:name="com.hawk.gank.ui.activity.account.LoginActivity" />
         <activity android:name="com.hawk.gank.ui.activity.account.InfoActivity"
             android:theme="@style/AppTheme.Translucent" />
-        <activity android:name="com.hawk.gank.ui.activity.base.FragmentContainerActivity" />
+        <activity android:name="com.hawk.gank.features.extend.FragmentContainerActivity" />
         <activity android:name="com.hawk.gank.ui.activity.pic.PicActivity" />
+        <activity android:name="com.hawk.gank.features.extend.WebActivity"  />
+
         <!-- Don't forgot InitActivity -->
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"

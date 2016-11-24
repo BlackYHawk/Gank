@@ -1,9 +1,7 @@
 package com.hawk.gank.features.gank;
 
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.model.gank.GankRepo;
@@ -70,17 +68,24 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         mGankState.unregisterForEvent(this);
     }
 
+    public void onGankFabClick() {
+        for (V view : getViews()) {
+            if (view instanceof GankListView) {
+                ((GankListView) view).scrollToTop();
+            }
+        }
+    }
+
     @Override
     protected GankUiCallbacks createUiCallbacks(V view) {
         return new GankUiCallbacks() {
+
             @Override
-            public void showGankDetail(Gank gank, Bundle bundle) {
-                Preconditions.checkNotNull(gank, "gank cannot be null");
+            public void showGankWeb(String url) {
+                Preconditions.checkNotNull(url, "url cannot be null");
 
                 GankDisplay display = (GankDisplay) getDisplay();
-                if (!TextUtils.isEmpty(gank._id())) {
-                    display.showGankDetail(gank._id(), bundle);
-                }
+                display.showGankWeb(url);
             }
 
             @Override
@@ -95,6 +100,15 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                             break;
                         case WELFARE :
                             fetchWelfareList(getId(view), 1);
+                            break;
+                        case FROANT :
+                            fetchFrontList(getId(view), 1);
+                            break;
+                        case EXPAND :
+                            fetchExpandList(getId(view), 1);
+                            break;
+                        case VIDEO :
+                            fetchVideoList(getId(view), 1);
                             break;
                     }
                 }
@@ -122,6 +136,24 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                                 fetchWelfareList(getId(view), welfare.page + 1);
                             }
                             break;
+                        case FROANT :
+                            GankState.MoviePagedResult front = mGankState.getGankFront();
+                            if(front != null) {
+                                fetchFrontList(getId(view), front.page + 1);
+                            }
+                            break;
+                        case EXPAND :
+                            GankState.MoviePagedResult expand = mGankState.getGankExpand();
+                            if(expand != null) {
+                                fetchExpandList(getId(view), expand.page + 1);
+                            }
+                            break;
+                        case VIDEO :
+                            GankState.MoviePagedResult video = mGankState.getGankVideo();
+                            if(video != null) {
+                                fetchVideoList(getId(view), video.page + 1);
+                            }
+                            break;
                     }
                 }
             }
@@ -144,6 +176,15 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                     break;
                 case WELFARE:
                     fetchWelfareListIfNeeded(viewId, 1);
+                    break;
+                case FROANT:
+                    fetchFrontListIfNeeded(viewId, 1);
+                    break;
+                case EXPAND:
+                    fetchExpandListIfNeeded(viewId, 1);
+                    break;
+                case VIDEO:
+                    fetchVideoListIfNeeded(viewId, 1);
                     break;
             }
         }
@@ -177,6 +218,24 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
+    private void fetchFrontListIfNeeded(@NonNull int viewId, @NonNull int page) {
+        if (ObjectUtil.isEmpty(mGankState.getGankFront())) {
+            fetchFrontList(viewId, page);
+        }
+    }
+
+    private void fetchExpandListIfNeeded(@NonNull int viewId, @NonNull int page) {
+        if (ObjectUtil.isEmpty(mGankState.getGankExpand())) {
+            fetchExpandList(viewId, page);
+        }
+    }
+
+    private void fetchVideoListIfNeeded(@NonNull int viewId, @NonNull int page) {
+        if (ObjectUtil.isEmpty(mGankState.getGankVideo())) {
+            fetchVideoList(viewId, page);
+        }
+    }
+
     private void fetchAndroidList(@NonNull int viewId, @NonNull int page) {
         addUtilStop(mGankRepo.getAndroidData(viewId, page));
     }
@@ -189,8 +248,21 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         addUtilStop(mGankRepo.getMMData(viewId, page));
     }
 
+    private void fetchFrontList(@NonNull int viewId, @NonNull int page) {
+        addUtilStop(mGankRepo.getFrontData(viewId, page));
+    }
+
+    private void fetchExpandList(@NonNull int viewId, @NonNull int page) {
+        addUtilStop(mGankRepo.getExpandData(viewId, page));
+    }
+
+    private void fetchVideoList(@NonNull int viewId, @NonNull int page) {
+        addUtilStop(mGankRepo.getVideoData(viewId, page));
+    }
+
     private void populateTabView(GankTabView view) {
-        view.setTabs(GankTab.ANDROID, GankTab.IOS, GankTab.WELFARE);
+        view.setTabs(GankTab.ANDROID, GankTab.IOS, GankTab.FROANT, GankTab.EXPAND, GankTab.WELFARE,
+                GankTab.VIDEO);
     }
 
     private void populateListView(GankListView view) {
@@ -215,6 +287,24 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                 GankState.MoviePagedResult welfare = mGankState.getGankWelfare();
                 if (welfare != null) {
                     items = welfare.items;
+                }
+                break;
+            case FROANT:
+                GankState.MoviePagedResult front = mGankState.getGankFront();
+                if (front != null) {
+                    items = front.items;
+                }
+                break;
+            case EXPAND:
+                GankState.MoviePagedResult expand = mGankState.getGankExpand();
+                if (expand != null) {
+                    items = expand.items;
+                }
+                break;
+            case VIDEO:
+                GankState.MoviePagedResult video = mGankState.getGankVideo();
+                if (video != null) {
+                    items = video.items;
                 }
                 break;
         }
@@ -270,7 +360,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     }
 
     public interface GankListView extends BaseGankListView<Gank> {
-
+        void scrollToTop();
     }
 
     public enum GankQueryType {

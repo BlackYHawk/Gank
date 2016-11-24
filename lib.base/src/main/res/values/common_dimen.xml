@@ -4,6 +4,6 @@
     <dimen name="common_tab_height">48dp</dimen>
     <dimen name="common_spacing">8dp</dimen>
     <dimen name="common_indicator_height">2dp</dimen>
-    <dimen name="common_indicator_start">10dp</dimen>
+    <dimen name="common_indicator_start">0dp</dimen>
 
 </resources>

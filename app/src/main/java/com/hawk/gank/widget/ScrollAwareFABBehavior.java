@@ -17,7 +17,7 @@
  * along with Meizhi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.hawk.gank.ui.widget;
+package com.hawk.gank.widget;
 
 import android.content.Context;
 import android.os.Build;

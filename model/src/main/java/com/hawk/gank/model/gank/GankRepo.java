@@ -75,4 +75,49 @@ public class GankRepo {
                                 rxError -> mGankState.notifyRxError(viewId, rxError)));
     }
 
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription getFrontData(@NonNull int viewId, @NonNull int page) {
+        return mGankIO.getFrontData(page)
+                .subscribeOn(Schedulers.io())
+                .map(GankResult::results)
+                .flatMap(Observable::from)
+                .toSortedList((gankData1, gankData2) ->
+                        gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks),
+                        t -> mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription getExpandData(@NonNull int viewId, @NonNull int page) {
+        return mGankIO.getExpandData(page)
+                .subscribeOn(Schedulers.io())
+                .map(GankResult::results)
+                .flatMap(Observable::from)
+                .toSortedList((gankData1, gankData2) ->
+                        gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks),
+                        t -> mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription getVideoData(@NonNull int viewId, @NonNull int page) {
+        return mGankIO.getVideoData(page)
+                .subscribeOn(Schedulers.io())
+                .map(GankResult::results)
+                .flatMap(Observable::from)
+                .toSortedList((gankData1, gankData2) ->
+                        gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks),
+                        t -> mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+    }
+
 }

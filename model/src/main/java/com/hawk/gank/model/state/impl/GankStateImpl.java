@@ -18,6 +18,9 @@ public class GankStateImpl implements GankState {
     private MoviePagedResult mAndroid;
     private MoviePagedResult mIos;
     private MoviePagedResult mWelfare;
+    private MoviePagedResult mFront;
+    private MoviePagedResult mExpand;
+    private MoviePagedResult mVideo;
 
     @Inject
     public GankStateImpl(final Bus bus) {
@@ -64,6 +67,48 @@ public class GankStateImpl implements GankState {
     @Override
     public MoviePagedResult getGankWelfare() {
         return mWelfare;
+    }
+
+    @Override
+    public void setGankFront(int viewId, int page, List<Gank> gankList) {
+        if(mFront == null) {
+            mFront = createPagedResult();
+        }
+        updatePagedResult(mFront, page, gankList);
+        mEventBus.post(new GankListChangedEvent(viewId));
+    }
+
+    @Override
+    public MoviePagedResult getGankFront() {
+        return mFront;
+    }
+
+    @Override
+    public void setGankExpand(int viewId, int page, List<Gank> gankList) {
+        if(mExpand == null) {
+            mExpand = createPagedResult();
+        }
+        updatePagedResult(mExpand, page, gankList);
+        mEventBus.post(new GankListChangedEvent(viewId));
+    }
+
+    @Override
+    public MoviePagedResult getGankExpand() {
+        return mExpand;
+    }
+
+    @Override
+    public void setGankVideo(int viewId, int page, List<Gank> gankList) {
+        if(mVideo == null) {
+            mVideo = createPagedResult();
+        }
+        updatePagedResult(mVideo, page, gankList);
+        mEventBus.post(new GankListChangedEvent(viewId));
+    }
+
+    @Override
+    public MoviePagedResult getGankVideo() {
+        return mVideo;
     }
 
     @Override

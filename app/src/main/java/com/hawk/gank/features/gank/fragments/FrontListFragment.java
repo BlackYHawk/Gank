@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
  * Created by heyong on 2016/11/7.
  */
 
-public class AndroidListFragment extends BaseGankListFragment {
+public class FrontListFragment extends BaseGankListFragment {
 
-    public static AndroidListFragment newInstance() {
-        AndroidListFragment fragment = new AndroidListFragment();
+    public static FrontListFragment newInstance() {
+        FrontListFragment fragment = new FrontListFragment();
 
         return fragment;
     }
@@ -33,7 +33,7 @@ public class AndroidListFragment extends BaseGankListFragment {
 
     @Override
     public GankPresenter.GankQueryType getGankQueryType() {
-        return GankPresenter.GankQueryType.ANDROID;
+        return GankPresenter.GankQueryType.FROANT;
     }
 
     @Override

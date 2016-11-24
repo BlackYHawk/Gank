@@ -102,6 +102,8 @@ public abstract class BaseListFragment<T extends Parcelable, V extends BaseView<
         public boolean isSectionHeader(int position) {
             return BaseListFragment.this.isSectionHeader(position);
         }
+
+
     }
 
 }

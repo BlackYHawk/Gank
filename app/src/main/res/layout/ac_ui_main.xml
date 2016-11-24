@@ -31,16 +31,9 @@
             app:layout_anchor="@id/content"
             app:borderWidth="0dp"
             app:layout_anchorGravity="right|bottom"
-            app:layout_behavior="com.hawk.gank.ui.widget.ScrollAwareFABBehavior"/>
+            app:layout_behavior="com.hawk.gank.widget.ScrollAwareFABBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/slidemenu"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="left"-->
-        <!--android:fitsSystemWindows="?attr/fitSystemWindow" />-->
 
     <com.hawk.gank.widget.ScrimInsetsFrameLayout
         android:id="@+id/slidemenu"

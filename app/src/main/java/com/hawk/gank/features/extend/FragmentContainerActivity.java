@@ -1,4 +1,4 @@
-package com.hawk.gank.ui.activity.base;
+package com.hawk.gank.features.extend;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +8,14 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.hawk.gank.R;
+import com.hawk.lib.base.ui.activity.ExtendActivity;
 
 import java.lang.reflect.Method;
 
 /**
  * Created by lan on 2016/7/6.
  */
-public class FragmentContainerActivity extends BaseActivity {
+public class FragmentContainerActivity extends ExtendActivity {
     public static final String FRAGMENT_TAG = "FRAGMENT_CONTAINER";
 
     /**
@@ -41,7 +42,6 @@ public class FragmentContainerActivity extends BaseActivity {
             return;
         }
 
-        int contentId = R.layout.ac_ui_fragment_container;
         Bundle args = (Bundle) getIntent().getBundleExtra("args");
 
         Fragment fragment = null;
@@ -65,12 +65,20 @@ public class FragmentContainerActivity extends BaseActivity {
             }
         }
 
-        setContentView(contentId);
 
         if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, fragment, FRAGMENT_TAG).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.content, fragment, FRAGMENT_TAG).commit();
         }
     }
 
+    @Override
+    protected boolean autoBindViews() {
+        return false;
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.ac_ui_fragment_container;
+    }
 }
 

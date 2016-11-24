@@ -13,7 +13,7 @@
     <string name="ios_title">IOS</string>
     <string name="welfare_title">福利</string>
     <string name="video_title">视频</string>
-    <string name="front_title">Web前端</string>
+    <string name="front_title">前端</string>
     <string name="expand_title">其他扩展</string>
 
     <!--账户-->
@@ -37,6 +37,7 @@
     <string name="menu_pic">图片</string>
     <string name="menu_video">视频</string>
     <string name="menu_setting">设置</string>
+    <string name="menu_filter">筛选</string>
 
     <string name="menu_login">登录</string>
     <string name="menu_register">注册</string>

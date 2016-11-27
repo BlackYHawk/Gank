@@ -1,4 +1,4 @@
-package com.hawk.gank.features.extend;
+package com.hawk.gank.features.gank.detail;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.activity.ExtendActivity;
@@ -16,9 +17,8 @@ import butterknife.BindView;
 /**
  * Created by lan on 2016/8/10.
  */
-public class WebActivity extends ExtendActivity {
-    private static final String TAG = WebActivity.class.getSimpleName();
-    private static final String js_tag = "JavaScriptInterface";
+public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailComponent> {
+    private static final String TAG = DetailWebActivity.class.getSimpleName();
     @BindView(R.id.webview) ProgressWebView webview;
     private String url;
 
@@ -55,7 +55,7 @@ public class WebActivity extends ExtendActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_web, menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
         return true;
     }
 
@@ -69,6 +69,9 @@ public class WebActivity extends ExtendActivity {
                 else {
                     finish();
                 }
+                break;
+            case R.id.collect :
+
                 break;
             case R.id.close :
                 finish();
@@ -99,7 +102,12 @@ public class WebActivity extends ExtendActivity {
     }
 
     @Override
+    protected void initializeDependence() {
+        component = AppContext.getInstance().appComponent().detailComponent(getActModule());
+    }
+
+    @Override
     protected int getLayoutRes() {
-        return R.layout.ac_ui_web;
+        return R.layout.ac_ui_detail_web;
     }
 }

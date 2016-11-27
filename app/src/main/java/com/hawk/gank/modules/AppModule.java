@@ -1,6 +1,7 @@
 package com.hawk.gank.modules;
 
 import android.app.Application;
+import android.content.Context;
 
 import javax.inject.Singleton;
 
@@ -21,6 +22,12 @@ public class AppModule {
     @Provides
     @Singleton
     public Application provideApplicationContext() {
+        return application;
+    }
+
+    @Singleton
+    @Provides
+    Context provideContext() {
         return application;
     }
 

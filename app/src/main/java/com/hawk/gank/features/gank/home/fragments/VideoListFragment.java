@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank.fragments;
+package com.hawk.gank.features.gank.home.fragments;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.GankPresenter;
+import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
@@ -19,10 +19,10 @@ import butterknife.ButterKnife;
  * Created by heyong on 2016/11/7.
  */
 
-public class WelfareListFragment extends BaseGankListFragment {
+public class VideoListFragment extends BaseGankListFragment {
 
-    public static WelfareListFragment newInstance() {
-        WelfareListFragment fragment = new WelfareListFragment();
+    public static VideoListFragment newInstance() {
+        VideoListFragment fragment = new VideoListFragment();
 
         return fragment;
     }
@@ -31,7 +31,7 @@ public class WelfareListFragment extends BaseGankListFragment {
 
     @Override
     public GankPresenter.GankQueryType getGankQueryType() {
-        return GankPresenter.GankQueryType.WELFARE;
+        return GankPresenter.GankQueryType.VIDEO;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class WelfareListFragment extends BaseGankListFragment {
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mm, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video, parent, false);
         return new GankViewHolder(view);
     }
 
@@ -66,5 +66,13 @@ public class WelfareListFragment extends BaseGankListFragment {
             mmView.setImageURI(Uri.parse(mm.url()));
         }
 
+        @Override
+        public void onItemClick(View view, int position) {
+            if (hasCallbacks()) {
+                Gank mm = mDataList.get(position);
+
+                getCallbacks().showGankWeb(mm.url());
+            }
+        }
     }
 }

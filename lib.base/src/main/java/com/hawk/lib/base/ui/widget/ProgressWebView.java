@@ -20,7 +20,6 @@ import timber.log.Timber;
 
 public class ProgressWebView extends WebView {
     private static final String TAG = ProgressWebView.class.getSimpleName();
-    private static final String js_tag = "JavaScriptInterface";
     private Context context;
     private ProgressBar progressbar;
     private OnWebInteractive onInteractive;

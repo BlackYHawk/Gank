@@ -3,6 +3,7 @@ package com.hawk.gank.model.state.impl;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.model.state.GankState;
+import com.hawk.lib.base.util.ObjectUtil;
 import com.squareup.otto.Bus;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 public class GankStateImpl implements GankState {
     private final Bus mEventBus;
+    private List<String> mTypeList;
     private MoviePagedResult mAndroid;
     private MoviePagedResult mIos;
     private MoviePagedResult mWelfare;
@@ -25,6 +27,18 @@ public class GankStateImpl implements GankState {
     @Inject
     public GankStateImpl(final Bus bus) {
         this.mEventBus = bus;
+    }
+
+    @Override
+    public void setTypeList(List<String> typeList) {
+        if(!ObjectUtil.equal(mTypeList, typeList)) {
+            mTypeList = typeList;
+        }
+    }
+
+    @Override
+    public List<String> getTypeList() {
+        return mTypeList;
     }
 
     @Override

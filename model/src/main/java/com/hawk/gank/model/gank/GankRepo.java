@@ -3,6 +3,7 @@ package com.hawk.gank.model.gank;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
+import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.error.RxErrorProcessor;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
@@ -20,12 +21,15 @@ import rx.schedulers.Schedulers;
 @ActivityScope
 public class GankRepo {
     private final GankIO mGankIO;
+    private final GankDbDelegate mGankDb;
     private final GankState mGankState;
     private final RxErrorProcessor mRxErrorProcessor;
 
     @Inject
-    GankRepo(final GankIO gankIO, final GankState gankState, final RxErrorProcessor rxErrorProcessor) {
+    GankRepo(final GankIO gankIO, final GankDbDelegate gankDb, final GankState gankState,
+             final RxErrorProcessor rxErrorProcessor) {
         this.mGankIO = gankIO;
+        this.mGankDb = gankDb;
         this.mGankState = gankState;
         this.mRxErrorProcessor = rxErrorProcessor;
     }
@@ -39,6 +43,7 @@ public class GankRepo {
                 .flatMap(Observable::from)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,
@@ -54,6 +59,7 @@ public class GankRepo {
                 .flatMap(Observable::from)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,
@@ -69,6 +75,7 @@ public class GankRepo {
                 .flatMap(Observable::from)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,
@@ -84,6 +91,7 @@ public class GankRepo {
                 .flatMap(Observable::from)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,
@@ -99,6 +107,7 @@ public class GankRepo {
                 .flatMap(Observable::from)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,
@@ -114,6 +123,7 @@ public class GankRepo {
                 .flatMap(Observable::from)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
+                .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,

@@ -1,7 +1,7 @@
-package com.hawk.gank.features.gank.fragments;
+package com.hawk.gank.features.gank.home.fragments;
 
-import com.hawk.gank.features.gank.GankPresenter;
-import com.hawk.gank.features.gank.GankUiCallbacks;
+import com.hawk.gank.features.gank.home.GankPresenter;
+import com.hawk.gank.features.gank.home.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.util.UIHelper;

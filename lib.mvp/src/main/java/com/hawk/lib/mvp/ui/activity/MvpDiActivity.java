@@ -27,7 +27,6 @@ public abstract class MvpDiActivity<V extends BaseView<VC>, VC, P extends BasePr
 		initializeDependence();
 		initializDisplay();
 		Preconditions.checkNotNull(component, "component not inited");
-		Preconditions.checkNotNull(display, "display not inited");
 		mPresenter = component.presenter();
 		mPresenterDelegate = new BasePresenterDelegate<V, VC, P>() {
 			@Override
@@ -59,7 +58,7 @@ public abstract class MvpDiActivity<V extends BaseView<VC>, VC, P extends BasePr
 
 	protected abstract void initializeDependence();
 
-	protected abstract void initializDisplay();
+	protected void initializDisplay() {}
 
 	@Override
 	public BasePresenterDelegate<V, VC, P> getPresenterDelegate() {

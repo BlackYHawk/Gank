@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank;
+package com.hawk.gank.features.gank.home;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.fragments.GankTabFragment;
-import com.hawk.gank.features.gank.fragments.SideMenuFragment;
+import com.hawk.gank.features.gank.home.fragments.GankTabFragment;
+import com.hawk.gank.features.gank.home.fragments.SideMenuFragment;
 import com.hawk.lib.base.ui.activity.BaseActivity;
 
 import butterknife.BindView;

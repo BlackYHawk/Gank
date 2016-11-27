@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank.fragments;
+package com.hawk.gank.features.gank.home.fragments;
 
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -6,8 +6,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.GankPresenter;
-import com.hawk.gank.features.gank.GankUiCallbacks;
+import com.hawk.gank.features.gank.home.GankPresenter;
+import com.hawk.gank.features.gank.home.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.gank.util.UIHelper;
@@ -96,4 +96,8 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected boolean shouldHaveOptionsMenu() {
+        return true;
+    }
 }

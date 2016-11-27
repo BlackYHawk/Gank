@@ -1,0 +1,13 @@
+import org.threeten.bp.ZonedDateTime;
+
+CREATE TABLE Gank_Collect (
+    _id TEXT NOT NULL PRIMARY KEY,
+    collectedAt TEXT AS ZonedDateTime NOT NULL,
+    CONSTRAINT id_Fk FOREIGN KEY(_id) REFERENCES Gank(_id)
+);
+
+select_page:
+SELECT * FROM Gank_Collect limit ? offset ?;
+
+clear:
+DELETE FROM Gank_Collect WHERE 1;

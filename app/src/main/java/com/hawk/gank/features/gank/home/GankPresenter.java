@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank;
+package com.hawk.gank.features.gank.home;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;

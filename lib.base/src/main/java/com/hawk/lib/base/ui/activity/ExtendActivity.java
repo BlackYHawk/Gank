@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.hawk.lib.base.R;
+import com.hawk.lib.base.module.ActModule;
 import com.hawk.lib.base.ui.fragment.SupportFragmentTransactionDelegate;
 import com.hawk.lib.base.ui.fragment.TransactionCommitter;
+import com.hawk.lib.base.ui.presenter.ExtendPresenter;
+import com.hawk.lib.mvp.component.BaseComponent;
+import com.hawk.lib.mvp.rx.BaseRxPresenter;
+import com.hawk.lib.mvp.ui.activity.MvpDiActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,7 +23,10 @@ import butterknife.Unbinder;
  * Created by lan on 2016/10/27.
  */
 
-public abstract class ExtendActivity extends AppCompatActivity implements TransactionCommitter {
+public abstract class ExtendActivity<P extends BaseRxPresenter<ExtendPresenter.ExtendView, ExtendPresenter.ExtendCallbacks>,
+        C extends BaseComponent<ExtendPresenter.ExtendView, ExtendPresenter.ExtendCallbacks, P>>
+        extends MvpDiActivity<ExtendPresenter.ExtendView, ExtendPresenter.ExtendCallbacks, P, C>
+        implements ExtendPresenter.ExtendCallbacks, TransactionCommitter {
     private final SupportFragmentTransactionDelegate mSupportFragmentTransactionDelegate
             = new SupportFragmentTransactionDelegate();
     private volatile boolean mIsResumed;
@@ -30,6 +37,9 @@ public abstract class ExtendActivity extends AppCompatActivity implements Transa
     protected void onCreate(final Bundle savedInstanceState) {
         // inject argument first
         super.onCreate(savedInstanceState);
+        if(mPresenter instanceof ExtendPresenter) {
+            ((ExtendPresenter)mPresenter).setHostCallbacks(this);
+        }
         mIsResumed = true;
         setContentView(getLayoutRes());
         bindView();
@@ -72,6 +82,9 @@ public abstract class ExtendActivity extends AppCompatActivity implements Transa
 
     @Override
     protected void onDestroy() {
+        if(mPresenter instanceof ExtendPresenter) {
+            ((ExtendPresenter)mPresenter).setHostCallbacks(null);
+        }
         super.onDestroy();
         unbindView();
     }
@@ -105,6 +118,10 @@ public abstract class ExtendActivity extends AppCompatActivity implements Transa
 
     protected final boolean startActivitySafely(final Intent intent) {
         return StartActivityDelegate.startActivitySafely(this, intent);
+    }
+
+    protected ActModule getActModule() {
+        return new ActModule(this);
     }
 
 }

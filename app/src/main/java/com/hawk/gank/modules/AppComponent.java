@@ -1,6 +1,7 @@
 package com.hawk.gank.modules;
 
-import com.hawk.gank.features.gank.GankComponent;
+import com.hawk.gank.features.gank.detail.DetailComponent;
+import com.hawk.gank.features.gank.home.GankComponent;
 import com.hawk.gank.model.GsonConfigProviderModule;
 import com.hawk.lib.base.model.jwdate.JWDateModule;
 import com.hawk.lib.base.model.provider.ProviderModule;
@@ -27,5 +28,7 @@ import dagger.Component;
 public interface AppComponent {
 
         GankComponent gankComponent(ActModule activityModule);
+
+        DetailComponent detailComponent(ActModule activityModule);
 
 }

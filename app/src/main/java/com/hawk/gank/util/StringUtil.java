@@ -1,7 +1,7 @@
 package com.hawk.gank.util;
 
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.GankPresenter;
+import com.hawk.gank.features.gank.home.GankPresenter;
 
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;

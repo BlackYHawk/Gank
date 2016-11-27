@@ -12,6 +12,10 @@ import java.util.List;
 
 public interface GankState extends BaseState {
 
+    void setTypeList(List<String> typeList);
+
+    List<String> getTypeList();
+
     void setGankAndroid(int viewId, int page, List<Gank> gankList);
 
     MoviePagedResult getGankAndroid();

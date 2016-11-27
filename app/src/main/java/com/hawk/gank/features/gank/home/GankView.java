@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank;
+package com.hawk.gank.features.gank.home;
 
 import com.hawk.gank.model.error.RxError;
 import com.hawk.lib.mvp.ui.view.BaseView;

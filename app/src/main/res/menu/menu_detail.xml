@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/collect" android:title="@string/menu_collect" app:showAsAction="never" />
+
     <item android:id="@+id/close" android:title="@string/close" app:showAsAction="never" />
 
 </menu>

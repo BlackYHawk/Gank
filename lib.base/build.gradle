@@ -44,6 +44,8 @@ dependencies {
     compile rootProject.ext.dependencies["stetho"]
     compile rootProject.ext.dependencies["stetho-okhttp"]
     compile rootProject.ext.dependencies["butterknife"]
+
+    compile rootProject.ext.dependencies["sqlBrite"]
     compile rootProject.ext.dependencies["sqlDelightRuntime"]
 
     compile rootProject.ext.dependencies["fresco"]

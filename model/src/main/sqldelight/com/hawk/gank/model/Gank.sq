@@ -2,7 +2,7 @@ import java.util.List;
 import org.threeten.bp.ZonedDateTime;
 
 CREATE TABLE Gank (
-    _id TEXT PRIMARY KEY,
+    _id TEXT NOT NULL PRIMARY KEY,
     description TEXT NOT NULL,
     type TEXT NOT NULL,
     url TEXT NOT NULL,
@@ -11,8 +11,8 @@ CREATE TABLE Gank (
     publishedAt TEXT AS ZonedDateTime NOT NULL
   );
 
-delete_all:
-DELETE FROM Gank WHERE 1;
+select_page:
+SELECT * FROM Gank where type = ? limit ? offset ?;
 
-select_all:
-SELECT * FROM Gank;
+clear:
+DELETE FROM Gank WHERE 1;

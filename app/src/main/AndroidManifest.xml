@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.hawk.gank.features.gank.GankActivity"
+            android:name="com.hawk.gank.features.gank.home.GankActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
@@ -37,9 +37,10 @@
         <activity android:name="com.hawk.gank.ui.activity.account.LoginActivity" />
         <activity android:name="com.hawk.gank.ui.activity.account.InfoActivity"
             android:theme="@style/AppTheme.Translucent" />
-        <activity android:name="com.hawk.gank.features.extend.FragmentContainerActivity" />
+        <activity android:name="com.hawk.gank.ui.activity.base.FragmentContainerActivity" />
         <activity android:name="com.hawk.gank.ui.activity.pic.PicActivity" />
-        <activity android:name="com.hawk.gank.features.extend.WebActivity"  />
+        <activity android:name="com.hawk.gank.features.gank.detail.DetailTagActivity"  />
+        <activity android:name="com.hawk.gank.features.gank.detail.DetailWebActivity"  />
 
         <!-- Don't forgot InitActivity -->
         <activity

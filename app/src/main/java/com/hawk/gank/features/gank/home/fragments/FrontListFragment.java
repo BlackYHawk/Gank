@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank.fragments;
+package com.hawk.gank.features.gank.home.fragments;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.GankPresenter;
+import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
  * Created by heyong on 2016/11/7.
  */
 
-public class ExpandListFragment extends BaseGankListFragment {
+public class FrontListFragment extends BaseGankListFragment {
 
-    public static ExpandListFragment newInstance() {
-        ExpandListFragment fragment = new ExpandListFragment();
+    public static FrontListFragment newInstance() {
+        FrontListFragment fragment = new FrontListFragment();
 
         return fragment;
     }
@@ -33,7 +33,7 @@ public class ExpandListFragment extends BaseGankListFragment {
 
     @Override
     public GankPresenter.GankQueryType getGankQueryType() {
-        return GankPresenter.GankQueryType.EXPAND;
+        return GankPresenter.GankQueryType.FROANT;
     }
 
     @Override

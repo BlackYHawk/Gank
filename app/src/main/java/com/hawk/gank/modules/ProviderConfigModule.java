@@ -24,8 +24,12 @@
 
 package com.hawk.gank.modules;
 
+import android.support.annotation.NonNull;
+
 import com.hawk.gank.BuildConfig;
+import com.hawk.gank.model.DbOpenHelper;
 import com.hawk.gank.util.Constant;
+import com.hawk.lib.base.model.provider.BriteDbConfig;
 import com.hawk.lib.base.model.provider.HttpClientConfig;
 import com.hawk.lib.base.model.provider.RetrofitConfig;
 
@@ -54,6 +58,15 @@ public class ProviderConfigModule {
     @Provides
     RetrofitConfig provideRestConfig() {
         return RetrofitConfig.builder().baseUrl(Constant.GANK_SITE).build();
+    }
+
+    @Provides
+    @Singleton
+    BriteDbConfig provideBriteDbConfig(@NonNull final DbOpenHelper dbOpenHelper) {
+        return BriteDbConfig.builder()
+                .sqliteOpenHelper(dbOpenHelper)
+                .enableLogging(DEBUG)
+                .build();
     }
 
 }

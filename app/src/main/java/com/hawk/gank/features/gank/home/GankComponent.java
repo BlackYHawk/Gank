@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank;
+package com.hawk.gank.features.gank.home;
 
 import com.hawk.gank.model.gank.GankModule;
 import com.hawk.lib.base.module.ActModule;

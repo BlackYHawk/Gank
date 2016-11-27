@@ -31,6 +31,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hawk.lib.base.model.jwdate.ZonedDateTimeJsonConverter;
 import com.squareup.otto.Bus;
+import com.squareup.sqlbrite.BriteDatabase;
+import com.squareup.sqlbrite.SqlBrite;
 
 import org.threeten.bp.ZonedDateTime;
 
@@ -128,6 +130,23 @@ public class ProviderModule {
         }
 
         return builder.build();
+    }
+
+    @Singleton
+    @Provides
+    BriteDatabase provideBriteDb(final BriteDbConfig config) {
+        final SqlBrite sqlBrite = new SqlBrite.Builder()
+                .logger(new SqlBrite.Logger() {
+                    @Override
+                    public void log(final String message) {
+                        Timber.d(message);
+                    }
+                })
+                .build();
+        final BriteDatabase briteDb = sqlBrite.wrapDatabaseHelper(config.sqliteOpenHelper(),
+                rx.schedulers.Schedulers.io());
+        briteDb.setLoggingEnabled(config.enableLogging());
+        return briteDb;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank.fragments;
+package com.hawk.gank.features.gank.home.fragments;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.GankPresenter;
+import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;

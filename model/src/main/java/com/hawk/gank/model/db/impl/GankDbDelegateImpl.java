@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.model.gank.GankIO;
+import com.hawk.gank.model.gank.Tag;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
 import com.squareup.sqlbrite.BriteDatabase;
 
@@ -25,6 +26,53 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     @Inject
     public GankDbDelegateImpl(final BriteDatabase briteDatabase) {
         this.mBriteDb = briteDatabase;
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+        final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
+
+        try {
+            mBriteDb.insert(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
+                    SQLiteDatabase.CONFLICT_REPLACE);
+            transaction.markSuccessful();
+        } finally {
+            transaction.end();
+        }
+    }
+
+    @Override
+    public void updateTag(Tag tag) {
+        final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
+
+        try {
+            mBriteDb.update(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
+                    Tag.TYPE + "=?", tag.type());
+            transaction.markSuccessful();
+        } finally {
+            transaction.end();
+        }
+    }
+
+    @Override
+    public void putTagList(List<Tag> typeList) {
+        final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
+
+        try {
+            for (Tag tag : typeList) {
+                mBriteDb.insert(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
+                        SQLiteDatabase.CONFLICT_REPLACE);
+            }
+            transaction.markSuccessful();
+        } finally {
+            transaction.end();
+        }
+    }
+
+    @Override
+    public Observable<List<Tag>> getTagList() {
+        return mBriteDb.createQuery(Tag.TABLE_NAME, Tag.SELECT_ALL, null)
+                .mapToList(Tag.MAPPER::map);
     }
 
     @Override

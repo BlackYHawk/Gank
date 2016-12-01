@@ -1,0 +1,14 @@
+import java.lang.Boolean;
+
+
+CREATE TABLE Tag (
+    type TEXT NOT NULL PRIMARY KEY,
+    valid INTEGER AS Boolean DEFAULT 0 NOT NULL
+  );
+
+select_all:
+SELECT * FROM Tag;
+
+update_row:
+UPDATE Tag SET valid = ? WHERE type = ?;
+

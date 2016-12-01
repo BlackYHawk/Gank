@@ -3,7 +3,6 @@ package com.hawk.gank.features.gank.home.fragments;
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.features.gank.home.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
-import com.hawk.gank.model.gank.Gank;
 import com.hawk.gank.util.UIHelper;
 import com.hawk.lib.base.ui.fragment.BaseListFragment;
 import com.hawk.lib.base.ui.widget.PullRecycler;
@@ -14,8 +13,8 @@ import java.util.List;
  * Created by heyong on 2016/11/20.
  */
 
-public abstract class BaseGankListFragment extends BaseListFragment<Gank, GankPresenter.GankListView, GankUiCallbacks,
-        GankPresenter<GankPresenter.GankListView>>  implements GankPresenter.GankListView {
+public abstract class BaseGankListFragment<T> extends BaseListFragment<T, GankPresenter.BaseGankListView<T>, GankUiCallbacks,
+        GankPresenter<GankPresenter.BaseGankListView<T>>>  implements GankPresenter.BaseGankListView<T> {
 
     @Override
     public void showError(RxError error) {
@@ -24,7 +23,7 @@ public abstract class BaseGankListFragment extends BaseListFragment<Gank, GankPr
     }
 
     @Override
-    public void setItems(List<Gank> listItems) {
+    public void setItems(List<T> listItems) {
         setDataItems(listItems);
     }
 

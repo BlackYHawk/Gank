@@ -3,18 +3,15 @@ package com.hawk.lib.base.ui.presenter;
 import com.hawk.lib.mvp.rx.BaseRxPresenter;
 import com.hawk.lib.mvp.ui.view.BaseView;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by heyong on 2016/11/25.
  */
 
 public abstract class ExtendPresenter extends BaseRxPresenter<ExtendPresenter.ExtendView,
         ExtendPresenter.ExtendCallbacks> {
-
-    public interface ExtendCallbacks {
-        void finish();
-    }
-
-    public interface ExtendView extends BaseView<ExtendCallbacks> {}
 
     private ExtendCallbacks mCallbacks;
 
@@ -32,6 +29,20 @@ public abstract class ExtendPresenter extends BaseRxPresenter<ExtendPresenter.Ex
 
     public void setHostCallbacks(ExtendCallbacks extendCallbacks) {
         mCallbacks = extendCallbacks;
+    }
+
+    public interface ExtendCallbacks {
+        void finish();
+    }
+
+    public interface ExtendView extends BaseView<ExtendCallbacks> {}
+
+    public interface ExtendListView<T extends Serializable> extends ExtendView {
+        void setItems(List<T> items);
+    }
+
+    public interface StringListView extends ExtendListView<String> {
+
     }
 
 }

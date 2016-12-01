@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="com.hawk.gank.ui.activity.base.FragmentContainerActivity" />
         <activity android:name="com.hawk.gank.ui.activity.pic.PicActivity" />
-        <activity android:name="com.hawk.gank.features.gank.detail.DetailTagActivity"  />
+        <activity android:name="com.hawk.gank.features.gank.home.GankTagActivity"  />
         <activity android:name="com.hawk.gank.features.gank.detail.DetailWebActivity"  />
 
         <!-- Don't forgot InitActivity -->

@@ -2,6 +2,7 @@ package com.hawk.gank.features.gank.home;
 
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,10 +29,30 @@ public class GankDisplay implements BaseDisplay {
         this.mActivity = activity;
     }
 
+    public void showGankTag() {
+        Intent intent = new Intent(mActivity, GankTagActivity.class);
+        mActivity.startActivity(intent);
+    }
+
     public void showGankWeb(String url) {
         Intent intent = new Intent(mActivity, DetailWebActivity.class);
         intent.putExtra("url", url);
         mActivity.startActivity(intent);
+    }
+
+    @Override
+    public void finish() {
+        mActivity.finish();
+    }
+
+    @Override
+    public void showUpNavigation(boolean show) {
+        final ActionBar actionBar = mActivity.getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(show);
+            actionBar.setHomeButtonEnabled(show);
+        }
     }
 
     @Override

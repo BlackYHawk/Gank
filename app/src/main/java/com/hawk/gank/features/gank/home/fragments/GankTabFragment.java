@@ -15,6 +15,7 @@ import com.hawk.lib.base.ui.fragment.BaseTabFragment;
 import com.hawk.lib.mvp.util.Preconditions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by heyong on 2016/11/6.
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, GankUiCallbacks,
         GankPresenter<GankPresenter.GankTabView>> implements GankPresenter.GankTabView {
 
-    private GankPresenter.GankTab[] mTabs;
+    private List<GankPresenter.GankTab> mTabList;
 
     @Override
     public GankPresenter.GankQueryType getGankQueryType() {
@@ -41,14 +42,14 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
     }
 
     @Override
-    public void setTabs(GankPresenter.GankTab... tabs) {
-        Preconditions.checkNotNull(tabs, "tabs cannot be null");
-        mTabs = tabs;
+    public void setTabs(List<GankPresenter.GankTab> tabList) {
+        Preconditions.checkNotNull(tabList, "tabList cannot be null");
+        mTabList = tabList;
 
-        if (getAdapter().getCount() != tabs.length) {
+        if (getAdapter().getCount() != tabList.size()) {
             ArrayList<Fragment> fragments = new ArrayList<>();
-            for (int i = 0; i < tabs.length; i++) {
-                fragments.add(createFragmentForTab(tabs[i]));
+            for (int i = 0; i < tabList.size(); i++) {
+                fragments.add(createFragmentForTab(tabList.get(i)));
             }
             setFragments(fragments);
         }
@@ -56,8 +57,8 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
 
     @Override
     protected String getTabTitle(int position) {
-        if (mTabs != null) {
-            return getString(StringUtil.getStringResId(mTabs[position]));
+        if (mTabList != null) {
+            return getString(StringUtil.getStringResId(mTabList.get(position)));
         }
         return null;
     }
@@ -90,7 +91,7 @@ public class GankTabFragment extends BaseTabFragment<GankPresenter.GankTabView, 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.filter :
-
+                getCallbacks().showGankTag();
                 break;
         }
         return super.onOptionsItemSelected(item);

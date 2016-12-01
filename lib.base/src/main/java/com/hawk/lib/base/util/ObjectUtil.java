@@ -1,5 +1,7 @@
 package com.hawk.lib.base.util;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -20,8 +22,25 @@ public class ObjectUtil {
         return objectList == null || objectList.size() == 0;
     }
 
+    public static boolean equal(@Nullable Object a, @Nullable Object b) {
+        return a == b || a != null && a.equals(b);
+    }
+
     public static <T> boolean equal(List<T> aList, List<T> bList) {
         return aList != null && bList != null && aList.size() == bList.size();
+    }
+
+    public static <T> boolean exist(T obj, List<T> list) {
+        boolean exist = false;
+
+        for(T object : list) {
+            if(equal(obj, object)) {
+                exist = true;
+                break;
+            }
+        }
+
+        return exist;
     }
 
 }

@@ -3,6 +3,10 @@ package com.hawk.lib.base.model.util;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.hawk.lib.base.model.util.impl.CharacterParser;
+import com.hawk.lib.base.model.util.impl.PreferenceParser;
+import com.hawk.lib.base.model.util.impl.ResParser;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -28,6 +32,11 @@ public class UtilModule {
     @Provides @Singleton
     public ResDelegate provideStringFetcher() {
         return new ResParser(mContext);
+    }
+
+    @Provides @Singleton
+    public PreferenceDelegate providePreferenceParser() {
+        return new PreferenceParser(mContext);
     }
 
 }

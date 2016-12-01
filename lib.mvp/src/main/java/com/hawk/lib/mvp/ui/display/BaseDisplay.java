@@ -8,6 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 
 public interface BaseDisplay {
 
+    void finish();
+
+    void showUpNavigation(boolean show);
+
     void setDrawerLayout(DrawerLayout drawerLayout);
 
     void setSupportActionBar(Object toolbar);

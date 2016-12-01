@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.gank.GankCollect;
+import com.hawk.gank.model.gank.Tag;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,7 +29,9 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(Tag.CREATE_TABLE);
         sqLiteDatabase.execSQL(Gank.CREATE_TABLE);
+        sqLiteDatabase.execSQL(GankCollect.CREATE_TABLE);
     }
 
     @Override

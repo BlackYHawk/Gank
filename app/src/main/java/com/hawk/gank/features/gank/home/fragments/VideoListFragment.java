@@ -13,13 +13,12 @@ import com.hawk.gank.model.gank.Gank;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by heyong on 2016/11/7.
  */
 
-public class VideoListFragment extends BaseGankListFragment {
+public class VideoListFragment extends BaseGankListFragment<Gank> implements GankPresenter.GankListView {
 
     public static VideoListFragment newInstance() {
         VideoListFragment fragment = new VideoListFragment();
@@ -52,7 +51,6 @@ public class VideoListFragment extends BaseGankListFragment {
 
         public GankViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
 
         @Override

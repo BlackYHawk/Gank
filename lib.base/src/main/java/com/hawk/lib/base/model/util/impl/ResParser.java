@@ -1,6 +1,8 @@
-package com.hawk.lib.base.model.util;
+package com.hawk.lib.base.model.util.impl;
 
 import android.content.Context;
+
+import com.hawk.lib.base.model.util.ResDelegate;
 
 
 /**

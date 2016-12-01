@@ -15,6 +15,7 @@ import com.hawk.gank.modules.AppComponent;
 import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
 import com.hawk.gank.modules.IApplicatioin;
+import com.hawk.gank.util.Constant;
 import com.hawk.lib.base.model.util.UtilModule;
 
 import timber.log.Timber;
@@ -65,7 +66,7 @@ public class AppContext extends Application implements IApplicatioin {
     private ImagePipelineConfig createFrescoConfig() {
         DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(this)
                 .setBaseDirectoryPath(getExternalCacheDir())
-                .setBaseDirectoryName("frescoCache")
+                .setBaseDirectoryName(Constant.DEFAULT_CACHE_DIR)
                 .setMaxCacheSize(100 * 1024 * 1024)
                 .setMaxCacheSizeOnLowDiskSpace(10 * 1024 * 1024)
                 .setMaxCacheSizeOnVeryLowDiskSpace(5 * 1024 * 1024)

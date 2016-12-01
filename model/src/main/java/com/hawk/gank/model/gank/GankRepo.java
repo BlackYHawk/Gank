@@ -6,13 +6,19 @@ import android.support.annotation.NonNull;
 import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.error.RxErrorProcessor;
 import com.hawk.gank.model.state.GankState;
+import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -24,6 +30,7 @@ public class GankRepo {
     private final GankDbDelegate mGankDb;
     private final GankState mGankState;
     private final RxErrorProcessor mRxErrorProcessor;
+    public final String[] typeArray = new String[]{"Android", "iOS", "前端", "拓展资源", "福利", "休息视频"};
 
     @Inject
     GankRepo(final GankIO gankIO, final GankDbDelegate gankDb, final GankState gankState,
@@ -32,6 +39,44 @@ public class GankRepo {
         this.mGankDb = gankDb;
         this.mGankState = gankState;
         this.mRxErrorProcessor = rxErrorProcessor;
+    }
+
+    public void updateTag(Tag tag) {
+        mGankDb.updateTag(tag);
+        mGankState.updateTag(tag);
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription getTagList() {
+        return mGankDb.getTagList()
+                .subscribeOn(Schedulers.io())
+                .map(new Func1<List<Tag>, List<Tag>>() {
+                         @Override
+                         public List<Tag> call(List<Tag> tags) {
+                             if(ObjectUtil.isEmpty(tags)) {
+                                 List<String> typeList = Arrays.asList(typeArray);
+                                 List<Tag> tagList = new ArrayList<>();
+
+                                 for (String type : typeList) {
+                                     Tag tag = Tag.builder().type(type).valid(true).build();
+
+                                     tagList.add(tag);
+                                 }
+                                 putTagList(tagList);
+                                 tags = tagList;
+                             }
+
+                             return tags;
+                         }})
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(tagList -> mGankState.setTagList(tagList));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public void putTagList(@NonNull List<Tag> tagList) {
+        mGankDb.putTagList(tagList);
     }
 
     @SuppressLint("NewApi")

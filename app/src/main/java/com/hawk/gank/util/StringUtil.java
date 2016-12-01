@@ -1,7 +1,10 @@
 package com.hawk.gank.util;
 
+import android.support.annotation.NonNull;
+
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
+import com.hawk.gank.model.gank.Tag;
 
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
@@ -11,7 +14,9 @@ import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -56,6 +61,63 @@ public class StringUtil {
                 return R.string.expand_title;
         }
         return 0;
+    }
+
+    public static String getStringType(GankPresenter.GankTab tab) {
+        switch (tab) {
+            case ANDROID:
+                return "Android";
+            case IOS:
+                return "iOS";
+            case WELFARE:
+                return "福利";
+            case VIDEO:
+                return "休息视频";
+            case FROANT:
+                return "前端";
+            case EXPAND:
+                return "拓展资源";
+        }
+        return "";
+    }
+
+
+    public static GankPresenter.GankTab getGankTab(String type) {
+        switch (type) {
+            case "Android":
+                return GankPresenter.GankTab.ANDROID;
+            case "iOS":
+                return GankPresenter.GankTab.IOS;
+            case "福利":
+                return GankPresenter.GankTab.WELFARE;
+            case "休息视频":
+                return GankPresenter.GankTab.VIDEO;
+            case "前端":
+                return GankPresenter.GankTab.FROANT;
+            case "拓展资源":
+                return GankPresenter.GankTab.EXPAND;
+        }
+        return GankPresenter.GankTab.ANDROID;
+    }
+
+
+    public static List<Tag> convertGankTab(@NonNull String[] types) {
+        List<Tag> tagList = new ArrayList<>();
+
+        for (String type : types) {
+            tagList.add(Tag.builder().type(type).valid(true).build());
+        }
+        return tagList;
+    }
+
+    public static GankPresenter.GankTab[] convertGankType(@NonNull List<String> typeList) {
+        GankPresenter.GankTab[] tabs = new GankPresenter.GankTab[typeList.size()];
+
+        for(int i=0; i<typeList.size(); i++) {
+            GankPresenter.GankTab tab = getGankTab(typeList.get(i));
+            tabs[i] = tab;
+        }
+        return tabs;
     }
 
     /**

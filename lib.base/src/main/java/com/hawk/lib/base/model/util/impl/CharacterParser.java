@@ -1,4 +1,6 @@
-package com.hawk.lib.base.model.util;
+package com.hawk.lib.base.model.util.impl;
+
+import com.hawk.lib.base.model.util.CharacterDelegate;
 
 /**
  * Created by lan on 2016/4/20.

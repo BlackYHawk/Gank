@@ -43,6 +43,7 @@ public abstract class ExtendActivity<P extends BaseRxPresenter<ExtendPresenter.E
         mIsResumed = true;
         setContentView(getLayoutRes());
         bindView();
+        onBindData();
     }
 
     @Override
@@ -104,6 +105,7 @@ public abstract class ExtendActivity<P extends BaseRxPresenter<ExtendPresenter.E
         if(mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
+        
     }
 
     protected void unbindView() {
@@ -112,6 +114,8 @@ public abstract class ExtendActivity<P extends BaseRxPresenter<ExtendPresenter.E
         }
     }
 
+    protected void onBindData() {}
+    
     protected int getLayoutRes() {
         return 0;
     }

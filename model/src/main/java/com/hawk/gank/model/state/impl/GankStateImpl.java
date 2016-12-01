@@ -2,6 +2,7 @@ package com.hawk.gank.model.state.impl;
 
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.gank.Tag;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.squareup.otto.Bus;
@@ -9,14 +10,15 @@ import com.squareup.otto.Bus;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by heyong on 2016/11/15.
  */
-
+@Singleton
 public class GankStateImpl implements GankState {
     private final Bus mEventBus;
-    private List<String> mTypeList;
+    private List<Tag> mTagList;
     private MoviePagedResult mAndroid;
     private MoviePagedResult mIos;
     private MoviePagedResult mWelfare;
@@ -30,15 +32,27 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public void setTypeList(List<String> typeList) {
-        if(!ObjectUtil.equal(mTypeList, typeList)) {
-            mTypeList = typeList;
+    public void setTagList(List<Tag> tagList) {
+        if(!ObjectUtil.equal(mTagList, tagList)) {
+            mTagList = tagList;
+            mEventBus.post(new GankTabEvent());
         }
     }
 
     @Override
-    public List<String> getTypeList() {
-        return mTypeList;
+    public List<Tag> getTagList() {
+        return mTagList;
+    }
+
+    @Override
+    public void updateTag(Tag tag) {
+        for (int i=0; mTagList != null && i<mTagList.size(); i++) {
+            if(mTagList.get(i).type().equals(tag.type())) {
+                mTagList.set(i, tag);
+                break;
+            }
+        }
+        mEventBus.post(new GankTabEvent());
     }
 
     @Override

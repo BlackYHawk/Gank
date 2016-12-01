@@ -1,37 +1,38 @@
-package com.hawk.lib.base.ui.fragment;
+package com.hawk.lib.base.ui.activity;
 
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.hawk.lib.base.R;
 import com.hawk.lib.base.ui.adapter.BaseRecyclerAdapter;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
+import com.hawk.lib.base.ui.presenter.ExtendPresenter;
 import com.hawk.lib.base.ui.widget.PullRecycler;
 import com.hawk.lib.base.ui.widget.layoutmanager.ILayoutManager;
 import com.hawk.lib.base.ui.widget.layoutmanager.MyLinearLayoutManager;
 import com.hawk.lib.base.util.ObjectUtil;
-import com.hawk.lib.mvp.ui.presenter.BasePresenter;
-import com.hawk.lib.mvp.ui.view.BaseView;
+import com.hawk.lib.mvp.component.BaseComponent;
+import com.hawk.lib.mvp.rx.BaseRxPresenter;
 
 import java.util.List;
 
 /**
- * Created by heyong on 2016/11/5.
+ * Created by heyong on 2016/11/28.
  */
 
-public abstract class BaseListFragment<T, V extends BaseView<VC>, VC, P extends BasePresenter<V, VC>>
-        extends BaseFragment<V, VC, P> implements PullRecycler.OnRecyclerRefreshListener {
-
+public abstract class ExtendListActivity<T, P extends BaseRxPresenter<ExtendPresenter.ExtendView, ExtendPresenter.ExtendCallbacks>,
+        C extends BaseComponent<ExtendPresenter.ExtendView, ExtendPresenter.ExtendCallbacks, P>> 
+        extends ExtendActivity<P, C> implements PullRecycler.OnRecyclerRefreshListener {
+    
     protected PullRecycler recycler;
     protected BaseRecyclerAdapter mAdapter;
     protected List<T> mDataList;
 
     @Override
-    protected void bindView(View rootView) {
-        super.bindView(rootView);
-        recycler = (PullRecycler) rootView.findViewById(R.id.mPullRecycler);
+    protected void bindView() {
+        super.bindView();
+        recycler = (PullRecycler) findViewById(R.id.mPullRecycler);
         recycler.setOnRefreshListener(this);
         recycler.setLayoutManager(getLayoutManager());
         recycler.addItemDecoration(getItemDecoration());
@@ -54,20 +55,20 @@ public abstract class BaseListFragment<T, V extends BaseView<VC>, VC, P extends 
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.ac_ui_base_list;
+        return R.layout.ac_ui_extend_list;
     }
-
+    
     @Override
     protected boolean autoBindViews() {
         return false;
     }
 
     protected ILayoutManager getLayoutManager() {
-        return new MyLinearLayoutManager(getContext());
+        return new MyLinearLayoutManager(this);
     }
 
     protected RecyclerView.ItemDecoration getItemDecoration() {
-        return new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        return new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
     }
 
     protected boolean isSectionHeader(int position) {
@@ -99,7 +100,7 @@ public abstract class BaseListFragment<T, V extends BaseView<VC>, VC, P extends 
 
         @Override
         public boolean isSectionHeader(int position) {
-            return BaseListFragment.this.isSectionHeader(position);
+            return this.isSectionHeader(position);
         }
 
 

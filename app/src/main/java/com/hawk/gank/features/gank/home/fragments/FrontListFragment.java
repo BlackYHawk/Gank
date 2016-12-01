@@ -15,13 +15,12 @@ import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 import com.hawk.lib.base.util.ObjectUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by heyong on 2016/11/7.
  */
 
-public class FrontListFragment extends BaseGankListFragment {
+public class FrontListFragment extends BaseGankListFragment<Gank> implements GankPresenter.GankListView {
 
     public static FrontListFragment newInstance() {
         FrontListFragment fragment = new FrontListFragment();
@@ -55,7 +54,6 @@ public class FrontListFragment extends BaseGankListFragment {
 
         public GankViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
 
         @Override

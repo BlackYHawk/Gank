@@ -2,6 +2,7 @@ package com.hawk.gank.model.state;
 
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.gank.Tag;
 import com.hawk.lib.base.state.BaseState;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 
 public interface GankState extends BaseState {
 
-    void setTypeList(List<String> typeList);
+    void setTagList(List<Tag> tagList);
 
-    List<String> getTypeList();
+    List<Tag> getTagList();
+
+    void updateTag(Tag type);
 
     void setGankAndroid(int viewId, int page, List<Gank> gankList);
 
@@ -42,6 +45,8 @@ public interface GankState extends BaseState {
 
     void notifyRxError(int viewId, RxError rxError);
 
+    class GankTabEvent {}
+
     class GankListChangedEvent extends UiCausedEvent {
         public GankListChangedEvent(int callingId) {
             super(callingId);
@@ -53,8 +58,6 @@ public interface GankState extends BaseState {
             super(callingId, item);
         }
     }
-
-    class GankFabClickEvent {}
 
     class MoviePagedResult extends PagedResult<Gank> {}
 

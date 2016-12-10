@@ -1,6 +1,6 @@
 package com.hawk.gank.features.gank.home;
 
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Tag;
 
 /**
  * Created by heyong on 2016/11/8.
@@ -13,6 +13,8 @@ public interface GankUiCallbacks {
     void showGankTag();
 
     void showGankWeb(String url);
+
+    void showGankWealfare(String url);
 
     void updateTag(Tag tag);
 

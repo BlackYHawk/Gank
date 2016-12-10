@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hawk.gank.R;
-import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.ui.adapter.ABaseAdapter;
 
 import butterknife.BindView;

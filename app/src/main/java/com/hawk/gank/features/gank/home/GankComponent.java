@@ -1,6 +1,6 @@
 package com.hawk.gank.features.gank.home;
 
-import com.hawk.gank.model.gank.GankModule;
+import com.hawk.gank.model.bean.GankModule;
 import com.hawk.lib.base.module.ActModule;
 import com.hawk.lib.mvp.component.BaseComponent;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;

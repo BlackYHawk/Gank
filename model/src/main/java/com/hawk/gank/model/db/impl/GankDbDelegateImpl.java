@@ -4,9 +4,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
 import com.hawk.gank.model.db.GankDbDelegate;
-import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.model.gank.GankIO;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.http.GankIO;
+import com.hawk.gank.model.bean.Tag;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
 import com.squareup.sqlbrite.BriteDatabase;
 
@@ -29,26 +29,30 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     }
 
     @Override
-    public void addTag(Tag tag) {
+    public long addTag(Tag tag) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
-            mBriteDb.insert(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
+            long rowId = mBriteDb.insert(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
                     SQLiteDatabase.CONFLICT_REPLACE);
             transaction.markSuccessful();
+
+            return rowId;
         } finally {
             transaction.end();
         }
     }
 
     @Override
-    public void updateTag(Tag tag) {
+    public int updateTag(Tag tag) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
-            mBriteDb.update(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
+            int count = mBriteDb.update(Tag.TABLE_NAME, Tag.FACTORY.marshal(tag).asContentValues(),
                     Tag.TYPE + "=?", tag.type());
             transaction.markSuccessful();
+
+            return count;
         } finally {
             transaction.end();
         }

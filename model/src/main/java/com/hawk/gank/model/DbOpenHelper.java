@@ -5,9 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
-import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.model.gank.GankCollect;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.bean.GankCollect;
+import com.hawk.gank.model.bean.Tag;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

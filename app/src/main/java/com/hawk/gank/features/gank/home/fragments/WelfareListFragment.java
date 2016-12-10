@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
-import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;
@@ -64,5 +64,13 @@ public class WelfareListFragment extends BaseGankListFragment<Gank> implements G
             mmView.setImageURI(Uri.parse(mm.url()));
         }
 
+        @Override
+        public void onItemClick(View view, int position) {
+            if (hasCallbacks()) {
+                Gank mm = mDataList.get(position);
+
+                getCallbacks().showGankWealfare(mm.url());
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 
 import com.hawk.gank.R;
-import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.MMAdapter;
 import com.hawk.gank.ui.adapter.decoration.GankSpaceItemDecoration;

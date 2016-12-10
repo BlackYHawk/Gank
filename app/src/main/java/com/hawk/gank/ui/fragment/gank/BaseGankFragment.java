@@ -2,7 +2,7 @@ package com.hawk.gank.ui.fragment.gank;
 
 import android.os.Bundle;
 
-import com.hawk.gank.model.gank.GankIO;
+import com.hawk.gank.model.http.GankIO;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 
 import javax.inject.Inject;

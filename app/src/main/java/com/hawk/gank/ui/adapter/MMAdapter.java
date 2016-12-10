@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hawk.gank.R;
-import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.ui.activity.pic.PicActivity;
 import com.hawk.gank.ui.widget.RatioImageView;
 

@@ -1,8 +1,8 @@
 package com.hawk.gank.model.state.impl;
 
 import com.hawk.gank.model.error.RxError;
-import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.squareup.otto.Bus;

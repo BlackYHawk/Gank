@@ -2,8 +2,8 @@ package com.hawk.gank.model.db;
 
 import android.support.annotation.NonNull;
 
-import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.bean.Tag;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import rx.Observable;
 
 public interface GankDbDelegate {
 
-    void addTag(Tag tag);
+    long addTag(Tag tag);
 
-    void updateTag(Tag tag);
+    int updateTag(Tag tag);
 
     void putTagList(List<Tag> tagList);
 

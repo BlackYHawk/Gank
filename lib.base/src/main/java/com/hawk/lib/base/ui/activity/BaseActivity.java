@@ -76,6 +76,19 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
         return mSupportFragmentTransactionDelegate.safeCommit(this, transaction);
     }
 
+    protected void setDisplayBack() {
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    protected void setTitle(String text) {
+        if(mToolbar != null) {
+            mToolbar.setTitle(text);
+        }
+    }
+
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
@@ -104,7 +117,13 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
             mUnBinder = ButterKnife.bind(this);
         }
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        display.setSupportActionBar(mToolbar);
+
+        if (display != null) {
+            display.setSupportActionBar(mToolbar);
+        }
+        else {
+            setSupportActionBar(mToolbar);
+        }
     }
 
     protected void unbindView() {
@@ -117,7 +136,7 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
         return 0;
     }
 
-    protected final boolean startActivitySafely(final Intent intent) {
+    public final boolean startActivitySafely(final Intent intent) {
         return StartActivityDelegate.startActivitySafely(this, intent);
     }
 

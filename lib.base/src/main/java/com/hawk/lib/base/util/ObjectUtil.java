@@ -27,7 +27,7 @@ public class ObjectUtil {
     }
 
     public static <T> boolean equal(List<T> aList, List<T> bList) {
-        return aList != null && bList != null && aList.size() == bList.size();
+        return aList != null && bList != null && aList == bList && aList.size() == bList.size();
     }
 
     public static <T> boolean exist(T obj, List<T> list) {

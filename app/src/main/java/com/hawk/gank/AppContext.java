@@ -16,6 +16,8 @@ import com.hawk.gank.modules.AppModule;
 import com.hawk.gank.modules.DaggerAppComponent;
 import com.hawk.gank.modules.IApplicatioin;
 import com.hawk.gank.util.Constant;
+import com.hawk.lib.base.imageloader.BigImageViewer;
+import com.hawk.lib.base.imageloader.FrescoImageLoader;
 import com.hawk.lib.base.model.util.UtilModule;
 
 import timber.log.Timber;
@@ -37,6 +39,7 @@ public class AppContext extends Application implements IApplicatioin {
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"7ahgYGrjijmpfhgrTa4s0jX0-gzGzoHsz","e3LVEnDLFUVcjNKCCE16lxQz");
         Fresco.initialize(this, createFrescoConfig());
+        BigImageViewer.initialize(FrescoImageLoader.with(this));
 
         if(BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

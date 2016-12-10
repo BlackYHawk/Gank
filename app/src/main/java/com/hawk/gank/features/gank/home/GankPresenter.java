@@ -2,9 +2,9 @@ package com.hawk.gank.features.gank.home;
 
 import android.support.annotation.NonNull;
 
-import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.model.gank.GankRepo;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.repository.GankRepo;
+import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.model.type.ListItem;
@@ -115,8 +115,16 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             }
 
             @Override
+            public void showGankWealfare(String url) {
+                Preconditions.checkNotNull(url, "url cannot be null");
+
+                GankDisplay display = (GankDisplay) getDisplay();
+                display.showGankImage(url);
+            }
+
+            @Override
             public void updateTag(Tag tag) {
-                mGankRepo.updateTag(tag);
+                addUtilStop(mGankRepo.updateTag(tag));
             }
 
             @Override

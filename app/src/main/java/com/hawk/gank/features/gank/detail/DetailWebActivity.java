@@ -55,7 +55,7 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_detail_web, menu);
         return true;
     }
 

@@ -1,10 +1,13 @@
-package com.hawk.gank.model.gank;
+package com.hawk.gank.model.repository;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
+import com.hawk.gank.model.bean.GankResult;
+import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.error.RxErrorProcessor;
+import com.hawk.gank.model.http.GankIO;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
@@ -26,11 +29,12 @@ import rx.schedulers.Schedulers;
  */
 @ActivityScope
 public class GankRepo {
+    public final String[] typeArray = new String[]{"Android", "iOS", "前端", "拓展资源", "福利",
+            "休息视频"};
     private final GankIO mGankIO;
     private final GankDbDelegate mGankDb;
     private final GankState mGankState;
     private final RxErrorProcessor mRxErrorProcessor;
-    public final String[] typeArray = new String[]{"Android", "iOS", "前端", "拓展资源", "福利", "休息视频"};
 
     @Inject
     GankRepo(final GankIO gankIO, final GankDbDelegate gankDb, final GankState gankState,
@@ -41,9 +45,14 @@ public class GankRepo {
         this.mRxErrorProcessor = rxErrorProcessor;
     }
 
-    public void updateTag(Tag tag) {
-        mGankDb.updateTag(tag);
-        mGankState.updateTag(tag);
+    public Subscription updateTag(final Tag tag) {
+        return Observable.create(subscriber -> {
+                subscriber.onNext(mGankDb.updateTag(tag));
+                subscriber.onCompleted();
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(ret -> mGankState.updateTag(tag));
     }
 
     @SuppressLint("NewApi")

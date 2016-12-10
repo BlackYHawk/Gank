@@ -1,8 +1,8 @@
 package com.hawk.gank.model.state;
 
 import com.hawk.gank.model.error.RxError;
-import com.hawk.gank.model.gank.Gank;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.bean.Tag;
 import com.hawk.lib.base.state.BaseState;
 
 import java.util.List;

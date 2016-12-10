@@ -1,4 +1,4 @@
-package com.hawk.gank.model.gank;
+package com.hawk.gank.model.bean;
 
 import android.os.Parcelable;
 

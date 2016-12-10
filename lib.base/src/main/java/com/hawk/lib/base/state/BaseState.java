@@ -42,6 +42,7 @@ public interface BaseState {
 
         public PagedResult() {
             items = new ArrayList<>();
+            page = -1;
         }
 
         @Override

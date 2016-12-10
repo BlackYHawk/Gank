@@ -41,6 +41,7 @@
         <activity android:name="com.hawk.gank.ui.activity.pic.PicActivity" />
         <activity android:name="com.hawk.gank.features.gank.home.GankTagActivity"  />
         <activity android:name="com.hawk.gank.features.gank.detail.DetailWebActivity"  />
+        <activity android:name="com.hawk.gank.features.gank.detail.DetailWelfareActivity"  />
 
         <!-- Don't forgot InitActivity -->
         <activity

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Tag;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;

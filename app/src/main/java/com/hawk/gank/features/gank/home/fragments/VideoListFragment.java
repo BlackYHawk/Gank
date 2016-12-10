@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
-import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;

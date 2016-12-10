@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
-import com.hawk.gank.model.gank.Tag;
+import com.hawk.gank.model.bean.Tag;
 
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;

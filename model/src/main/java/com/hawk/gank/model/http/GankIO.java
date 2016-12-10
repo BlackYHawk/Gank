@@ -1,4 +1,6 @@
-package com.hawk.gank.model.gank;
+package com.hawk.gank.model.http;
+
+import com.hawk.gank.model.bean.GankResult;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

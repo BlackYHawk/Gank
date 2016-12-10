@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.MenuItem;
 
 import com.hawk.gank.R;
-import com.hawk.gank.model.gank.Gank;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.SwipeFlingAdapter;
 import com.hawk.gank.ui.widget.flingswipe.SwipeFlingAdapterView;

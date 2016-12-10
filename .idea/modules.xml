@@ -4,7 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Gank.iml" filepath="$PROJECT_DIR$/Gank.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vitamio/vitamio.iml" filepath="$PROJECT_DIR$/vitamio/vitamio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.base/lib.base.iml" filepath="$PROJECT_DIR$/lib.base/lib.base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.mvp/lib.mvp.iml" filepath="$PROJECT_DIR$/lib.mvp/lib.mvp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.skin/lib.skin.iml" filepath="$PROJECT_DIR$/lib.skin/lib.skin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.vitamio/lib.vitamio.iml" filepath="$PROJECT_DIR$/lib.vitamio/lib.vitamio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
     </modules>
   </component>
 </project>

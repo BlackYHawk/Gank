@@ -9,16 +9,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/vitamio" />
+            <option value="$PROJECT_DIR$/lib.base" />
+            <option value="$PROJECT_DIR$/lib.mvp" />
+            <option value="$PROJECT_DIR$/lib.skin" />
+            <option value="$PROJECT_DIR$/lib.vitamio" />
+            <option value="$PROJECT_DIR$/model" />
           </set>
         </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/vitamio" />
-          </set>
-        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

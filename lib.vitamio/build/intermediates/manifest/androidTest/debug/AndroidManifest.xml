@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.vov.vitamio.test" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="24" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for io.vov.vitamio.test"
+        android:targetPackage="io.vov.vitamio.test" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- permission for accessing plugin apk -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- permission for check if application is started by unexpected exit -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" /> <!-- Stub Activities -->
+        <!-- 1 standard mode -->
+        <activity
+            android:name="net.wequick.small.A"
+            android:launchMode="standard" />
+        <activity
+            android:name="net.wequick.small.A1"
+            android:theme="@android:style/Theme.Translucent" /> <!-- 4 singleTask mode -->
+        <activity
+            android:name="net.wequick.small.A10"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="net.wequick.small.A11"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="net.wequick.small.A12"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="net.wequick.small.A13"
+            android:launchMode="singleTask" /> <!-- 4 singleTop mode -->
+        <activity
+            android:name="net.wequick.small.A20"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="net.wequick.small.A21"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="net.wequick.small.A22"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="net.wequick.small.A23"
+            android:launchMode="singleTop" /> <!-- 4 singleInstance mode -->
+        <activity
+            android:name="net.wequick.small.A30"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="net.wequick.small.A31"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="net.wequick.small.A32"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="net.wequick.small.A33"
+            android:launchMode="singleInstance" /> <!-- Web Activity -->
+        <activity
+            android:name="net.wequick.small.webkit.WebActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+    </application>
+
+</manifest>

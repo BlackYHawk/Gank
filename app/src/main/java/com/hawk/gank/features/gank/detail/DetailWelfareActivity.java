@@ -27,6 +27,7 @@ public class DetailWelfareActivity extends ExtendActivity<DetailPresenter, Detai
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.gank_detail_wealfare));
         setDisplayBack();
 
         init();

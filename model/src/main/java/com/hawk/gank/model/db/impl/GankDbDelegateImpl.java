@@ -3,12 +3,15 @@ package com.hawk.gank.model.db.impl;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.bean.Gank;
-import com.hawk.gank.model.http.GankIO;
+import com.hawk.gank.model.bean.GankCollect;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.db.GankDbDelegate;
+import com.hawk.gank.model.http.GankIO;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
 import com.squareup.sqlbrite.BriteDatabase;
+
+import org.threeten.bp.ZonedDateTime;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     }
 
     @Override
-    public long addTag(Tag tag) {
+    public long addTag(@NonNull Tag tag) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
@@ -44,7 +47,7 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     }
 
     @Override
-    public int updateTag(Tag tag) {
+    public int updateTag(@NonNull Tag tag) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
@@ -59,7 +62,7 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     }
 
     @Override
-    public void putTagList(List<Tag> typeList) {
+    public void putTagList(@NonNull List<Tag> typeList) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
@@ -75,12 +78,12 @@ public class GankDbDelegateImpl implements GankDbDelegate {
 
     @Override
     public Observable<List<Tag>> getTagList() {
-        return mBriteDb.createQuery(Tag.TABLE_NAME, Tag.SELECT_ALL, null)
+        return mBriteDb.createQuery(Tag.TABLE_NAME, Tag.SELECT_ALL)
                 .mapToList(Tag.MAPPER::map);
     }
 
     @Override
-    public void putGankList(List<Gank> gankList) {
+    public void putGankList(@NonNull List<Gank> gankList) {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
@@ -99,5 +102,41 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     public Observable<List<Gank>> getGankList(@NonNull String type, @NonNull int page) {
         return mBriteDb.createQuery(Gank.TABLE_NAME, Gank.SELECT_PAGE, new String[]{type, GankIO.PAGE_SIZE+"", page+""})
                 .mapToList(Gank.MAPPER::map);
+    }
+
+    @Override
+    public Observable<List<GankCollect>> getGankCollectList(@NonNull int page, @NonNull int size) {
+        return mBriteDb.createQuery(GankCollect.TABLE_NAME, GankCollect.SELECT_PAGE, new String[]{size+"", page+""})
+                .mapToList(GankCollect.MAPPER::map);
+    }
+
+    @Override
+    public long collectGank(@NonNull Gank gank) {
+        final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
+
+        GankCollect collect = GankCollect.builder()._id(gank._id()).collectedAt(ZonedDateTime.now()).build();
+        try {
+            long rowId = mBriteDb.insert(GankCollect.TABLE_NAME, GankCollect.FACTORY.marshal(collect).asContentValues(),
+                    SQLiteDatabase.CONFLICT_REPLACE);
+            transaction.markSuccessful();
+
+            return rowId;
+        } finally {
+            transaction.end();
+        }
+    }
+
+    @Override
+    public int deleteCollect(@NonNull Gank gank) {
+        final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
+
+        try {
+            int count = mBriteDb.delete(GankCollect.TABLE_NAME, GankCollect._ID + "=?", gank._id());
+            transaction.markSuccessful();
+
+            return count;
+        } finally {
+            transaction.end();
+        }
     }
 }

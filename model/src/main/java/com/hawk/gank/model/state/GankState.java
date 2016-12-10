@@ -17,7 +17,7 @@ public interface GankState extends BaseState {
 
     List<Tag> getTagList();
 
-    void updateTag(Tag type);
+    void updateTag(Tag tag);
 
     void setGankAndroid(int viewId, int page, List<Gank> gankList);
 
@@ -45,6 +45,8 @@ public interface GankState extends BaseState {
 
     void notifyRxError(int viewId, RxError rxError);
 
+    void notifyCollect();
+
     class GankTabEvent {}
 
     class GankListChangedEvent extends UiCausedEvent {
@@ -58,6 +60,8 @@ public interface GankState extends BaseState {
             super(callingId, item);
         }
     }
+
+    class GankCollectEvent {}
 
     class MoviePagedResult extends PagedResult<Gank> {}
 

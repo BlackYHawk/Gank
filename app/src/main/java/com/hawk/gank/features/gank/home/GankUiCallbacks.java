@@ -1,5 +1,6 @@
 package com.hawk.gank.features.gank.home;
 
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
 
 /**
@@ -12,7 +13,7 @@ public interface GankUiCallbacks {
 
     void showGankTag();
 
-    void showGankWeb(String url);
+    void showGankWeb(Gank gank);
 
     void showGankWealfare(String url);
 

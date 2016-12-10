@@ -3,7 +3,7 @@ package com.hawk.gank.features.gank.home.fragments;
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.features.gank.home.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
-import com.hawk.gank.util.UIHelper;
+import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.base.ui.fragment.BaseListFragment;
 import com.hawk.lib.base.ui.widget.PullRecycler;
 

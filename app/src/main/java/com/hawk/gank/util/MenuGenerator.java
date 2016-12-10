@@ -22,7 +22,7 @@ public class MenuGenerator {
         switch (menuId) {
             // Gank信息
             case R.id.menu_pic:
-                menuBean = new MenuBean(menuId, R.string.gank_list_title, R.mipmap.ic_github, R.string.menu_pic);
+                menuBean = new MenuBean(menuId, R.string.gank_title, R.mipmap.ic_github, R.string.menu_pic);
                 break;
             // 开眼视频信息
             case R.id.menu_video:

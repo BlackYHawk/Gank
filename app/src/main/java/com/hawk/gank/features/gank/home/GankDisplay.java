@@ -10,6 +10,7 @@ import android.view.View;
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.detail.DetailWebActivity;
 import com.hawk.gank.features.gank.detail.DetailWelfareActivity;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.lib.base.ui.activity.BaseActivity;
 import com.hawk.lib.mvp.ui.display.BaseDisplay;
 import com.hawk.lib.mvp.util.Preconditions;
@@ -35,9 +36,9 @@ public class GankDisplay implements BaseDisplay {
         mActivity.startActivitySafely(intent);
     }
 
-    public void showGankWeb(String url) {
+    public void showGankWeb(Gank gank) {
         Intent intent = new Intent(mActivity, DetailWebActivity.class);
-        intent.putExtra("url", url);
+        intent.putExtra("gank", gank);
         mActivity.startActivitySafely(intent);
     }
 
@@ -62,7 +63,6 @@ public class GankDisplay implements BaseDisplay {
         }
     }
 
-    @Override
     public void setDrawerLayout(DrawerLayout drawerLayout) {
         Preconditions.checkNotNull(drawerLayout, "drawerLayout can not be null");
         this.mDrawerLayout = drawerLayout;
@@ -90,6 +90,10 @@ public class GankDisplay implements BaseDisplay {
 
         if(mToolbar != null) {
             mActivity.setSupportActionBar(mToolbar);
+
+            if(mActivity.getSupportActionBar() != null) {
+                mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
         }
     }
 }

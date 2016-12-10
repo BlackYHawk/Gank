@@ -18,7 +18,7 @@ import com.hawk.gank.interfaces.impl.ValidMinLenTextWatcher;
 import com.hawk.gank.interfaces.impl.ValidPhoneTextWatcher;
 import com.hawk.gank.ui.activity.account.LoginActivity;
 import com.hawk.gank.ui.widget.CircleImageView;
-import com.hawk.gank.util.UIHelper;
+import com.hawk.lib.base.util.UIHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -67,9 +67,7 @@ public class VideoListFragment extends BaseGankListFragment<Gank> implements Gan
         @Override
         public void onItemClick(View view, int position) {
             if (hasCallbacks()) {
-                Gank mm = mDataList.get(position);
-
-                getCallbacks().showGankWeb(mm.url());
+                getCallbacks().showGankWeb(mDataList.get(position));
             }
         }
     }

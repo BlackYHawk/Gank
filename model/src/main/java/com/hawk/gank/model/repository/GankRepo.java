@@ -3,6 +3,7 @@ package com.hawk.gank.model.repository;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.GankResult;
 import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.db.GankDbDelegate;
@@ -182,6 +183,16 @@ public class GankRepo {
                 .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks),
                         t -> mRxErrorProcessor.tryWithRxError(t,
                                 rxError -> mGankState.notifyRxError(viewId, rxError)));
+    }
+
+    public Subscription collectGank(final Gank gank) {
+        return Observable.create(subscriber -> {
+            subscriber.onNext(mGankDb.collectGank(gank));
+            subscriber.onCompleted();
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(ret -> mGankState.notifyCollect());
     }
 
 }

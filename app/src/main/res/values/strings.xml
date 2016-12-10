@@ -46,7 +46,8 @@
     <string name="menu_info">注销</string>
 
     <!--Gank-->
-    <string name="gank_list_title">Gank</string>
+    <string name="gank_title">Gank</string>
+    <string name="gank_detail_wealfare">图片预览</string>
 
     <!--OpenEye-->
     <string name="eye_list_title">开眼视频</string>

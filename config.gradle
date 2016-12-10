@@ -14,6 +14,7 @@ ext {
     butterknifeVersion = '8.1.0'
     stethoVersion = '1.4.1'
     sqlDelightVersion = '0.5.1'
+    freelineVersion = '0.8.3'
 
     dependencies = ["appcompat-v7"             : "com.android.support:appcompat-v7:$SUPPORT_VERSION",
                     "support-v4"               : "com.android.support:support-v4:$SUPPORT_VERSION",
@@ -22,8 +23,6 @@ ext {
                     "design"                   : "com.android.support:design:$SUPPORT_VERSION",
                     "recyclerview-v7"          : "com.android.support:recyclerview-v7:$SUPPORT_VERSION",
                     "cardview-v7"              : "com.android.support:cardview-v7:$SUPPORT_VERSION",
-
-                    "systembartint"            : "com.readystatesoftware.systembartint:systembartint:1.0.3",
 
                     "dagger"                   : "com.google.dagger:dagger:$dagger2Version",
                     "okhttp"                   : "com.squareup.okhttp3:okhttp:$okHttpVersion",
@@ -49,11 +48,14 @@ ext {
                     "fresco"                   : "com.facebook.fresco:fresco:0.14.1",
                     "subsampling-scale-image"  : "com.davemorrissey.labs:subsampling-scale-image-view:3.6.0",
                     "commons-io"               : "commons-io:commons-io:2.5",
-                    "progresspieview"          : "com.github.filippudak.progresspieview:library:1.0.4",
                     "gson"                     : "com.google.code.gson:gson:2.8.0",
                     "ThinDownloadManager"      : "com.mani:ThinDownloadManager:1.2.5",
                     "avoscloud-sdk"            : "cn.leancloud.android:avoscloud-sdk:v3.+",
                     "avoscloud-statistics"     : "cn.leancloud.android:avoscloud-statistics:v3.+",
+
+                    "systembartint"            : "com.readystatesoftware.systembartint:systembartint:1.0.3",
+                    "smoothprogressbar"        : "com.github.castorflex.smoothprogressbar:library:0.5.1",
+                    "progresspieview"          : "com.github.filippudak.progresspieview:library:1.0.4",
 
                     "stetho"                   : "com.facebook.stetho:stetho:$stethoVersion",
                     "stetho-okhttp"            : "com.facebook.stetho:stetho-okhttp3:$stethoVersion",
@@ -61,8 +63,8 @@ ext {
                     "timber"                   : "com.jakewharton.timber:timber:4.3.1",
                     "butterknife"              : "com.jakewharton:butterknife:$butterknifeVersion",
 
-                    "freeline:runtime"         : "com.antfortune.freeline:runtime:0.7.0",
-                    "freeline:runtime-no-op"   : "com.antfortune.freeline:runtime-no-op:0.7.0"]
+                    "freeline:runtime"         : "com.antfortune.freeline:runtime:$freelineVersion",
+                    "freeline:runtime-no-op"   : "com.antfortune.freeline:runtime-no-op:$freelineVersion"]
 
     modelDependencies = ["multiDex"            : "com.android.support:multidex:$multiDexVersion"]
 

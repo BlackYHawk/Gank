@@ -144,6 +144,11 @@ public class GankStateImpl implements GankState {
         mEventBus.post(new GankRxErrorEvent(viewId, rxError));
     }
 
+    @Override
+    public void notifyCollect() {
+        mEventBus.post(new GankCollectEvent());
+    }
+
     private void updatePagedResult(MoviePagedResult result, int page, List<Gank> gankList) {
         if (page <= 1) {
             result.items.clear();

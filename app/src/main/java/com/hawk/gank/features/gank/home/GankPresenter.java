@@ -3,8 +3,8 @@ package com.hawk.gank.features.gank.home;
 import android.support.annotation.NonNull;
 
 import com.hawk.gank.model.bean.Gank;
-import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.model.type.ListItem;
@@ -20,6 +20,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.hawk.gank.features.gank.home.GankPresenter.GankQueryType.TAB;
 
 /**
@@ -27,6 +29,7 @@ import static com.hawk.gank.features.gank.home.GankPresenter.GankQueryType.TAB;
  */
 
 public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPresenter<V, GankUiCallbacks> {
+    private static final String TAG = GankPresenter.class.getSimpleName();
     private final GankState mGankState;
     private final GankRepo mGankRepo;
 
@@ -73,12 +76,14 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
     @Override
     protected void onInited() {
+        Timber.tag(TAG).e("onInited");
         super.onInited();
         mGankState.registerForEvent(this);
     }
 
     @Override
     protected void onSuspended() {
+        Timber.tag(TAG).e("onSuspended");
         super.onSuspended();
         mGankState.unregisterForEvent(this);
     }
@@ -92,7 +97,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     }
 
     @Override
-    protected GankUiCallbacks createUiCallbacks(V view) {
+    protected GankUiCallbacks createUiCallbacks(final V view) {
         return new GankUiCallbacks() {
             @Override
             public void finish() {
@@ -107,11 +112,11 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             }
 
             @Override
-            public void showGankWeb(String url) {
-                Preconditions.checkNotNull(url, "url cannot be null");
+            public void showGankWeb(Gank gank) {
+                Preconditions.checkNotNull(gank, "gank cannot be null");
 
                 GankDisplay display = (GankDisplay) getDisplay();
-                display.showGankWeb(url);
+                display.showGankWeb(gank);
             }
 
             @Override

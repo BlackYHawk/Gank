@@ -3,6 +3,7 @@ package com.hawk.gank.model.db;
 import android.support.annotation.NonNull;
 
 import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.bean.GankCollect;
 import com.hawk.gank.model.bean.Tag;
 
 import java.util.List;
@@ -15,16 +16,22 @@ import rx.Observable;
 
 public interface GankDbDelegate {
 
-    long addTag(Tag tag);
+    long addTag(@NonNull Tag tag);
 
-    int updateTag(Tag tag);
+    int updateTag(@NonNull Tag tag);
 
-    void putTagList(List<Tag> tagList);
+    void putTagList(@NonNull List<Tag> tagList);
 
     Observable<List<Tag>> getTagList();
 
-    void putGankList(List<Gank> gankList);
+    void putGankList(@NonNull List<Gank> gankList);
 
     Observable<List<Gank>> getGankList(@NonNull String type, @NonNull int page);
+
+    Observable<List<GankCollect>> getGankCollectList(@NonNull int page, @NonNull int size);
+
+    long collectGank(@NonNull Gank gank);
+
+    int deleteCollect(@NonNull Gank gank);
 
 }

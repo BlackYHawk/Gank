@@ -5,5 +5,7 @@
     <dimen name="common_spacing">8dp</dimen>
     <dimen name="common_indicator_height">2dp</dimen>
     <dimen name="common_indicator_start">0dp</dimen>
+    <dimen name="toolbar_padding">0dp</dimen>
+    <dimen name="toolbar_size">18sp</dimen>
 
 </resources>

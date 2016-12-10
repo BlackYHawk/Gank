@@ -8,9 +8,11 @@ import android.view.MenuItem;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
+import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.activity.ExtendActivity;
 import com.hawk.lib.base.ui.widget.ProgressWebView;
+import com.hawk.lib.base.util.ObjectUtil;
 
 import butterknife.BindView;
 
@@ -20,7 +22,7 @@ import butterknife.BindView;
 public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailComponent> {
     private static final String TAG = DetailWebActivity.class.getSimpleName();
     @BindView(R.id.webview) ProgressWebView webview;
-    private String url;
+    private Gank gank;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,12 +33,12 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
     }
 
     private void init() {
-        url = getIntent().getStringExtra("url");
+        gank = getIntent().getParcelableExtra("gank");
 
-        if(StringUtil.isEmpty(url)) {
+        if(ObjectUtil.isEmpty(gank) || StringUtil.isEmpty(gank.url())) {
             finish();
         }
-        webview.loadUrl(url);
+        webview.loadUrl(gank.url());
     }
 
     @Override
@@ -71,13 +73,24 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
                 }
                 break;
             case R.id.collect :
-
+                mPresenter.onGankCollectClick(gank);
                 break;
             case R.id.close :
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if(webview != null) {   // 恢复网页中正在播放的视频
+                webview.onResume();
+            }
+        }
     }
 
     @Override
@@ -104,6 +117,11 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
     @Override
     protected void initializeDependence() {
         component = AppContext.getInstance().appComponent().detailComponent(getActModule());
+    }
+
+    @Override
+    protected void initializDisplay() {
+        display = new DetailDisplay(this);
     }
 
     @Override

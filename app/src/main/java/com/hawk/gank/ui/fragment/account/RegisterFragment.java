@@ -31,7 +31,7 @@ import com.hawk.gank.ui.widget.CircleImageView;
 import com.hawk.gank.util.Constant;
 import com.hawk.gank.util.FileUtil;
 import com.hawk.gank.util.ImageUtil;
-import com.hawk.gank.util.UIHelper;
+import com.hawk.lib.base.util.UIHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;

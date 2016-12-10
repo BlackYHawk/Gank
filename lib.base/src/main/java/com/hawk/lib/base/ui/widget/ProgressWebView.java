@@ -13,15 +13,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import timber.log.Timber;
 
 public class ProgressWebView extends WebView {
     private static final String TAG = ProgressWebView.class.getSimpleName();
     private Context context;
-    private ProgressBar progressbar;
+    private SmoothProgressBar progressbar;
     private OnWebInteractive onInteractive;
 
     private long startTime = 0;
@@ -37,24 +36,16 @@ public class ProgressWebView extends WebView {
     }
 
     private void initView(Context context) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        params.gravity = Gravity.CENTER;
-        FrameLayout layout = new FrameLayout(context);
-        layout.setLayoutParams(params);
-
-        progressbar = new ProgressBar(context, null,
-                android.R.attr.progressBarStyleLarge);
+        progressbar = new SmoothProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
+        progressbar.setIndeterminate(true);
 
         FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params2.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL;
+        params2.gravity = Gravity.TOP;
         progressbar.setLayoutParams(params2);
 
-        layout.addView(progressbar);
-        addView(layout);
+        addView(progressbar);
     }
 
     private void initSetting(Context context) {

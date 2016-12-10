@@ -51,8 +51,10 @@ dependencies {
     compile rootProject.ext.dependencies["fresco"]
     compile rootProject.ext.dependencies["subsampling-scale-image"]
     compile rootProject.ext.dependencies["commons-io"]
-    compile rootProject.ext.dependencies["progresspieview"]
+
     compile rootProject.ext.dependencies["systembartint"]
+    compile rootProject.ext.dependencies["smoothprogressbar"]
+    compile rootProject.ext.dependencies["progresspieview"]
 
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["retrofit"]

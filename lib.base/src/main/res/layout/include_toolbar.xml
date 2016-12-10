@@ -8,4 +8,13 @@
     style="@style/Widget.Base.Toolbar"
     app:layout_scrollFlags="scroll|enterAlways">
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="marquee"
+        android:padding="@dimen/toolbar_padding"
+        android:textAppearance="@style/TextAppearance.Title" />
+
 </android.support.v7.widget.Toolbar>

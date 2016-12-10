@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.hawk.lib.base.R;
 import com.hawk.lib.base.module.ActModule;
@@ -36,6 +37,7 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
     private volatile boolean mIsResumed;
     private Unbinder mUnBinder;
     private Toolbar mToolbar;
+    private TextView mTitle;
 
     private static final TypedValue sTypedValue = new TypedValue();
     private int mColorPrimaryDark;
@@ -78,14 +80,13 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
 
     protected void setDisplayBack() {
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
     protected void setTitle(String text) {
-        if(mToolbar != null) {
-            mToolbar.setTitle(text);
+        if(mTitle != null) {
+            mTitle.setText(text);
         }
     }
 
@@ -117,12 +118,17 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
             mUnBinder = ButterKnife.bind(this);
         }
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitle = (TextView) findViewById(R.id.tvTitle);
 
         if (display != null) {
             display.setSupportActionBar(mToolbar);
         }
         else {
             setSupportActionBar(mToolbar);
+
+            if(getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
         }
     }
 

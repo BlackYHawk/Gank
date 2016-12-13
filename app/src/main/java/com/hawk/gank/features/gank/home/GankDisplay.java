@@ -8,12 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.detail.DetailWebActivity;
 import com.hawk.gank.features.gank.detail.DetailWelfareActivity;
+import com.hawk.gank.features.gank.home.fragments.CollectListFragment;
+import com.hawk.gank.features.gank.home.fragments.TagListFragment;
 import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.qualifier.CollectType;
 import com.hawk.lib.base.ui.activity.BaseActivity;
+import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.mvp.ui.display.BaseDisplay;
 import com.hawk.lib.mvp.util.Preconditions;
+
+import static com.hawk.gank.model.qualifier.CollectType.DELETE;
+import static com.hawk.gank.model.qualifier.CollectType.INSERT;
+import static com.hawk.gank.model.qualifier.CollectType.QUERY;
 
 /**
  * Created by heyong on 2016/11/8.
@@ -32,12 +39,13 @@ public class GankDisplay implements BaseDisplay {
     }
 
     public void showGankTag() {
-        Intent intent = new Intent(mActivity, GankTagActivity.class);
+        Intent intent = new Intent(mActivity, GankContainerActivity.class);
+        intent.putExtra("className", TagListFragment.class.getName());
         mActivity.startActivitySafely(intent);
     }
 
     public void showGankWeb(Gank gank) {
-        Intent intent = new Intent(mActivity, DetailWebActivity.class);
+        Intent intent = new Intent(mActivity, GankWebActivity.class);
         intent.putExtra("gank", gank);
         mActivity.startActivitySafely(intent);
     }
@@ -46,6 +54,29 @@ public class GankDisplay implements BaseDisplay {
         Intent intent = new Intent(mActivity, DetailWelfareActivity.class);
         intent.putExtra("url", url);
         mActivity.startActivitySafely(intent);
+    }
+
+    public void showGankCollect() {
+        Intent intent = new Intent(mActivity, GankContainerActivity.class);
+        intent.putExtra("className", CollectListFragment.class.getName());
+        mActivity.startActivitySafely(intent);
+    }
+
+    public void collectGank(@CollectType int type) {
+        if (mActivity instanceof GankWebActivity) {
+            switch (type) {
+                case INSERT:
+                    UIHelper.showSnackbar(mToolbar, mActivity.getString(R.string.gank_collect));
+                    break;
+                case DELETE:
+                    UIHelper.showSnackbar(mToolbar, mActivity.getString(R.string.gank_collect_cancel));
+                    ((GankWebActivity) mActivity).menuValidate(false);
+                    break;
+                case QUERY:
+                    ((GankWebActivity) mActivity).menuValidate(true);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -82,6 +113,11 @@ public class GankDisplay implements BaseDisplay {
         };
         mDrawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+    }
+
+    @Override
+    public void setActionBarTitle(String title) {
+        mActivity.setTitle(title);
     }
 
     @Override

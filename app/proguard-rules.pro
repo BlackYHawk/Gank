@@ -108,6 +108,10 @@
 
 -keep class cn.jiajixin.nuwa.** { *; }
 
+# bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
 #关键的地方，一定要将model层包 使用 keep class
 -keep class com.hawk.gank.data.entity.** { *; }
 

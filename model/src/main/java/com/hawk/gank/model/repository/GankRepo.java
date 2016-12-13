@@ -9,6 +9,7 @@ import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.error.RxErrorProcessor;
 import com.hawk.gank.model.http.GankIO;
+import com.hawk.gank.model.qualifier.CollectType;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
@@ -185,6 +186,13 @@ public class GankRepo {
                                 rxError -> mGankState.notifyRxError(viewId, rxError)));
     }
 
+    public Subscription getCollectData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getCollectList(page)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(ganks -> mGankState.setGankCollect(viewId, page, ganks));
+    }
+
     public Subscription collectGank(final Gank gank) {
         return Observable.create(subscriber -> {
             subscriber.onNext(mGankDb.collectGank(gank));
@@ -192,7 +200,24 @@ public class GankRepo {
         })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(ret -> mGankState.notifyCollect());
+        .subscribe(ret -> mGankState.notifyCollect(CollectType.INSERT));
+    }
+
+    public Subscription deleteCollect(final Gank gank) {
+        return Observable.create(subscriber -> {
+            subscriber.onNext(mGankDb.deleteCollect(gank));
+            subscriber.onCompleted();
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(ret -> mGankState.notifyCollect(CollectType.DELETE));
+    }
+
+    public Subscription existGank(@NonNull String id) {
+        return mGankDb.existCollect(id)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(gankCollect -> {mGankState.notifyCollect(CollectType.QUERY);});
     }
 
 }

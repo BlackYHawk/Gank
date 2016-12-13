@@ -8,6 +8,7 @@
     <!-- 基础模块（必须加入以下声明）START -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name="com.hawk.gank.AppContext"
@@ -16,9 +17,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- 配置APP ID -->
+        <!--<meta-data android:name="BUGLY_APPID" android:value="73c27fe5b1" />-->
+        <!-- 配置APP版本号 -->
+        <!--<meta-data android:name="BUGLY_APP_VERSION" android:value="<APP_Version>" />-->
+        <!-- 配置APP渠道号 -->
+        <!--<meta-data android:name="BUGLY_APP_CHANNEL" android:value="<APP_Channel>" />-->
+        <!-- 配置Bugly调试模式（true或者false）-->
+        <!--<meta-data android:name="BUGLY_ENABLE_DEBUG" android:value="false" />-->
 
         <activity
             android:name="com.hawk.gank.features.gank.home.GankActivity"
+            android:theme="@style/AppTheme.Translucent"
             android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
@@ -39,10 +49,14 @@
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="com.hawk.gank.ui.activity.base.FragmentContainerActivity" />
         <activity android:name="com.hawk.gank.ui.activity.pic.PicActivity" />
-        <activity android:name="com.hawk.gank.features.gank.home.GankTagActivity"  />
-        <activity android:name="com.hawk.gank.features.gank.detail.DetailWebActivity"  />
+        <activity android:name="com.hawk.gank.features.gank.home.GankContainerActivity"  />
+        <activity android:name="com.hawk.gank.features.gank.home.GankWebActivity"  />
         <activity android:name="com.hawk.gank.features.gank.detail.DetailWelfareActivity"  />
 
+        <!-- bugly Activity -->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:theme="@android:style/Theme.Translucent" />
         <!-- Don't forgot InitActivity -->
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
@@ -54,6 +68,16 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape" />
 
+        <!-- bugly provider -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.hawk.gank.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>

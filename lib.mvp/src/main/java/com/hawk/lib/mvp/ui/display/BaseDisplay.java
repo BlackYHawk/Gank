@@ -10,6 +10,8 @@ public interface BaseDisplay {
 
     void showUpNavigation(boolean show);
 
+    void setActionBarTitle(String title);
+
     void setSupportActionBar(Object toolbar);
 
 }

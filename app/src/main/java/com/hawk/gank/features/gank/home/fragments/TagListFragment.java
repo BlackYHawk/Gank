@@ -44,6 +44,13 @@ public class TagListFragment extends BaseGankListFragment<Tag> implements GankPr
     }
 
     @Override
+    protected void bindView(View rootView) {
+        super.bindView(rootView);
+        recycler.enablePullToRefresh(false);
+        recycler.enableLoadMore(false);
+    }
+
+    @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, parent, false);
         return new TagViewHolder(view);

@@ -105,9 +105,9 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     }
 
     @Override
-    public Observable<List<GankCollect>> getGankCollectList(@NonNull int page, @NonNull int size) {
-        return mBriteDb.createQuery(GankCollect.TABLE_NAME, GankCollect.SELECT_PAGE, new String[]{size+"", page+""})
-                .mapToList(GankCollect.MAPPER::map);
+    public Observable<List<Gank>> getCollectList(@NonNull int page) {
+        return mBriteDb.createQuery(Gank.TABLE_NAME, Gank.SELECT_COLLECT, new String[]{GankIO.PAGE_SIZE+"", page+""})
+                .mapToList(Gank.MAPPER::map);
     }
 
     @Override
@@ -138,5 +138,11 @@ public class GankDbDelegateImpl implements GankDbDelegate {
         } finally {
             transaction.end();
         }
+    }
+
+    @Override
+    public Observable<GankCollect> existCollect(@NonNull String id) {
+        return mBriteDb.createQuery(GankCollect.TABLE_NAME, GankCollect.SELECT_GANK, new String[]{id})
+                .mapToOne(GankCollect.MAPPER::map);
     }
 }

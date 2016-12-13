@@ -5,14 +5,14 @@
 
         <item name="fits_windows">true</item>
         <item name="clip_padding">true</item>
+
         <!--Translucent system bars-->
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">false</item>
-
     </style>
 
     <style name="AppTheme.Translucent">
-        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/transparent</item>

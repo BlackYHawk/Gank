@@ -28,10 +28,12 @@ public interface GankDbDelegate {
 
     Observable<List<Gank>> getGankList(@NonNull String type, @NonNull int page);
 
-    Observable<List<GankCollect>> getGankCollectList(@NonNull int page, @NonNull int size);
+    Observable<List<Gank>> getCollectList(@NonNull int page);
 
     long collectGank(@NonNull Gank gank);
 
     int deleteCollect(@NonNull Gank gank);
+
+    Observable<GankCollect> existCollect(@NonNull String id);
 
 }

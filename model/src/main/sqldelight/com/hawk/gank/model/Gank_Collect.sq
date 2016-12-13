@@ -6,8 +6,8 @@ CREATE TABLE Gank_Collect (
     CONSTRAINT id_Fk FOREIGN KEY(_id) REFERENCES Gank(_id)
 );
 
-select_page:
-SELECT * FROM Gank_Collect limit ? offset ?;
+select_gank:
+SELECT * FROM Gank_Collect where _id = ?;
 
 clear:
 DELETE FROM Gank_Collect WHERE 1;

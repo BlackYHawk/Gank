@@ -5,7 +5,8 @@
     android:id="@+id/drawLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="?attr/fits_windows">
+    android:fitsSystemWindows="?attr/fits_windows"
+    android:clipToPadding="?attr/clip_padding">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

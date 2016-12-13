@@ -1,4 +1,4 @@
-package com.hawk.gank.features.gank.detail;
+package com.hawk.gank.features.gank.home;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.util.StringUtil;
-import com.hawk.lib.base.ui.activity.ExtendActivity;
+import com.hawk.lib.base.ui.activity.BaseActivity;
 import com.hawk.lib.base.ui.widget.ProgressWebView;
 import com.hawk.lib.base.util.ObjectUtil;
 
@@ -19,10 +19,11 @@ import butterknife.BindView;
 /**
  * Created by lan on 2016/8/10.
  */
-public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailComponent> {
-    private static final String TAG = DetailWebActivity.class.getSimpleName();
+public class GankWebActivity extends BaseActivity<GankView, GankUiCallbacks, GankPresenter<GankView>, GankComponent> {
+    private static final String TAG = GankWebActivity.class.getSimpleName();
     @BindView(R.id.webview) ProgressWebView webview;
     private Gank gank;
+    private boolean collect = false;   //是否已收藏
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
         setDisplayBack();
 
         init();
+        mPresenter.onGankCollectExist(gank);
     }
 
     private void init() {
@@ -47,12 +49,31 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
         webview.setOnInteractive(onWebInteractive);
     }
 
+    public void menuValidate(boolean exist) {
+        collect = exist;
+        invalidateOptionsMenu();
+    }
+
     private ProgressWebView.OnWebInteractive onWebInteractive = new ProgressWebView.OnWebInteractive() {
         @Override
         public void onReceiveTitle(String title) {
             setTitle(title);
         }
     };
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (collect) {
+            MenuItem menuItem = menu.findItem(R.id.collect);
+            menuItem.setTitle(getString(R.string.menu_collect_cancel));
+        }
+        else {
+            MenuItem menuItem = menu.findItem(R.id.collect);
+            menuItem.setTitle(getString(R.string.menu_collect));
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,7 +94,7 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
                 }
                 break;
             case R.id.collect :
-                mPresenter.onGankCollectClick(gank);
+                mPresenter.onGankCollectClick(collect, gank);
                 break;
             case R.id.close :
                 finish();
@@ -116,12 +137,12 @@ public class DetailWebActivity extends ExtendActivity<DetailPresenter, DetailCom
 
     @Override
     protected void initializeDependence() {
-        component = AppContext.getInstance().appComponent().detailComponent(getActModule());
+        component = AppContext.getInstance().appComponent().gankComponent(getActModule());
     }
 
     @Override
     protected void initializDisplay() {
-        display = new DetailDisplay(this);
+        display = new GankDisplay(this);
     }
 
     @Override

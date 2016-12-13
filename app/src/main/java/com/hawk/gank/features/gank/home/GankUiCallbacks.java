@@ -17,6 +17,8 @@ public interface GankUiCallbacks {
 
     void showGankWealfare(String url);
 
+    void showGankCollect();
+
     void updateTag(Tag tag);
 
     void onPulledToTop();

@@ -33,12 +33,16 @@
     <string name="info_phone">手机号</string>
     <string name="pic_error">拍照/选择图片失败，请检查SD卡.</string>
 
+    <!--    侧边栏-->
+    <string name="sidbar_collect">我的收藏</string>
+
     <!--菜单-->
     <string name="menu_pic">图片</string>
     <string name="menu_video">视频</string>
     <string name="menu_setting">设置</string>
     <string name="menu_filter">筛选</string>
     <string name="menu_collect">收藏</string>
+    <string name="menu_collect_cancel">取消收藏</string>
     <string name="menu_save">保存</string>
 
     <string name="menu_login">登录</string>
@@ -48,6 +52,9 @@
     <!--Gank-->
     <string name="gank_title">Gank</string>
     <string name="gank_detail_wealfare">图片预览</string>
+    <string name="gank_collect_title">我的收藏</string>
+    <string name="gank_collect">收藏成功</string>
+    <string name="gank_collect_cancel">取消收藏成功</string>
 
     <!--OpenEye-->
     <string name="eye_list_title">开眼视频</string>

@@ -2,7 +2,6 @@ package com.hawk.gank.features.gank.detail;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.hawk.gank.AppContext;
@@ -44,12 +43,12 @@ public class DetailWelfareActivity extends ExtendActivity<DetailPresenter, Detai
         mImageView.showImage(Uri.parse(url));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_detail_wealfare, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+//        getMenuInflater().inflate(R.menu.menu_detail_wealfare, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

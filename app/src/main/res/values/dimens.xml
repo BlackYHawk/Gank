@@ -30,7 +30,6 @@
     <dimen name="sidbar_lay_margin">22dp</dimen>
     <dimen name="sidbar_icon">25dp</dimen>
     <dimen name="sidbar_icon_margin">10dp</dimen>
-    <dimen name="sidbar_tv_size">14sp</dimen>
 
     <!--账户-->
     <dimen name="account_head">60dp</dimen>

@@ -2,12 +2,14 @@ package com.hawk.gank.features.gank.home;
 
 import android.support.annotation.NonNull;
 
+import com.hawk.gank.R;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.model.type.ListItem;
+import com.hawk.lib.base.model.util.ResDelegate;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.rx.BaseRxPresenter;
 import com.hawk.lib.mvp.ui.view.BaseView;
@@ -16,7 +18,6 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
@@ -30,14 +31,14 @@ import static com.hawk.gank.features.gank.home.GankPresenter.GankQueryType.TAB;
 
 public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPresenter<V, GankUiCallbacks> {
     private static final String TAG = GankPresenter.class.getSimpleName();
+    private final ResDelegate mResDel;
     private final GankState mGankState;
     private final GankRepo mGankRepo;
 
-    private AtomicBoolean mTypeFromDb = new AtomicBoolean(false);
-
     @Inject
-    GankPresenter(final GankRepo gankRepo, final GankState gankState) {
+    GankPresenter(final ResDelegate resDelegate, final GankRepo gankRepo, final GankState gankState) {
         super();
+        mResDel = resDelegate;
         mGankRepo = gankRepo;
         mGankState = gankState;
     }
@@ -74,6 +75,12 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
+    @Subscribe
+    public void onGankCollectChanged(GankState.GankCollectEvent event) {
+        GankDisplay display = (GankDisplay) getDisplay();
+        display.collectGank(event.type);
+    }
+
     @Override
     protected void onInited() {
         Timber.tag(TAG).e("onInited");
@@ -94,6 +101,31 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                 ((GankListView) view).scrollToTop();
             }
         }
+    }
+
+    public void onGankCollectExist(@NonNull Gank gank) {
+        addUtilDestroy(mGankRepo.existGank(gank._id()));
+    }
+
+    public void onGankCollectClick(boolean delete, Gank gank) {
+        if (delete) {
+            mGankRepo.deleteCollect(gank);
+        }
+        else {
+            mGankRepo.collectGank(gank);
+        }
+    }
+
+    private String getViewTitle(final V view) {
+        if(view instanceof GankView) {
+            switch (((GankView) view).getGankQueryType()) {
+                case TAGLIST:
+                    return mResDel.getStringRes(R.string.gank_title);
+                case COLLECTLIST:
+                    return mResDel.getStringRes(R.string.gank_collect_title);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -125,6 +157,12 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
                 GankDisplay display = (GankDisplay) getDisplay();
                 display.showGankImage(url);
+            }
+
+            @Override
+            public void showGankCollect() {
+                GankDisplay display = (GankDisplay) getDisplay();
+                display.showGankCollect();
             }
 
             @Override
@@ -209,11 +247,11 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     protected void onViewAttached(V view) {
         if(view instanceof GankView) {
             GankQueryType queryType = ((GankView) view).getGankQueryType();
-
+            String title = null;
             int viewId = getId(view);
+
             switch (queryType) {
                 case TAB:
-                case TAGLIST:
                     fetchTabIfNeeded(viewId);
                     break;
                 case ANDROID:
@@ -234,11 +272,22 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                 case VIDEO:
                     fetchVideoListIfNeeded(viewId, 1);
                     break;
+                case TAGLIST:
+                    fetchTabIfNeeded(viewId);
+                    title = getViewTitle(view);
+                    break;
+                case COLLECTLIST:
+                    fetchCollectListIfNeeded(viewId, 0);
+                    title = getViewTitle(view);
+                    break;
             }
 
             final GankDisplay display = (GankDisplay) getDisplay();
             if (!view.isModal()) {
                 display.showUpNavigation(queryType.showUpNavigation());
+            }
+            if (!StringUtil.isEmpty(title)) {
+                display.setActionBarTitle(title);
             }
         }
     }
@@ -297,6 +346,12 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
+    private void fetchCollectListIfNeeded(@NonNull int viewId, @NonNull int page) {
+        if (ObjectUtil.isEmpty(mGankState.getGankCollect())) {
+            fetchCollectList(viewId, page);
+        }
+    }
+
     private void fetchTabTypeList(@NonNull int viewId) {
         addUtilDestroy(mGankRepo.getTagList());
     }
@@ -323,6 +378,10 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
     private void fetchVideoList(@NonNull int viewId, @NonNull int page) {
         addUtilStop(mGankRepo.getVideoData(viewId, page));
+    }
+
+    private void fetchCollectList(@NonNull int viewId, @NonNull int page) {
+        addUtilDestroy(mGankRepo.getCollectData(viewId, page));
     }
 
     private void populateTabView(GankTabView view) {
@@ -380,6 +439,12 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                 GankState.MoviePagedResult video = mGankState.getGankVideo();
                 if (video != null) {
                     items = video.items;
+                }
+                break;
+            case COLLECTLIST:
+                GankState.MoviePagedResult collect = mGankState.getGankCollect();
+                if (collect != null) {
+                    items = collect.items;
                 }
                 break;
         }
@@ -458,11 +523,13 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     public interface TagListView extends BaseGankListView<Tag> {}
 
     public enum GankQueryType {
-        TAB, ANDROID, IOS, WELFARE, VIDEO, FROANT, EXPAND, TAGLIST;
+        TAB, ANDROID, IOS, WELFARE, VIDEO, FROANT, EXPAND, TAGLIST, COLLECTLIST;
 
         public boolean showUpNavigation() {
             switch (this) {
                 case TAGLIST:
+                    return true;
+                case COLLECTLIST:
                     return true;
                 default:
                     return false;

@@ -27,7 +27,7 @@ public abstract class GankCollect implements Gank_CollectModel, Parcelable {
         }
     }, new ZonedDateTimeDelightAdapter(DateTimeFormatterProvider.provideDateTimeFormatter()));
 
-    public static final RowMapper<GankCollect> MAPPER = FACTORY.select_pageMapper();
+    public static final RowMapper<GankCollect> MAPPER = FACTORY.select_gankMapper();
 
     public static TypeAdapter<GankCollect> typeAdapter(final Gson gson) {
         return new AutoValue_GankCollect.GsonTypeAdapter(gson);

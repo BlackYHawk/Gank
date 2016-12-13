@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 public abstract class BaseGankListFragment<T> extends BaseListFragment<T, GankPresenter.BaseGankListView<T>, GankUiCallbacks,
-        GankPresenter<GankPresenter.BaseGankListView<T>>>  implements GankPresenter.BaseGankListView<T> {
+        GankPresenter<GankPresenter.BaseGankListView<T>>> implements GankPresenter.BaseGankListView<T> {
 
     @Override
     public void showError(RxError error) {

@@ -14,5 +14,8 @@ CREATE TABLE Gank (
 select_page:
 SELECT * FROM Gank where type = ? limit ? offset ?;
 
+select_collect:
+SELECT Gank.* FROM Gank inner join Gank_Collect on Gank._id=Gank_Collect._id limit ? offset ?;
+
 clear:
 DELETE FROM Gank WHERE 1;

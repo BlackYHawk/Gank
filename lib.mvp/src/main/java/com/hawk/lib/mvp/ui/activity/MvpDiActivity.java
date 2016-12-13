@@ -45,14 +45,14 @@ public abstract class MvpDiActivity<V extends BaseView<VC>, VC, P extends BasePr
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
+	protected void onStart() {
+		super.onStart();
 		mPresenterDelegate.onStart();
 	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
+	protected void onStop() {
+		super.onStop();
 		mPresenterDelegate.onStop();
 	}
 

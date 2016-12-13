@@ -47,7 +47,7 @@ public abstract class BasePresenterDelegate<V extends BaseView<VC>, VC, P extend
     protected abstract P createPresenter();
 
     private void checkPresenter() {
-        Preconditions.checkState(mPresenter != null, "You must call YaViewDelegate#onCreate! And createPresenter must return "
-                            + "non-null");
+        Preconditions.checkState(mPresenter != null, "You must call BasePresenterDelegate#onCreate! " +
+                "And createPresenter must return non-null");
     }
 }

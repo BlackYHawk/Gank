@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="fits_windows" format="boolean" />
+    <attr name="clip_padding" format="boolean" />
+
     <declare-styleable name="SlidingTabLayout">
         <attr name="selectedColor" format="color" />
         <attr name="indicatorHeight" format="reference|dimension" />

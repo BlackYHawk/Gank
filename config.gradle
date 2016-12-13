@@ -63,6 +63,9 @@ ext {
                     "timber"                   : "com.jakewharton.timber:timber:4.3.1",
                     "butterknife"              : "com.jakewharton:butterknife:$butterknifeVersion",
 
+                    "bugly:sdk"                : "com.tencent.bugly:crashreport:latest.release",
+                    "bugly:ndk"                : "com.tencent.bugly:nativecrashreport:latest.release",
+                    "bugly:upgrade"            : "com.tencent.bugly:crashreport_upgrade:latest.release",
                     "freeline:runtime"         : "com.antfortune.freeline:runtime:$freelineVersion",
                     "freeline:runtime-no-op"   : "com.antfortune.freeline:runtime-no-op:$freelineVersion"]
 

@@ -21,10 +21,6 @@ public class DetailDisplay implements BaseDisplay {
         this.mActivity = activity;
     }
 
-    public void collectGank() {
-        UIHelper.showSnackbar(mToolbar, "收藏成功");
-    }
-
     @Override
     public void finish() {
         mActivity.finish();
@@ -38,6 +34,11 @@ public class DetailDisplay implements BaseDisplay {
             actionBar.setDisplayHomeAsUpEnabled(show);
             actionBar.setHomeButtonEnabled(show);
         }
+    }
+
+    @Override
+    public void setActionBarTitle(String title) {
+        mActivity.setTitle(title);
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.hawk.gank.util.Constant;
 import com.hawk.lib.base.imageloader.BigImageViewer;
 import com.hawk.lib.base.imageloader.FrescoImageLoader;
 import com.hawk.lib.base.model.util.UtilModule;
+import com.tencent.bugly.Bugly;
 
 import timber.log.Timber;
 
@@ -34,6 +35,7 @@ public class AppContext extends Application implements IApplicatioin {
     @Override
     public void onCreate() {
         super.onCreate();
+        Bugly.init(getApplicationContext(), "73c27fe5b1", false);
         FreelineCore.init(this);
         _context = this;
         // 初始化参数依次为 this, AppId, AppKey

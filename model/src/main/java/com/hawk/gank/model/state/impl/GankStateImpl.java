@@ -1,8 +1,11 @@
 package com.hawk.gank.model.state.impl;
 
+import android.support.annotation.NonNull;
+
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.qualifier.CollectType;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.squareup.otto.Bus;
@@ -25,6 +28,7 @@ public class GankStateImpl implements GankState {
     private MoviePagedResult mFront;
     private MoviePagedResult mExpand;
     private MoviePagedResult mVideo;
+    private MoviePagedResult mCollect;
 
     @Inject
     public GankStateImpl(final Bus bus) {
@@ -140,13 +144,27 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
+    public void setGankCollect(int viewId, int page, List<Gank> gankList) {
+        if(mCollect == null) {
+            mCollect = createPagedResult();
+        }
+        updatePagedResult(mCollect, page, gankList);
+        mEventBus.post(new GankListChangedEvent(viewId));
+    }
+
+    @Override
+    public MoviePagedResult getGankCollect() {
+        return mCollect;
+    }
+
+    @Override
     public void notifyRxError(int viewId, RxError rxError) {
         mEventBus.post(new GankRxErrorEvent(viewId, rxError));
     }
 
     @Override
-    public void notifyCollect() {
-        mEventBus.post(new GankCollectEvent());
+    public void notifyCollect(@NonNull @CollectType int type) {
+        mEventBus.post(new GankCollectEvent(type));
     }
 
     private void updatePagedResult(MoviePagedResult result, int page, List<Gank> gankList) {

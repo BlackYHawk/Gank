@@ -84,7 +84,7 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
         }
     }
 
-    protected void setTitle(String text) {
+    public void setTitle(String text) {
         if(mTitle != null) {
             mTitle.setText(text);
         }

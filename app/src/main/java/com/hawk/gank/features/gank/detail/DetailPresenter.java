@@ -1,10 +1,8 @@
 package com.hawk.gank.features.gank.detail;
 
-import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.ui.presenter.ExtendPresenter;
-import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -26,12 +24,6 @@ public class DetailPresenter extends ExtendPresenter {
         mGankState = gankState;
     }
 
-    @Subscribe
-    public void onGankCollectChanged(GankState.GankCollectEvent event) {
-        DetailDisplay display = (DetailDisplay) getDisplay();
-        display.collectGank();
-    }
-
     @Override
     protected void onInited() {
         Timber.tag(TAG).e("onInited");
@@ -44,10 +36,6 @@ public class DetailPresenter extends ExtendPresenter {
         Timber.tag(TAG).e("onSuspended");
         super.onSuspended();
         mGankState.unregisterForEvent(this);
-    }
-
-    public void onGankCollectClick(Gank gank) {
-        mGankRepo.collectGank(gank);
     }
 
 }

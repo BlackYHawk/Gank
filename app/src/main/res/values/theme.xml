@@ -5,12 +5,18 @@
     <style name="BaseTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="fits_windows">false</item>
+        <item name="clip_padding">false</item>
+
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+        <!--Translucent system bars-->
         <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -19,7 +25,7 @@
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="windowActionModeOverlay">true</item>
+
     </style>
 
     <style name="Widget.Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -29,7 +35,7 @@
     </style>
 
     <style name="AppTheme.Translucent">
-        <item name="android:windowIsTranslucent">false</item>
+
     </style>
 
 </resources>

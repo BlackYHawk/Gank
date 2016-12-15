@@ -6,10 +6,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -143,11 +146,28 @@ public abstract class BaseActivity<V extends BaseView<VC>, VC, P extends BasePre
     }
 
     public final boolean startActivitySafely(final Intent intent) {
-        return StartActivityDelegate.startActivitySafely(this, intent);
+        return StartActivityDelegate.startActivitySafely(this, intent, provideOptionsBundle(null));
+    }
+
+    public final boolean startActivitySafely(final Intent intent, Pair<View, String>[] pairs) {
+        return StartActivityDelegate.startActivitySafely(this, intent, provideOptionsBundle(pairs));
+    }
+
+    public final void finishTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.finishAfterTransition();
+        }
+        else {
+            this.finish();
+        }
     }
 
     protected ActModule getActModule() {
         return new ActModule(this);
+    }
+
+    private Bundle provideOptionsBundle(Pair<View, String>[] pairs) {
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs).toBundle();
     }
 
 }

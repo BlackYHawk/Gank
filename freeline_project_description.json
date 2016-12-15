@@ -1,0 +1,246 @@
+{
+    "android_gradle_plugin_version": "2.2.3",
+    "apk_path": "/Users/heyong/AndroidStudioProjects/Gank/app/build/outputs/apk/app-debug.apk",
+    "apt": {
+        
+    },
+    "apt_libraries": {
+        "dagger": true,
+        "butterknife": true
+    },
+    "auto_dependency": true,
+    "build_cache_dir": "/Users/heyong/AndroidStudioProjects/Gank/app/build/freeline",
+    "build_directory": "/Users/heyong/AndroidStudioProjects/Gank/app/build",
+    "build_script": "./gradlew :app:assembleDebug",
+    "build_script_work_directory": "",
+    "build_tools_directory": "/Applications/adt-bundle-mac-x86_64-20140702/sdk/build-tools/25.0.0",
+    "build_tools_version": "25.0.0",
+    "compile_sdk_directory": "/Applications/adt-bundle-mac-x86_64-20140702/sdk/platforms/android-25",
+    "compile_sdk_version": "android-25",
+    "databinding": [
+        {
+            "isLibrary": false,
+            "minSdkVersion": 15,
+            "name": "app",
+            "packageName": "com.hawk.gank"
+        }
+    ],
+    "databinding_compiler_jar": "/Users/heyong/.gradle/caches/modules-2/files-2.1/com.android.databinding/compiler/2.2.3/ad2f73c8ad3e820ea8a58ab61bdd20feb1ce1a8e/compiler-2.2.3.jar",
+    "databinding_modules": [
+        "app"
+    ],
+    "debug_package": "com.hawk.gank",
+    "exclude_dep_res_paths": [
+        
+    ],
+    "extra_dep_res_paths": [
+        
+    ],
+    "freeline_cache_dir": "/Users/heyong/AndroidStudioProjects/Gank",
+    "freeline_gradle_plugin_version": "0.8.3",
+    "java_home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home",
+    "launcher": "com.hawk.gank.features.gank.home.GankActivity",
+    "main_assets_directory": [
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/assets",
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/assets"
+    ],
+    "main_jniLibs_directory": [
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/jniLibs",
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/jniLibs"
+    ],
+    "main_jni_directory": [
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/jni",
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/jni"
+    ],
+    "main_manifest_path": "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/AndroidManifest.xml",
+    "main_project_dir": "app",
+    "main_project_name": "app",
+    "main_r_path": "/Users/heyong/AndroidStudioProjects/Gank/app/build/generated/source/r/debug/R.java",
+    "main_res_directory": [
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/res",
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/res"
+    ],
+    "main_src_directory": [
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/java",
+        "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/java"
+    ],
+    "module_dependencies": {
+        "app": [
+            "model",
+            "lib.vitamio"
+        ],
+        "lib.base": [
+            "lib.mvp"
+        ],
+        "lib.mvp": [
+            
+        ],
+        "lib.vitamio": [
+            
+        ],
+        "model": [
+            "lib.base"
+        ]
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "/Users/heyong/AndroidStudioProjects/Gank/app"
+        },
+        {
+            "name": "model",
+            "path": "/Users/heyong/AndroidStudioProjects/Gank/model"
+        },
+        {
+            "name": "lib.vitamio",
+            "path": "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio"
+        },
+        {
+            "name": "lib.base",
+            "path": "/Users/heyong/AndroidStudioProjects/Gank/lib.base"
+        },
+        {
+            "name": "lib.mvp",
+            "path": "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp"
+        }
+    ],
+    "package": "com.hawk.gank",
+    "product_flavor": "",
+    "project_source_sets": {
+        "app": {
+            "main_assets_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/assets",
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/assets"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/jniLibs",
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/jniLibs"
+            ],
+            "main_jni_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/jni",
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/jni"
+            ],
+            "main_manifest_path": "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/AndroidManifest.xml",
+            "main_res_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/res",
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/res"
+            ],
+            "main_src_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/debug/java",
+                "/Users/heyong/AndroidStudioProjects/Gank/app/src/main/java"
+            ]
+        },
+        "lib.base": {
+            "main_assets_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/release/assets",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/main/assets"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/release/jniLibs",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/main/jniLibs"
+            ],
+            "main_jni_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/release/jni",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/main/jni"
+            ],
+            "main_manifest_path": "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/main/AndroidManifest.xml",
+            "main_res_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/release/res",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/main/res"
+            ],
+            "main_src_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/release/java",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.base/src/main/java"
+            ]
+        },
+        "lib.mvp": {
+            "main_assets_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/release/assets",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/main/assets"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/release/jniLibs",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/main/jniLibs"
+            ],
+            "main_jni_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/release/jni",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/main/jni"
+            ],
+            "main_manifest_path": "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/main/AndroidManifest.xml",
+            "main_res_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/release/res",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/main/res"
+            ],
+            "main_src_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/release/java",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.mvp/src/main/java"
+            ]
+        },
+        "lib.vitamio": {
+            "main_assets_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/release/assets",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/main/assets"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/release/jniLibs",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/libs"
+            ],
+            "main_jni_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/release/jni",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/main/jni"
+            ],
+            "main_manifest_path": "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/AndroidManifest.xml",
+            "main_res_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/release/res",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/res"
+            ],
+            "main_src_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src/release/java",
+                "/Users/heyong/AndroidStudioProjects/Gank/lib.vitamio/src"
+            ]
+        },
+        "model": {
+            "main_assets_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/release/assets",
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/main/assets"
+            ],
+            "main_jniLibs_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/release/jniLibs",
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/main/jniLibs"
+            ],
+            "main_jni_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/release/jni",
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/main/jni"
+            ],
+            "main_manifest_path": "/Users/heyong/AndroidStudioProjects/Gank/model/src/main/AndroidManifest.xml",
+            "main_res_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/release/res",
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/main/res"
+            ],
+            "main_src_directory": [
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/release/java",
+                "/Users/heyong/AndroidStudioProjects/Gank/model/src/main/java"
+            ]
+        }
+    },
+    "project_type": "gradle",
+    "retrolambda": {
+        "app": {
+            "enabled": true,
+            "mainClass": "net.orfjackal.retrolambda.Main",
+            "rtJar": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/rt.jar",
+            "supportIncludeFiles": true,
+            "targetJar": "/Users/heyong/.gradle/caches/modules-2/files-2.1/net.orfjackal.retrolambda/retrolambda/2.3.0/f35f58f7946d2f8be3dcff78aa3114f60aa40051/retrolambda-2.3.0.jar"
+        },
+        "model": {
+            "enabled": true,
+            "mainClass": "net.orfjackal.retrolambda.Main",
+            "rtJar": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/rt.jar",
+            "supportIncludeFiles": true,
+            "targetJar": "/Users/heyong/.gradle/caches/modules-2/files-2.1/net.orfjackal.retrolambda/retrolambda/2.3.0/f35f58f7946d2f8be3dcff78aa3114f60aa40051/retrolambda-2.3.0.jar"
+        }
+    },
+    "root_dir": "/Users/heyong/AndroidStudioProjects/Gank",
+    "sdk_directory": "/Applications/adt-bundle-mac-x86_64-20140702/sdk",
+    "use_jdk8": true
+}

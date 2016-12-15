@@ -1,5 +1,6 @@
 package com.hawk.lib.base.ui.fragment;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,12 +29,24 @@ public abstract class BaseTabFragment<V extends BaseView<VC>, VC, P extends Base
     private TabPagerAdapter mAdapter;
     private int mCurrentItem = 0;
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("current", mCurrentItem);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCurrentItem = savedInstanceState != null ? savedInstanceState.getInt("current") : 0;
+    }
 
     @Override
     protected void bindView(View rootView) {
         super.bindView(rootView);
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.slidingTabLayout);
         mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+        mViewPager.addOnPageChangeListener(onPageChangeListener);
     }
 
     @Override
@@ -46,6 +59,9 @@ public abstract class BaseTabFragment<V extends BaseView<VC>, VC, P extends Base
     protected void setFragments(List<Fragment> fragments) {
         mAdapter.setFragments(fragments);
         mSlidingTabLayout.notifyDataSetChanged();
+
+        if (mCurrentItem >= mAdapter.getCount())
+            mCurrentItem = 0;
         mViewPager.setCurrentItem(mCurrentItem);
     }
 
@@ -64,6 +80,23 @@ public abstract class BaseTabFragment<V extends BaseView<VC>, VC, P extends Base
     protected boolean autoBindViews() {
         return false;
     }
+
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            mCurrentItem = position;
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
 
     public class TabPagerAdapter extends FragmentPagerAdapter {
         private final ArrayList<Fragment> mFragments;

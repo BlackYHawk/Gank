@@ -5,6 +5,7 @@
     <string name="error">网络请求失败</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
+    <string name="exit_hint">再按一次退出程序</string>
     <string name="error_invalid_phone">手机号格式错误</string>
     <string name="error_invalid_password">密码为4-12位字符串</string>
 

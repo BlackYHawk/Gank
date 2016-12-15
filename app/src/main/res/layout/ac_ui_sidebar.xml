@@ -7,24 +7,23 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingTop="@dimen/sidbar_layout_t">
+    android:paddingTop="@dimen/sidbar_layout_padding">
 
     <RelativeLayout
         android:id="@+id/layHead"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sidbar_layout_head_h"
-        android:layout_marginLeft="@dimen/sidbar_head_margin"
+        android:layout_height="@dimen/sidbar_head_h"
+        android:paddingLeft="@dimen/sidbar_layout_padding"
+        android:clickable="true"
         android:gravity="center_vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/ivHead"
-            android:layout_width="@dimen/sidbar_head"
-            android:layout_height="@dimen/sidbar_head"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/account_head_margin"
+            android:layout_width="@dimen/sidbar_head_img"
+            android:layout_height="@dimen/sidbar_head_img"
             app:roundAsCircle="true"
             app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@mipmap/default_portrait"
+            app:placeholderImage="@mipmap/icon_logo"
             app:placeholderImageScaleType="fitCenter"/>
 
     </RelativeLayout>
@@ -32,9 +31,9 @@
     <RelativeLayout
         android:id="@+id/layCollect"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/sidbar_head_margin"
-        android:layout_marginTop="@dimen/sidbar_lay_margin" >
+        android:layout_height="@dimen/sidbar_icon_h"
+        android:paddingLeft="@dimen/sidbar_layout_padding"
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/ivCollect"
@@ -57,6 +56,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clickable="true"/>
 
 </LinearLayout>

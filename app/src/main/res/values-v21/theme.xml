@@ -6,6 +6,12 @@
         <item name="fits_windows">true</item>
         <item name="clip_padding">true</item>
 
+        <!--Animation-->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        <item name="android:windowEnterTransition">@transition/slide_changebounds</item>
+        <item name="android:windowExitTransition">@transition/fade_changebounds</item>
         <!--Translucent system bars-->
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowTranslucentNavigation">false</item>

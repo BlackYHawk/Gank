@@ -1,6 +1,7 @@
 package com.hawk.gank.features.gank.home;
 
 import android.content.Intent;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,6 +33,7 @@ public class GankDisplay implements BaseDisplay {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private long mExitTime = 0;
 
     public GankDisplay(BaseActivity activity) {
         Preconditions.checkNotNull(activity, "activity cannot be null");
@@ -81,7 +83,7 @@ public class GankDisplay implements BaseDisplay {
 
     @Override
     public void finish() {
-        mActivity.finish();
+        mActivity.finishTransition();
     }
 
     @Override
@@ -132,4 +134,31 @@ public class GankDisplay implements BaseDisplay {
             }
         }
     }
+
+    public void onBackPressed() {
+        boolean status = true;
+
+        if(isDrawerOpen()) {
+            closeDrawer();
+            status = false;
+        }
+
+        if(status) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                UIHelper.showToast(mActivity, R.string.exit_hint);
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+        }
+    }
+
+    public boolean isDrawerOpen() {
+        return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
 }

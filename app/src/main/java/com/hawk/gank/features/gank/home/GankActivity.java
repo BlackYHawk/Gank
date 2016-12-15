@@ -29,10 +29,14 @@ public class GankActivity extends BaseActivity<GankView, GankUiCallbacks, GankPr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getString(R.string.gank_title));
-        setupSideMenu();
-        if (savedInstanceState == null
-                || getSupportFragmentManager().findFragmentByTag(CURRENT_FRAGMENT) == null) {
-            showContent();
+
+        if (savedInstanceState == null) {
+            if(getSupportFragmentManager().findFragmentByTag(CURRENT_FRAGMENT) == null) {
+                showContent();
+            }
+            if(getSupportFragmentManager().findFragmentByTag(SIDEMENU_FRAGMENT) == null) {
+                setupSideMenu();
+            }
         }
     }
 
@@ -75,4 +79,5 @@ public class GankActivity extends BaseActivity<GankView, GankUiCallbacks, GankPr
     protected int getLayoutRes() {
         return R.layout.ac_ui_main;
     }
+
 }

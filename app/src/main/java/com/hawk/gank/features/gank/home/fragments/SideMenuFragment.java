@@ -28,9 +28,12 @@ public class SideMenuFragment extends BaseFragment<GankPresenter.GankSideMenuVie
 
     }
 
-    @OnClick(R.id.layCollect)
+    @OnClick({R.id.layHead, R.id.layCollect})
     void onLayoutClick(View view) {
         switch (view.getId()) {
+            case R.id.layHead :
+                getCallbacks().showBug();
+                break;
             case R.id.layCollect :
                 getCallbacks().showGankCollect();
                 break;

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:name="com.hawk.gank.AppContext"
+        android:name="com.hawk.gank.TinkerContext"
         android:allowBackup="true"
         android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"

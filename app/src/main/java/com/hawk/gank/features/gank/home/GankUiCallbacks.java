@@ -19,6 +19,8 @@ public interface GankUiCallbacks {
 
     void showGankCollect();
 
+    void showBug();
+
     void updateTag(Tag tag);
 
     void onPulledToTop();

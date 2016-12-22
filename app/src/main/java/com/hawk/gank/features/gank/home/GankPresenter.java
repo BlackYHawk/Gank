@@ -11,6 +11,7 @@ import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.model.type.ListItem;
 import com.hawk.lib.base.model.util.ResDelegate;
 import com.hawk.lib.base.util.ObjectUtil;
+import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.mvp.rx.BaseRxPresenter;
 import com.hawk.lib.mvp.ui.view.BaseView;
 import com.hawk.lib.mvp.util.Preconditions;
@@ -163,6 +164,12 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             public void showGankCollect() {
                 GankDisplay display = (GankDisplay) getDisplay();
                 display.showGankCollect();
+            }
+
+            @Override
+            public void showBug() {
+                GankDisplay display = (GankDisplay) getDisplay();
+                display.showBug();
             }
 
             @Override

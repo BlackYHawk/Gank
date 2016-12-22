@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.hawk.gank.R;
+import com.hawk.gank.data.LoadBugClass;
 import com.hawk.gank.features.gank.detail.DetailWelfareActivity;
 import com.hawk.gank.features.gank.home.fragments.CollectListFragment;
 import com.hawk.gank.features.gank.home.fragments.TagListFragment;
@@ -62,6 +63,10 @@ public class GankDisplay implements BaseDisplay {
         Intent intent = new Intent(mActivity, GankContainerActivity.class);
         intent.putExtra("className", CollectListFragment.class.getName());
         mActivity.startActivitySafely(intent);
+    }
+
+    public void showBug() {
+        UIHelper.showToast(mActivity, LoadBugClass.getBugString());
     }
 
     public void collectGank(@CollectType int type) {

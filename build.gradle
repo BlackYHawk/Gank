@@ -15,6 +15,10 @@ buildscript {
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath 'com.squareup.sqldelight:gradle-plugin:0.5.1'
         classpath 'com.antfortune.freeline:gradle:0.8.3'
+        // tinker gradle插件
+        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.7.5')
+        // tinkersupport插件
+        classpath "com.tencent.bugly:tinker-support:latest.release"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

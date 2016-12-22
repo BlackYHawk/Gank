@@ -29,9 +29,9 @@ android {
     signingConfigs {
         release {
             storeFile file("android.jks")
-            storePassword "lovee12525561"
-            keyAlias "hawk"
-            keyPassword "lovee125"
+            storePassword "123456"
+            keyAlias "android.jks"
+            keyPassword "123456"
         }
     }
     buildTypes {

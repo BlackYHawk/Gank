@@ -1,13 +1,6 @@
 {
     "android_gradle_plugin_version": "2.2.3",
     "apk_path": "/Users/heyong/AndroidStudioProjects/Gank/app/build/outputs/apk/app-debug.apk",
-    "apt": {
-        
-    },
-    "apt_libraries": {
-        "dagger": true,
-        "butterknife": true
-    },
     "auto_dependency": true,
     "build_cache_dir": "/Users/heyong/AndroidStudioProjects/Gank/app/build/freeline",
     "build_directory": "/Users/heyong/AndroidStudioProjects/Gank/app/build",
@@ -25,7 +18,6 @@
             "packageName": "com.hawk.gank"
         }
     ],
-    "databinding_compiler_jar": "/Users/heyong/.gradle/caches/modules-2/files-2.1/com.android.databinding/compiler/2.2.3/ad2f73c8ad3e820ea8a58ab61bdd20feb1ce1a8e/compiler-2.2.3.jar",
     "databinding_modules": [
         "app"
     ],
@@ -224,22 +216,6 @@
         }
     },
     "project_type": "gradle",
-    "retrolambda": {
-        "app": {
-            "enabled": true,
-            "mainClass": "net.orfjackal.retrolambda.Main",
-            "rtJar": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/rt.jar",
-            "supportIncludeFiles": true,
-            "targetJar": "/Users/heyong/.gradle/caches/modules-2/files-2.1/net.orfjackal.retrolambda/retrolambda/2.3.0/f35f58f7946d2f8be3dcff78aa3114f60aa40051/retrolambda-2.3.0.jar"
-        },
-        "model": {
-            "enabled": true,
-            "mainClass": "net.orfjackal.retrolambda.Main",
-            "rtJar": "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/rt.jar",
-            "supportIncludeFiles": true,
-            "targetJar": "/Users/heyong/.gradle/caches/modules-2/files-2.1/net.orfjackal.retrolambda/retrolambda/2.3.0/f35f58f7946d2f8be3dcff78aa3114f60aa40051/retrolambda-2.3.0.jar"
-        }
-    },
     "root_dir": "/Users/heyong/AndroidStudioProjects/Gank",
     "sdk_directory": "/Applications/adt-bundle-mac-x86_64-20140702/sdk",
     "use_jdk8": true

@@ -2,6 +2,8 @@
 <resources>
 
     <!--公共-->
+    <dimen name="appbar_height">250dp</dimen>
+    <dimen name="page_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="card_elevation">5dp</dimen>
     <dimen name="card_margin">5dp</dimen>

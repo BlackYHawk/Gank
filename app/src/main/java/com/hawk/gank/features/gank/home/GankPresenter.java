@@ -11,7 +11,6 @@ import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.model.type.ListItem;
 import com.hawk.lib.base.model.util.ResDelegate;
 import com.hawk.lib.base.util.ObjectUtil;
-import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.mvp.rx.BaseRxPresenter;
 import com.hawk.lib.mvp.ui.view.BaseView;
 import com.hawk.lib.mvp.util.Preconditions;

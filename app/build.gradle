@@ -88,6 +88,8 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["percent"]
+    compile rootProject.ext.dependencies["appbarspring"]
     compile rootProject.ext.modelDependencies["multiDex"]
     compile rootProject.ext.dependencies["avoscloud-sdk"]
     compile rootProject.ext.dependencies["avoscloud-statistics"]
@@ -191,7 +193,6 @@ if (buildWithTinker()) {
         // dex相关配置项
         dex {
             dexMode = "jar" // 可选，默认为jar
-            usePreGeneratedPatchDex = false // 可选，默认为false
             pattern = ["classes*.dex",
                        "assets/secondary-dex-?.jar"]
             // 必选

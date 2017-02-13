@@ -34,6 +34,7 @@ public class GankDisplay implements BaseDisplay {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+
     private long mExitTime = 0;
 
     public GankDisplay(BaseActivity activity) {
@@ -133,10 +134,6 @@ public class GankDisplay implements BaseDisplay {
 
         if(mToolbar != null) {
             mActivity.setSupportActionBar(mToolbar);
-
-            if(mActivity.getSupportActionBar() != null) {
-                mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-            }
         }
     }
 

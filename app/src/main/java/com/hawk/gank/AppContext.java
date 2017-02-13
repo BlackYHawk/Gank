@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -41,13 +39,11 @@ public class AppContext extends DefaultApplicationLike implements IApplicatioin 
     private static AppContext _appContext;
     private AppComponent appComponent;
 
-    public AppContext(Application application, int tinkerFlags,
-                                 boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime,
-                                 long applicationStartMillisTime, Intent tinkerResultIntent, Resources[] resources,
-                                 ClassLoader[] classLoader, AssetManager[] assetManager) {
+    public AppContext(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
+                      long applicationStartElapsedTime, long applicationStartMillisTime,
+                      Intent tinkerResultIntent) {
         super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime,
-                applicationStartMillisTime, tinkerResultIntent, resources, classLoader,
-                assetManager);
+                applicationStartMillisTime, tinkerResultIntent);
     }
 
     @Override

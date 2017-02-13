@@ -16,6 +16,7 @@ import java.util.List;
 @AutoValue
 public abstract class RxError implements Parcelable {
 
+
     public abstract String message();
 
     @Nullable
@@ -43,7 +44,7 @@ public abstract class RxError implements Parcelable {
     }
 
     @NonNull
-    public static RxError.Builder builder() {
+    public static Builder builder() {
         return new AutoValue_RxError.Builder();
     }
 

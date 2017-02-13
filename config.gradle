@@ -19,6 +19,7 @@ ext {
     dependencies = ["appcompat-v7"             : "com.android.support:appcompat-v7:$SUPPORT_VERSION",
                     "support-v4"               : "com.android.support:support-v4:$SUPPORT_VERSION",
                     "support-fragment"         : "com.android.support:support-fragment:$SUPPORT_VERSION",
+                    "percent"                  : "com.android.support:percent:$SUPPORT_VERSION",
                     "annotation"               : "com.android.support:support-annotations:$SUPPORT_VERSION",
                     "design"                   : "com.android.support:design:$SUPPORT_VERSION",
                     "recyclerview-v7"          : "com.android.support:recyclerview-v7:$SUPPORT_VERSION",
@@ -56,6 +57,7 @@ ext {
                     "systembartint"            : "com.readystatesoftware.systembartint:systembartint:1.0.3",
                     "smoothprogressbar"        : "com.github.castorflex.smoothprogressbar:library:0.5.1",
                     "progresspieview"          : "com.github.filippudak.progresspieview:library:1.0.4",
+                    "appbarspring"             : "com.github.todou:appbarspring:1.0.3",
 
                     "stetho"                   : "com.facebook.stetho:stetho:$stethoVersion",
                     "stetho-okhttp"            : "com.facebook.stetho:stetho-okhttp3:$stethoVersion",

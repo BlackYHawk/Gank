@@ -10,8 +10,8 @@ import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.features.gank.home.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.util.StringUtil;
-import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.base.ui.fragment.BaseTabFragment;
+import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.mvp.util.Preconditions;
 
 import java.util.ArrayList;

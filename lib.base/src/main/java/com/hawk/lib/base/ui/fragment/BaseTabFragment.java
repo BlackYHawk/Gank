@@ -46,6 +46,7 @@ public abstract class BaseTabFragment<V extends BaseView<VC>, VC, P extends Base
         super.bindView(rootView);
         mSlidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.slidingTabLayout);
         mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+
         mViewPager.addOnPageChangeListener(onPageChangeListener);
     }
 

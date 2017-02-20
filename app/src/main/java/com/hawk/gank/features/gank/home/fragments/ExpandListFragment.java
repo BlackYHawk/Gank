@@ -63,11 +63,20 @@ public class ExpandListFragment extends BaseGankListFragment<Gank> implements Ga
             String publishTime = StringUtil.formatDisplayTime(mm.publishedAt());
             String description = mm.description().length() > limit ? mm.description().substring(0, limit) +
                     "..." : mm.description();
+            String imgUrl = "";
+
+            if(!ObjectUtil.isEmpty(mm.images())) {
+                imgUrl = mm.images().get(0);
+            }
 
             tvTitle.setText(description);
             tvTime.setText(publishTime);
-            if(!ObjectUtil.isEmpty(mm.images())) {
-                ivAverator.setImageURI(Uri.parse(mm.images().get(0)));
+
+            if(!StringUtil.isEmpty(imgUrl)) {
+                ivAverator.setImageURI(Uri.parse(imgUrl));
+            }
+            else {
+                ivAverator.setImageURI(Uri.EMPTY);
             }
         }
 

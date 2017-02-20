@@ -38,11 +38,16 @@ public interface BaseState {
     abstract class PagedResult<T> {
         public List<T> items;
         public int page;
-        public int totalPages;
+        public int pageSize;  //每页多少数
 
-        public PagedResult() {
+        public PagedResult(int pageSize) {
             items = new ArrayList<>();
             page = -1;
+            this.pageSize = pageSize;
+        }
+
+        public boolean full() {
+            return page * pageSize == ((items != null) ? items.size() : 0);
         }
 
         @Override

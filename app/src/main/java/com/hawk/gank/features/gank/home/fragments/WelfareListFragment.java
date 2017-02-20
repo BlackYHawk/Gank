@@ -10,6 +10,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;
@@ -59,9 +60,20 @@ public class WelfareListFragment extends BaseGankListFragment<Gank> implements G
 
             String text = mm.description().length() > limit ? mm.description().substring(0, limit) +
                     "..." : mm.description();
+            String imgUrl = "";
+
+            if(!StringUtil.isEmpty(mm.url())) {
+                imgUrl = mm.url();
+            }
 
             titleView.setText(text);
-            mmView.setImageURI(Uri.parse(mm.url()));
+
+            if(!StringUtil.isEmpty(imgUrl)) {
+                mmView.setImageURI(Uri.parse(imgUrl));
+            }
+            else {
+                mmView.setImageURI(Uri.EMPTY);
+            }
         }
 
         @Override

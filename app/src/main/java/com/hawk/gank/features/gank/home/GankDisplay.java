@@ -135,6 +135,9 @@ public class GankDisplay implements BaseDisplay {
         if(mToolbar != null) {
             mActivity.setSupportActionBar(mToolbar);
         }
+        if(mActivity.getSupportActionBar() != null) {
+            mActivity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
     }
 
     public void onBackPressed() {

@@ -198,6 +198,9 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                         case VIDEO :
                             fetchVideoList(getId(view), 1);
                             break;
+                        case COLLECTLIST :
+                            fetchCollectList(getId(view), 1);
+                            break;
                     }
                 }
             }
@@ -207,39 +210,45 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                 if(view instanceof GankListView) {
                     switch (((GankListView) view).getGankQueryType()) {
                         case ANDROID :
-                            GankState.MoviePagedResult android = mGankState.getGankAndroid();
+                            GankState.GankPagedResult android = mGankState.getGankAndroid();
                             if(android != null) {
                                 fetchAndroidList(getId(view), android.page + 1);
                             }
                             break;
                         case IOS :
-                            GankState.MoviePagedResult ios = mGankState.getGankIos();
+                            GankState.GankPagedResult ios = mGankState.getGankIos();
                             if(ios != null) {
                                 fetchIosList(getId(view), ios.page + 1);
                             }
                             break;
                         case WELFARE :
-                            GankState.MoviePagedResult welfare = mGankState.getGankWelfare();
+                            GankState.GankPagedResult welfare = mGankState.getGankWelfare();
                             if(welfare != null) {
                                 fetchWelfareList(getId(view), welfare.page + 1);
                             }
                             break;
                         case FROANT :
-                            GankState.MoviePagedResult front = mGankState.getGankFront();
+                            GankState.GankPagedResult front = mGankState.getGankFront();
                             if(front != null) {
                                 fetchFrontList(getId(view), front.page + 1);
                             }
                             break;
                         case EXPAND :
-                            GankState.MoviePagedResult expand = mGankState.getGankExpand();
+                            GankState.GankPagedResult expand = mGankState.getGankExpand();
                             if(expand != null) {
                                 fetchExpandList(getId(view), expand.page + 1);
                             }
                             break;
                         case VIDEO :
-                            GankState.MoviePagedResult video = mGankState.getGankVideo();
+                            GankState.GankPagedResult video = mGankState.getGankVideo();
                             if(video != null) {
                                 fetchVideoList(getId(view), video.page + 1);
+                            }
+                            break;
+                        case COLLECTLIST :
+                            GankState.GankPagedResult collect = mGankState.getGankCollect();
+                            if(collect != null && collect.full()) {
+                                fetchCollectList(getId(view), collect.page + 1);
                             }
                             break;
                     }
@@ -283,7 +292,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                     title = getViewTitle(view);
                     break;
                 case COLLECTLIST:
-                    fetchCollectListIfNeeded(viewId, 0);
+                    fetchCollectList(viewId, 1);
                     title = getViewTitle(view);
                     break;
             }
@@ -352,12 +361,6 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
-    private void fetchCollectListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankCollect())) {
-            fetchCollectList(viewId, page);
-        }
-    }
-
     private void fetchTabTypeList(@NonNull int viewId) {
         addUtilDestroy(mGankRepo.getTagList());
     }
@@ -408,49 +411,57 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     private void populateListView(GankListView view) {
         final GankQueryType queryType = view.getGankQueryType();
 
+        boolean scrollBottom = false;
         List<Gank> items = null;
 
         switch (queryType) {
             case ANDROID:
-                GankState.MoviePagedResult android = mGankState.getGankAndroid();
+                GankState.GankPagedResult android = mGankState.getGankAndroid();
                 if (android != null) {
                     items = android.items;
+                    scrollBottom = android.full();
                 }
                 break;
             case IOS:
-                GankState.MoviePagedResult ios = mGankState.getGankIos();
+                GankState.GankPagedResult ios = mGankState.getGankIos();
                 if (ios != null) {
                     items = ios.items;
+                    scrollBottom = ios.full();
                 }
                 break;
             case WELFARE:
-                GankState.MoviePagedResult welfare = mGankState.getGankWelfare();
+                GankState.GankPagedResult welfare = mGankState.getGankWelfare();
                 if (welfare != null) {
                     items = welfare.items;
+                    scrollBottom = welfare.full();
                 }
                 break;
             case FROANT:
-                GankState.MoviePagedResult front = mGankState.getGankFront();
+                GankState.GankPagedResult front = mGankState.getGankFront();
                 if (front != null) {
                     items = front.items;
+                    scrollBottom = front.full();
                 }
                 break;
             case EXPAND:
-                GankState.MoviePagedResult expand = mGankState.getGankExpand();
+                GankState.GankPagedResult expand = mGankState.getGankExpand();
                 if (expand != null) {
                     items = expand.items;
+                    scrollBottom = expand.full();
                 }
                 break;
             case VIDEO:
-                GankState.MoviePagedResult video = mGankState.getGankVideo();
+                GankState.GankPagedResult video = mGankState.getGankVideo();
                 if (video != null) {
                     items = video.items;
+                    scrollBottom = video.full();
                 }
                 break;
             case COLLECTLIST:
-                GankState.MoviePagedResult collect = mGankState.getGankCollect();
+                GankState.GankPagedResult collect = mGankState.getGankCollect();
                 if (collect != null) {
                     items = collect.items;
+                    scrollBottom = collect.full();
                 }
                 break;
         }
@@ -458,6 +469,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         if (ObjectUtil.isEmpty(items)) {
             view.setItems(null);
         } else {
+            view.enableScrollBottom(scrollBottom);
             view.setItems(items);
         }
     }
@@ -522,6 +534,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     public interface BaseGankListView<T> extends GankView {
         void setItems(List<T> items);
         void scrollToTop();
+        void enableScrollBottom(boolean enable);
     }
 
     public interface GankListView extends BaseGankListView<Gank> {}

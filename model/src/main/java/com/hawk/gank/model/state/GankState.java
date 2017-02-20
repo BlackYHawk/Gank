@@ -24,31 +24,31 @@ public interface GankState extends BaseState {
 
     void setGankAndroid(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankAndroid();
+    GankPagedResult getGankAndroid();
 
     void setGankIos(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankIos();
+    GankPagedResult getGankIos();
 
     void setGankWelfare(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankWelfare();
+    GankPagedResult getGankWelfare();
 
     void setGankFront(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankFront();
+    GankPagedResult getGankFront();
 
     void setGankExpand(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankExpand();
+    GankPagedResult getGankExpand();
 
     void setGankVideo(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankVideo();
+    GankPagedResult getGankVideo();
 
     void setGankCollect(int viewId, int page, List<Gank> gankList);
 
-    MoviePagedResult getGankCollect();
+    GankPagedResult getGankCollect();
 
     void notifyRxError(int viewId, RxError rxError);
 
@@ -76,6 +76,10 @@ public interface GankState extends BaseState {
         }
     }
 
-    class MoviePagedResult extends PagedResult<Gank> {}
+    class GankPagedResult extends PagedResult<Gank> {
+        public GankPagedResult(int pageSize) {
+            super(pageSize);
+        }
+    }
 
 }

@@ -28,6 +28,7 @@ public class GankActivity extends BaseActivity<GankView, GankUiCallbacks, GankPr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.gank_title));
 
         if (savedInstanceState == null) {
             if(getSupportFragmentManager().findFragmentByTag(CURRENT_FRAGMENT) == null) {

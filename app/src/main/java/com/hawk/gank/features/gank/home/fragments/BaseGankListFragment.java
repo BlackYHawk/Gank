@@ -35,6 +35,11 @@ public abstract class BaseGankListFragment<T> extends BaseListFragment<T, GankPr
     }
 
     @Override
+    public void enableScrollBottom(boolean enable) {
+        recycler.enableLoadMore(enable);
+    }
+
+    @Override
     public void onRefresh(int action) {
         if (action == PullRecycler.ACTION_PULL_TO_REFRESH) {
             getCallbacks().onPulledToTop();

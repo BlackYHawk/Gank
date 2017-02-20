@@ -2,9 +2,10 @@ package com.hawk.gank.model.state.impl;
 
 import android.support.annotation.NonNull;
 
-import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.error.RxError;
+import com.hawk.gank.model.http.GankIO;
 import com.hawk.gank.model.qualifier.CollectType;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
@@ -22,13 +23,13 @@ import javax.inject.Singleton;
 public class GankStateImpl implements GankState {
     private final Bus mEventBus;
     private List<Tag> mTagList;
-    private MoviePagedResult mAndroid;
-    private MoviePagedResult mIos;
-    private MoviePagedResult mWelfare;
-    private MoviePagedResult mFront;
-    private MoviePagedResult mExpand;
-    private MoviePagedResult mVideo;
-    private MoviePagedResult mCollect;
+    private GankPagedResult mAndroid;
+    private GankPagedResult mIos;
+    private GankPagedResult mWelfare;
+    private GankPagedResult mFront;
+    private GankPagedResult mExpand;
+    private GankPagedResult mVideo;
+    private GankPagedResult mCollect;
 
     @Inject
     public GankStateImpl(final Bus bus) {
@@ -69,7 +70,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankAndroid() {
+    public GankPagedResult getGankAndroid() {
         return mAndroid;
     }
 
@@ -83,7 +84,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankIos() {
+    public GankPagedResult getGankIos() {
         return mIos;
     }
 
@@ -97,7 +98,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankWelfare() {
+    public GankPagedResult getGankWelfare() {
         return mWelfare;
     }
 
@@ -111,7 +112,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankFront() {
+    public GankPagedResult getGankFront() {
         return mFront;
     }
 
@@ -125,7 +126,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankExpand() {
+    public GankPagedResult getGankExpand() {
         return mExpand;
     }
 
@@ -139,7 +140,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankVideo() {
+    public GankPagedResult getGankVideo() {
         return mVideo;
     }
 
@@ -153,7 +154,7 @@ public class GankStateImpl implements GankState {
     }
 
     @Override
-    public MoviePagedResult getGankCollect() {
+    public GankPagedResult getGankCollect() {
         return mCollect;
     }
 
@@ -167,7 +168,7 @@ public class GankStateImpl implements GankState {
         mEventBus.post(new GankCollectEvent(type));
     }
 
-    private void updatePagedResult(MoviePagedResult result, int page, List<Gank> gankList) {
+    private void updatePagedResult(GankPagedResult result, int page, List<Gank> gankList) {
         if (page <= 1) {
             result.items.clear();
         }
@@ -175,8 +176,8 @@ public class GankStateImpl implements GankState {
         result.page = page;
     }
 
-    private MoviePagedResult createPagedResult() {
-        return new MoviePagedResult();
+    private GankPagedResult createPagedResult() {
+        return new GankPagedResult(GankIO.PAGE_SIZE);
     }
 
     @Override

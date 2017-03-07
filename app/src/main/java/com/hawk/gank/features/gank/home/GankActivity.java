@@ -66,6 +66,13 @@ public class GankActivity extends BaseActivity<GankView, GankUiCallbacks, GankPr
     }
 
     @Override
+    public void onBackPressed() {
+        if (display instanceof GankDisplay) {
+            ((GankDisplay)display).onBackPressed();
+        }
+    }
+
+    @Override
     protected void initializeDependence() {
         component = AppContext.getInstance().appComponent().gankComponent(getActModule());
     }

@@ -37,18 +37,19 @@ public class GankContainerActivity extends BaseActivity<GankView, GankUiCallback
             return;
         }
 
-        Fragment fragment = null;
-        if (className.equals(TagListFragment.class.getName())) {
-            fragment = TagListFragment.newInstance();
-        }
-        else if (className.equals(CollectListFragment.class.getName())) {
-            fragment = CollectListFragment.newInstance();
-        }
+        if (savedInstanceState == null) {
+            Fragment fragment = null;
+            if (className.equals(TagListFragment.class.getName())) {
+                fragment = TagListFragment.newInstance();
+            } else if (className.equals(CollectListFragment.class.getName())) {
+                fragment = CollectListFragment.newInstance();
+            }
 
-        Preconditions.checkNotNull(fragment, "fragment cannot be null");
-        safeCommit(transaction(getSupportFragmentManager())
-                .add(R.id.content, fragment, CURRENT_FRAGMENT)
-                .build());
+            Preconditions.checkNotNull(fragment, "fragment cannot be null");
+            safeCommit(transaction(getSupportFragmentManager())
+                    .add(R.id.content, fragment, CURRENT_FRAGMENT)
+                    .build());
+        }
     }
 
     @Override

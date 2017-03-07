@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,6 +21,7 @@ import timber.log.Timber;
 public class RxErrorProcessor implements Action1<Throwable> {
 
     private final Gson mGson;
+    private static final String SOCKET_TIMEOUT = "无法连接服务器";
 
     @Inject
     RxErrorProcessor(final Gson gson) {
@@ -44,7 +46,12 @@ public class RxErrorProcessor implements Action1<Throwable> {
                 RxError rxError = RxError.builder().message(e.getMessage()).build();
                 handler.call(rxError);
             }
-        } else {
+        }
+        else if (throwable instanceof SocketTimeoutException) {
+            RxError rxError = RxError.builder().message(SOCKET_TIMEOUT).build();
+            handler.call(rxError);
+        }
+        else {
             RxError rxError = RxError.builder().message(throwable.getMessage()).build();
             handler.call(rxError);
         }

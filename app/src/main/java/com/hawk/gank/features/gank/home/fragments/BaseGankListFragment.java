@@ -1,5 +1,8 @@
 package com.hawk.gank.features.gank.home.fragments;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.features.gank.home.GankUiCallbacks;
 import com.hawk.gank.model.error.RxError;
@@ -15,6 +18,13 @@ import java.util.List;
 
 public abstract class BaseGankListFragment<T> extends BaseListFragment<T, GankPresenter.BaseGankListView<T>, GankUiCallbacks,
         GankPresenter<GankPresenter.BaseGankListView<T>>> implements GankPresenter.BaseGankListView<T> {
+    protected boolean init = false;    //是否已经加载
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init = true;
+    }
 
     @Override
     public void showError(RxError error) {
@@ -47,5 +57,11 @@ public abstract class BaseGankListFragment<T> extends BaseListFragment<T, GankPr
         else {
             getCallbacks().onScrolledToBottom();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        init = false;
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.hawk.gank.R;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.gank.util.StringUtil;
@@ -21,6 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
 import static com.hawk.gank.features.gank.home.GankPresenter.GankQueryType.TAB;
@@ -34,6 +37,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     private final ResDelegate mResDel;
     private final GankState mGankState;
     private final GankRepo mGankRepo;
+    private CompositeSubscription mDbSubscriptions;
 
     @Inject
     GankPresenter(final ResDelegate resDelegate, final GankRepo gankRepo, final GankState gankState) {
@@ -49,6 +53,33 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
         if(view != null) {
             populateView(view);
+        }
+    }
+
+    @Subscribe
+    public void onGankTabLoad(GankState.GankLoadEvent event) {
+        @GankType int type = event.type;
+        int viewId = event.callingId;
+
+        switch (type) {
+            case GankType.ANDROID :
+                addDbSubscription(mGankRepo.loadAndroidData(viewId, 1));
+                break;
+            case GankType.IOS :
+                addDbSubscription(mGankRepo.loadIosData(viewId, 1));
+                break;
+            case GankType.WELFARE :
+                addDbSubscription(mGankRepo.loadWelfareData(viewId, 1));
+                break;
+            case GankType.EXPAND :
+                addDbSubscription(mGankRepo.loadExpandData(viewId, 1));
+                break;
+            case GankType.FROANT :
+                addDbSubscription(mGankRepo.loadFrontData(viewId, 1));
+                break;
+            case GankType.VIDEO :
+                addDbSubscription(mGankRepo.loadVideoData(viewId, 1));
+                break;
         }
     }
 
@@ -86,12 +117,14 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         Timber.tag(TAG).e("onInited");
         super.onInited();
         mGankState.registerForEvent(this);
+        initDbSubscriptions();
     }
 
     @Override
     protected void onSuspended() {
         Timber.tag(TAG).e("onSuspended");
         super.onSuspended();
+        unsubcribeDb();
         mGankState.unregisterForEvent(this);
     }
 
@@ -179,6 +212,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             @Override
             public void onPulledToTop() {
                 if(view instanceof GankListView) {
+                    clearDbSubscriptions();
                     switch (((GankListView) view).getGankQueryType()) {
                         case ANDROID :
                             fetchAndroidList(getId(view), 1);
@@ -208,6 +242,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             @Override
             public void onScrolledToBottom() {
                 if(view instanceof GankListView) {
+                    clearDbSubscriptions();
                     switch (((GankListView) view).getGankQueryType()) {
                         case ANDROID :
                             GankState.GankPagedResult android = mGankState.getGankAndroid();
@@ -309,13 +344,37 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
     @Override
     protected void populateView(V view) {
-
         if(view instanceof GankTabView) {
             populateTabView((GankTabView)view);
         } else if(view instanceof GankListView) {
             populateListView((GankListView)view);
         } else if(view instanceof TagListView) {
             populateTagListView((TagListView) view);
+        }
+    }
+
+    private void initDbSubscriptions() {
+        if (mDbSubscriptions == null) {
+            mDbSubscriptions = new CompositeSubscription();
+        }
+    }
+
+    private void addDbSubscription(Subscription subscription) {
+        if (mDbSubscriptions != null) {
+            mDbSubscriptions.add(subscription);
+        }
+    }
+
+    private void clearDbSubscriptions() {
+        if (mDbSubscriptions != null) {
+            mDbSubscriptions.clear();
+        }
+    }
+
+    private void unsubcribeDb() {
+        if (mDbSubscriptions != null) {
+            mDbSubscriptions.unsubscribe();
+            mDbSubscriptions = null;
         }
     }
 
@@ -326,37 +385,43 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     }
 
     private void fetchAndroidListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankAndroid())) {
+        if (ObjectUtil.isEmpty(mGankState.getGankAndroid()) ||
+                ObjectUtil.isEmpty(mGankState.getGankAndroid().items)) {
             fetchAndroidList(viewId, page);
         }
     }
 
     private void fetchIosListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankIos())) {
+        if (ObjectUtil.isEmpty(mGankState.getGankIos()) ||
+                ObjectUtil.isEmpty(mGankState.getGankIos().items)) {
             fetchIosList(viewId, page);
         }
     }
 
     private void fetchWelfareListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankWelfare())) {
+        if (ObjectUtil.isEmpty(mGankState.getGankWelfare()) ||
+                ObjectUtil.isEmpty(mGankState.getGankWelfare().items)) {
             fetchWelfareList(viewId, page);
         }
     }
 
     private void fetchFrontListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankFront())) {
+        if (ObjectUtil.isEmpty(mGankState.getGankFront()) ||
+                ObjectUtil.isEmpty(mGankState.getGankFront().items)) {
             fetchFrontList(viewId, page);
         }
     }
 
     private void fetchExpandListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankExpand())) {
+        if (ObjectUtil.isEmpty(mGankState.getGankExpand()) ||
+                ObjectUtil.isEmpty(mGankState.getGankExpand().items)) {
             fetchExpandList(viewId, page);
         }
     }
 
     private void fetchVideoListIfNeeded(@NonNull int viewId, @NonNull int page) {
-        if (ObjectUtil.isEmpty(mGankState.getGankVideo())) {
+        if (ObjectUtil.isEmpty(mGankState.getGankVideo()) ||
+                ObjectUtil.isEmpty(mGankState.getGankVideo().items)) {
             fetchVideoList(viewId, page);
         }
     }
@@ -374,7 +439,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     }
 
     private void fetchWelfareList(@NonNull int viewId, @NonNull int page) {
-        addUtilStop(mGankRepo.getMMData(viewId, page));
+        addUtilStop(mGankRepo.getWelfareData(viewId, page));
     }
 
     private void fetchFrontList(@NonNull int viewId, @NonNull int page) {

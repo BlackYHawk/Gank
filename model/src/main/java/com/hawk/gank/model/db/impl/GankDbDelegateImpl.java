@@ -10,6 +10,7 @@ import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.http.GankIO;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
 import com.squareup.sqlbrite.BriteDatabase;
+import com.squareup.sqldelight.SqlDelightStatement;
 
 import org.threeten.bp.ZonedDateTime;
 
@@ -78,7 +79,9 @@ public class GankDbDelegateImpl implements GankDbDelegate {
 
     @Override
     public Observable<List<Tag>> getTagList() {
-        return mBriteDb.createQuery(Tag.TABLE_NAME, Tag.SELECT_ALL)
+        SqlDelightStatement query = Tag.FACTORY.select_all();
+
+        return mBriteDb.createQuery(Tag.TABLE_NAME, query.statement)
                 .mapToList(Tag.MAPPER::map);
     }
 
@@ -95,18 +98,23 @@ public class GankDbDelegateImpl implements GankDbDelegate {
         } finally {
             transaction.end();
         }
-
     }
 
     @Override
     public Observable<List<Gank>> getGankList(@NonNull String type, @NonNull int page) {
-        return mBriteDb.createQuery(Gank.TABLE_NAME, Gank.SELECT_PAGE, new String[]{type, GankIO.PAGE_SIZE+"", page+""})
+        final int size = GankIO.PAGE_SIZE;
+        SqlDelightStatement query = Gank.FACTORY.select_page(type, size, size * (page-1));
+
+        return mBriteDb.createQuery(Gank.TABLE_NAME, query.statement, query.args)
                 .mapToList(Gank.MAPPER::map);
     }
 
     @Override
     public Observable<List<Gank>> getCollectList(@NonNull int page) {
-        return mBriteDb.createQuery(Gank.TABLE_NAME, Gank.SELECT_COLLECT, new String[]{GankIO.PAGE_SIZE+"", page+""})
+        final int size = GankIO.PAGE_SIZE;
+        SqlDelightStatement query = Gank.FACTORY.select_collect(size, size * (page-1));
+
+        return mBriteDb.createQuery(Gank.TABLE_NAME, query.statement, query.args)
                 .mapToList(Gank.MAPPER::map);
     }
 
@@ -142,7 +150,9 @@ public class GankDbDelegateImpl implements GankDbDelegate {
 
     @Override
     public Observable<GankCollect> existCollect(@NonNull String id) {
-        return mBriteDb.createQuery(GankCollect.TABLE_NAME, GankCollect.SELECT_GANK, new String[]{id})
+        SqlDelightStatement query = GankCollect.FACTORY.select_gank(id);
+
+        return mBriteDb.createQuery(GankCollect.TABLE_NAME, query.statement, query.args)
                 .mapToOne(GankCollect.MAPPER::map);
     }
 }

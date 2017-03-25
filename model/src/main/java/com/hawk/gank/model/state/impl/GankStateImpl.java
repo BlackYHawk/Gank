@@ -7,6 +7,7 @@ import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.http.GankIO;
 import com.hawk.gank.model.qualifier.CollectType;
+import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.squareup.otto.Bus;
@@ -73,6 +74,7 @@ public class GankStateImpl implements GankState {
     public GankPagedResult getGankAndroid() {
         return mAndroid;
     }
+
 
     @Override
     public void setGankIos(int viewId, int page, List<Gank> gankList) {
@@ -161,6 +163,11 @@ public class GankStateImpl implements GankState {
     @Override
     public void notifyRxError(int viewId, RxError rxError) {
         mEventBus.post(new GankRxErrorEvent(viewId, rxError));
+    }
+
+    @Override
+    public void notifyDbLoad(int viewId, @NonNull @GankType int type) {
+        mEventBus.post(new GankLoadEvent(viewId, type));
     }
 
     @Override

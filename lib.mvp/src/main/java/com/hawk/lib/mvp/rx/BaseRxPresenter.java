@@ -30,8 +30,8 @@ public abstract class BaseRxPresenter<V extends BaseView<VC>, VC> extends BasePr
 
     @Override
     public void init() {
-        super.init();
         mRxDelegate.onCreate();
+        super.init();
     }
 
     @Override
@@ -48,8 +48,8 @@ public abstract class BaseRxPresenter<V extends BaseView<VC>, VC> extends BasePr
 
     @Override
     public void suspend() {
-        super.suspend();
         mRxDelegate.onDestroy();
+        super.suspend();
     }
 
 }

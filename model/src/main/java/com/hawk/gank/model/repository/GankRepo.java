@@ -10,6 +10,7 @@ import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.error.RxErrorProcessor;
 import com.hawk.gank.model.http.GankIO;
 import com.hawk.gank.model.qualifier.CollectType;
+import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
@@ -23,7 +24,6 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -62,9 +62,7 @@ public class GankRepo {
     public Subscription getTagList() {
         return mGankDb.getTagList()
                 .subscribeOn(Schedulers.io())
-                .map(new Func1<List<Tag>, List<Tag>>() {
-                         @Override
-                         public List<Tag> call(List<Tag> tags) {
+                .map(tags -> {
                              if(ObjectUtil.isEmpty(tags)) {
                                  List<String> typeList = Arrays.asList(typeArray);
                                  List<Tag> tagList = new ArrayList<>();
@@ -79,7 +77,7 @@ public class GankRepo {
                              }
 
                              return tags;
-                         }})
+                         })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tagList -> mGankState.setTagList(tagList));
     }
@@ -88,6 +86,60 @@ public class GankRepo {
     @NonNull
     public void putTagList(@NonNull List<Tag> tagList) {
         mGankDb.putTagList(tagList);
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription loadAndroidData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getGankList(typeArray[0], page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription loadIosData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getGankList(typeArray[1], page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription loadFrontData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getGankList(typeArray[2], page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription loadExpandData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getGankList(typeArray[3], page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription loadWelfareData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getGankList(typeArray[4], page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks));
+    }
+
+    @SuppressLint("NewApi")
+    @NonNull
+    public Subscription loadVideoData(@NonNull int viewId, @NonNull int page) {
+        return mGankDb.getGankList(typeArray[5], page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks));
     }
 
     @SuppressLint("NewApi")
@@ -102,8 +154,14 @@ public class GankRepo {
                 .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks),
-                        t -> mRxErrorProcessor.tryWithRxError(t,
-                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+                        t -> {
+                            mRxErrorProcessor.tryWithRxError(t,
+                                rxError -> mGankState.notifyRxError(viewId, rxError));
+
+                            if (page == 1) {
+                                mGankState.notifyDbLoad(viewId, GankType.ANDROID);
+                            }
+                });
     }
 
     @SuppressLint("NewApi")
@@ -118,13 +176,19 @@ public class GankRepo {
                 .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks),
-                        t -> mRxErrorProcessor.tryWithRxError(t,
-                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+                        t -> {
+                            mRxErrorProcessor.tryWithRxError(t,
+                                    rxError -> mGankState.notifyRxError(viewId, rxError));
+
+                            if (page == 1) {
+                                mGankState.notifyDbLoad(viewId, GankType.IOS);
+                            }
+                });
     }
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getMMData(@NonNull int viewId, @NonNull int page) {
+    public Subscription getWelfareData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getMMData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
@@ -134,8 +198,14 @@ public class GankRepo {
                 .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks),
-                        t -> mRxErrorProcessor.tryWithRxError(t,
-                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+                        t -> {
+                            mRxErrorProcessor.tryWithRxError(t,
+                                    rxError -> mGankState.notifyRxError(viewId, rxError));
+
+                            if (page == 1) {
+                                mGankState.notifyDbLoad(viewId, GankType.WELFARE);
+                            }
+                });
     }
 
     @SuppressLint("NewApi")
@@ -150,8 +220,14 @@ public class GankRepo {
                 .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks),
-                        t -> mRxErrorProcessor.tryWithRxError(t,
-                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+                        t -> {
+                            mRxErrorProcessor.tryWithRxError(t,
+                                    rxError -> mGankState.notifyRxError(viewId, rxError));
+
+                            if (page == 1) {
+                                mGankState.notifyDbLoad(viewId, GankType.FROANT);
+                            }
+                });
     }
 
     @SuppressLint("NewApi")
@@ -166,8 +242,14 @@ public class GankRepo {
                 .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks),
-                        t -> mRxErrorProcessor.tryWithRxError(t,
-                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+                        t -> {
+                            mRxErrorProcessor.tryWithRxError(t,
+                                    rxError -> mGankState.notifyRxError(viewId, rxError));
+
+                            if (page == 1) {
+                                mGankState.notifyDbLoad(viewId, GankType.EXPAND);
+                            }
+                });
     }
 
     @SuppressLint("NewApi")
@@ -182,8 +264,14 @@ public class GankRepo {
                 .doOnNext(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks),
-                        t -> mRxErrorProcessor.tryWithRxError(t,
-                                rxError -> mGankState.notifyRxError(viewId, rxError)));
+                        t -> {
+                            mRxErrorProcessor.tryWithRxError(t,
+                                    rxError -> mGankState.notifyRxError(viewId, rxError));
+
+                            if (page == 1) {
+                                mGankState.notifyDbLoad(viewId, GankType.VIDEO);
+                            }
+                });
     }
 
     public Subscription getCollectData(@NonNull int viewId, @NonNull int page) {

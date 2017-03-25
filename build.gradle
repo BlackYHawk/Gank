@@ -13,7 +13,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'com.squareup.sqldelight:gradle-plugin:0.5.1'
+        classpath 'com.squareup.sqldelight:gradle-plugin:0.6.1'
         classpath 'com.antfortune.freeline:gradle:0.8.3'
         // tinkersupport插件
         classpath "com.tencent.bugly:tinker-support:latest.release"

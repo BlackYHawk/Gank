@@ -40,20 +40,20 @@ public abstract class MvpDiActivity<V extends BaseView<VC>, VC, P extends BasePr
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		mPresenterDelegate.onDestroy();
+		super.onDestroy();
 	}
 
 	@Override
 	protected void onStart() {
-		super.onStart();
 		mPresenterDelegate.onStart();
+		super.onStart();
 	}
 
 	@Override
 	protected void onStop() {
-		super.onStop();
 		mPresenterDelegate.onStop();
+		super.onStop();
 	}
 
 	protected abstract void initializeDependence();

@@ -12,7 +12,7 @@ CREATE TABLE Gank (
   );
 
 select_page:
-SELECT * FROM Gank where type = ? limit ? offset ?;
+SELECT * FROM Gank where type = ? order by publishedAt desc limit ? offset ?;
 
 select_collect:
 SELECT Gank.* FROM Gank inner join Gank_Collect on Gank._id=Gank_Collect._id limit ? offset ?;

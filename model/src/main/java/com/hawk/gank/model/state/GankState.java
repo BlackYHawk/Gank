@@ -1,11 +1,13 @@
 package com.hawk.gank.model.state;
 
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.qualifier.CollectType;
+import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.lib.base.state.BaseState;
 
 import java.util.List;
@@ -16,45 +18,68 @@ import java.util.List;
 
 public interface GankState extends BaseState {
 
+    @MainThread
     void setTagList(List<Tag> tagList);
 
     List<Tag> getTagList();
 
+    @MainThread
     void updateTag(Tag tag);
 
+    @MainThread
     void setGankAndroid(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankAndroid();
 
+    @MainThread
     void setGankIos(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankIos();
 
+    @MainThread
     void setGankWelfare(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankWelfare();
 
+    @MainThread
     void setGankFront(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankFront();
 
+    @MainThread
     void setGankExpand(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankExpand();
 
+    @MainThread
     void setGankVideo(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankVideo();
 
+    @MainThread
     void setGankCollect(int viewId, int page, List<Gank> gankList);
 
     GankPagedResult getGankCollect();
 
+    @MainThread
     void notifyRxError(int viewId, RxError rxError);
 
+    @MainThread
+    void notifyDbLoad(int viewId, @NonNull @GankType int type);
+
+    @MainThread
     void notifyCollect(@NonNull @CollectType int type);
 
     class GankTabEvent {}
+
+    class GankLoadEvent extends UiCausedEvent {
+        public final @GankType int type;
+
+        public GankLoadEvent(int callingId, @GankType int type) {
+            super(callingId);
+            this.type = type;
+        }
+    }
 
     class GankListChangedEvent extends UiCausedEvent {
         public GankListChangedEvent(int callingId) {

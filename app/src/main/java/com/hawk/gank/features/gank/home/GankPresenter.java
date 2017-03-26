@@ -22,8 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 import static com.hawk.gank.features.gank.home.GankPresenter.GankQueryType.TAB;
@@ -37,7 +37,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     private final ResDelegate mResDel;
     private final GankState mGankState;
     private final GankRepo mGankRepo;
-    private CompositeSubscription mDbSubscriptions;
+    private CompositeDisposable mDbDisposables;
 
     @Inject
     GankPresenter(final ResDelegate resDelegate, final GankRepo gankRepo, final GankState gankState) {
@@ -63,22 +63,22 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
         switch (type) {
             case GankType.ANDROID :
-                addDbSubscription(mGankRepo.loadAndroidData(viewId, 1));
+                addDbDisposable(mGankRepo.loadAndroidData(viewId, 1));
                 break;
             case GankType.IOS :
-                addDbSubscription(mGankRepo.loadIosData(viewId, 1));
+                addDbDisposable(mGankRepo.loadIosData(viewId, 1));
                 break;
             case GankType.WELFARE :
-                addDbSubscription(mGankRepo.loadWelfareData(viewId, 1));
+                addDbDisposable(mGankRepo.loadWelfareData(viewId, 1));
                 break;
             case GankType.EXPAND :
-                addDbSubscription(mGankRepo.loadExpandData(viewId, 1));
+                addDbDisposable(mGankRepo.loadExpandData(viewId, 1));
                 break;
             case GankType.FROANT :
-                addDbSubscription(mGankRepo.loadFrontData(viewId, 1));
+                addDbDisposable(mGankRepo.loadFrontData(viewId, 1));
                 break;
             case GankType.VIDEO :
-                addDbSubscription(mGankRepo.loadVideoData(viewId, 1));
+                addDbDisposable(mGankRepo.loadVideoData(viewId, 1));
                 break;
         }
     }
@@ -117,14 +117,14 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         Timber.tag(TAG).e("onInited");
         super.onInited();
         mGankState.registerForEvent(this);
-        initDbSubscriptions();
+        initDbDisposables();
     }
 
     @Override
     protected void onSuspended() {
         Timber.tag(TAG).e("onSuspended");
         super.onSuspended();
-        unsubcribeDb();
+        disposeeDb();
         mGankState.unregisterForEvent(this);
     }
 
@@ -212,7 +212,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             @Override
             public void onPulledToTop() {
                 if(view instanceof GankListView) {
-                    clearDbSubscriptions();
+                    clearDbDisposables();
                     switch (((GankListView) view).getGankQueryType()) {
                         case ANDROID :
                             fetchAndroidList(getId(view), 1);
@@ -242,7 +242,7 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             @Override
             public void onScrolledToBottom() {
                 if(view instanceof GankListView) {
-                    clearDbSubscriptions();
+                    clearDbDisposables();
                     switch (((GankListView) view).getGankQueryType()) {
                         case ANDROID :
                             GankState.GankPagedResult android = mGankState.getGankAndroid();
@@ -353,28 +353,28 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
-    private void initDbSubscriptions() {
-        if (mDbSubscriptions == null) {
-            mDbSubscriptions = new CompositeSubscription();
+    private void initDbDisposables() {
+        if (mDbDisposables == null) {
+            mDbDisposables = new CompositeDisposable();
         }
     }
 
-    private void addDbSubscription(Subscription subscription) {
-        if (mDbSubscriptions != null) {
-            mDbSubscriptions.add(subscription);
+    private void addDbDisposable(Disposable disposable) {
+        if (mDbDisposables != null) {
+            mDbDisposables.add(disposable);
         }
     }
 
-    private void clearDbSubscriptions() {
-        if (mDbSubscriptions != null) {
-            mDbSubscriptions.clear();
+    private void clearDbDisposables() {
+        if (mDbDisposables != null) {
+            mDbDisposables.clear();
         }
     }
 
-    private void unsubcribeDb() {
-        if (mDbSubscriptions != null) {
-            mDbSubscriptions.unsubscribe();
-            mDbSubscriptions = null;
+    private void disposeeDb() {
+        if (mDbDisposables != null) {
+            mDbDisposables.dispose();
+            mDbDisposables = null;
         }
     }
 

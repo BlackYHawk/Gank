@@ -3,6 +3,7 @@ package com.hawk.gank.model.error;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -10,7 +11,6 @@ import java.net.SocketTimeoutException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import retrofit2.adapter.rxjava.HttpException;
 import rx.functions.Action1;
 import timber.log.Timber;
 

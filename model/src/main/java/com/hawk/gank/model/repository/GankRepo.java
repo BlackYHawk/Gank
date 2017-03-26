@@ -21,10 +21,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by heyong on 2016/11/7.
@@ -47,11 +49,11 @@ public class GankRepo {
         this.mRxErrorProcessor = rxErrorProcessor;
     }
 
-    public Subscription updateTag(final Tag tag) {
-        return Observable.create(subscriber -> {
+    public Disposable updateTag(final Tag tag) {
+        return Flowable.create(subscriber -> {
                 subscriber.onNext(mGankDb.updateTag(tag));
-                subscriber.onCompleted();
-        })
+                subscriber.onComplete();
+        }, BackpressureStrategy.BUFFER)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(ret -> mGankState.updateTag(tag));
@@ -59,8 +61,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getTagList() {
-        return mGankDb.getTagList()
+    public Disposable getTagList() {
+        return RxJavaInterop.toV2Flowable(mGankDb.getTagList())
                 .subscribeOn(Schedulers.io())
                 .map(tags -> {
                              if(ObjectUtil.isEmpty(tags)) {
@@ -90,8 +92,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription loadAndroidData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getGankList(typeArray[0], page)
+    public Disposable loadAndroidData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[0], page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks));
@@ -99,8 +101,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription loadIosData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getGankList(typeArray[1], page)
+    public Disposable loadIosData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[1], page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks));
@@ -108,8 +110,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription loadFrontData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getGankList(typeArray[2], page)
+    public Disposable loadFrontData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[2], page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks));
@@ -117,8 +119,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription loadExpandData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getGankList(typeArray[3], page)
+    public Disposable loadExpandData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[3], page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks));
@@ -126,8 +128,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription loadWelfareData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getGankList(typeArray[4], page)
+    public Disposable loadWelfareData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[4], page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks));
@@ -135,8 +137,8 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription loadVideoData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getGankList(typeArray[5], page)
+    public Disposable loadVideoData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[5], page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks));
@@ -144,14 +146,14 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getAndroidData(@NonNull int viewId, @NonNull int page) {
+    public Disposable getAndroidData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getAndroidData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
-                .flatMap(Observable::from)
+                .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnNext(mGankDb::putGankList)
+                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks),
                         t -> {
@@ -166,14 +168,14 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getIosData(@NonNull int viewId, @NonNull int page) {
+    public Disposable getIosData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getIosData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
-                .flatMap(Observable::from)
+                .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnNext(mGankDb::putGankList)
+                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks),
                         t -> {
@@ -188,14 +190,14 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getWelfareData(@NonNull int viewId, @NonNull int page) {
+    public Disposable getWelfareData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getMMData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
-                .flatMap(Observable::from)
+                .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnNext(mGankDb::putGankList)
+                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks),
                         t -> {
@@ -210,14 +212,14 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getFrontData(@NonNull int viewId, @NonNull int page) {
+    public Disposable getFrontData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getFrontData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
-                .flatMap(Observable::from)
+                .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnNext(mGankDb::putGankList)
+                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks),
                         t -> {
@@ -232,14 +234,14 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getExpandData(@NonNull int viewId, @NonNull int page) {
+    public Disposable getExpandData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getExpandData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
-                .flatMap(Observable::from)
+                .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnNext(mGankDb::putGankList)
+                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks),
                         t -> {
@@ -254,14 +256,14 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Subscription getVideoData(@NonNull int viewId, @NonNull int page) {
+    public Disposable getVideoData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getVideoData(page)
                 .subscribeOn(Schedulers.io())
                 .map(GankResult::results)
-                .flatMap(Observable::from)
+                .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnNext(mGankDb::putGankList)
+                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks),
                         t -> {
@@ -274,35 +276,35 @@ public class GankRepo {
                 });
     }
 
-    public Subscription getCollectData(@NonNull int viewId, @NonNull int page) {
-        return mGankDb.getCollectList(page)
+    public Disposable getCollectData(@NonNull int viewId, @NonNull int page) {
+        return RxJavaInterop.toV2Flowable(mGankDb.getCollectList(page))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(ganks -> mGankState.setGankCollect(viewId, page, ganks));
     }
 
-    public Subscription collectGank(final Gank gank) {
-        return Observable.create(subscriber -> {
+    public Disposable collectGank(final Gank gank) {
+        return Flowable.create(subscriber -> {
             subscriber.onNext(mGankDb.collectGank(gank));
-            subscriber.onCompleted();
-        })
+            subscriber.onComplete();
+        }, BackpressureStrategy.BUFFER)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(ret -> mGankState.notifyCollect(CollectType.INSERT));
     }
 
-    public Subscription deleteCollect(final Gank gank) {
-        return Observable.create(subscriber -> {
+    public Disposable deleteCollect(final Gank gank) {
+        return Flowable.create(subscriber -> {
             subscriber.onNext(mGankDb.deleteCollect(gank));
-            subscriber.onCompleted();
-        })
+            subscriber.onComplete();
+        }, BackpressureStrategy.BUFFER)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(ret -> mGankState.notifyCollect(CollectType.DELETE));
     }
 
-    public Subscription existGank(@NonNull String id) {
-        return mGankDb.existCollect(id)
+    public Disposable existGank(@NonNull String id) {
+        return RxJavaInterop.toV2Flowable(mGankDb.existCollect(id))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(gankCollect -> {mGankState.notifyCollect(CollectType.QUERY);});

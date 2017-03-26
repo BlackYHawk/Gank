@@ -1,9 +1,10 @@
 package com.hawk.lib.mvp.rx;
 
-import com.hawk.lib.mvp.ui.view.BaseView;
 import com.hawk.lib.mvp.ui.presenter.BasePresenter;
+import com.hawk.lib.mvp.ui.view.BaseView;
 
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by lan on 2016/10/27.
@@ -16,16 +17,16 @@ public abstract class BaseRxPresenter<V extends BaseView<VC>, VC> extends BasePr
         mRxDelegate = new RxDelegate();
     }
 
-    protected boolean addUtilStop(Subscription subscription) {
-        return mRxDelegate.addUtilStop(subscription);
+    protected boolean addUtilStop(Disposable disposable) {
+        return mRxDelegate.addUtilStop(disposable);
     }
 
-    public boolean addUtilDestroy(Subscription subscription) {
-        return mRxDelegate.addUtilDestroy(subscription);
+    public boolean addUtilDestroy(Disposable disposable) {
+        return mRxDelegate.addUtilDestroy(disposable);
     }
 
-    public void remove(Subscription subscription) {
-        mRxDelegate.remove(subscription);
+    public void remove(Disposable disposable) {
+        mRxDelegate.remove(disposable);
     }
 
     @Override

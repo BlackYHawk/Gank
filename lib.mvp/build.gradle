@@ -29,6 +29,6 @@ dependencies {
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["support-fragment"]
     compile rootProject.ext.dependencies["annotation"]
-    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxjava2"]
     compile rootProject.ext.dependencies["dagger"]
 }

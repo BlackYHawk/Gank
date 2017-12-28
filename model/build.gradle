@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.squareup.sqldelight'
 
 android {
@@ -12,6 +11,11 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -50,6 +54,4 @@ dependencies {
     annotationProcessor rootProject.ext.aptDependencies["javapoet"]
     annotationProcessor rootProject.ext.aptDependencies["dagger-compiler"]
     annotationProcessor rootProject.ext.aptDependencies["auto-parcel"]
-
-    retrolambdaConfig rootProject.ext.aptDependencies["retrolambda"]
 }

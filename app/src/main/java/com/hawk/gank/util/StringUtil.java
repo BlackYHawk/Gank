@@ -90,12 +90,13 @@ public class StringUtil {
                 return GankPresenter.GankTab.IOS;
             case "福利":
                 return GankPresenter.GankTab.WELFARE;
-            case "休息视频":
-                return GankPresenter.GankTab.VIDEO;
             case "前端":
                 return GankPresenter.GankTab.FROANT;
             case "拓展资源":
                 return GankPresenter.GankTab.EXPAND;
+//
+//            case "休息视频":
+//                return GankPresenter.GankTab.VIDEO;
         }
         return GankPresenter.GankTab.ANDROID;
     }

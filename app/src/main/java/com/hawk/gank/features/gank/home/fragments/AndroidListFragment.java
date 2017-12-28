@@ -41,6 +41,11 @@ public class AndroidListFragment extends BaseGankListFragment<Gank> implements G
     }
 
     @Override
+    protected int getItemType(int position) {
+        return super.getItemType(position);
+    }
+
+    @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_android, parent, false);
         return new GankViewHolder(view);

@@ -32,6 +32,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
+import com.hawk.gank.R;
+
 public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
     private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
     private boolean mIsAnimatingOut = false;
@@ -94,7 +96,7 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
                       .start();
         } else {
             Animation anim = AnimationUtils.loadAnimation(button.getContext(),
-                    android.support.design.R.anim.design_fab_out);
+                    R.anim.design_fab_out);
             anim.setInterpolator(INTERPOLATOR);
             anim.setDuration(200L);
             anim.setAnimationListener(new Animation.AnimationListener() {
@@ -131,7 +133,7 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
                       .start();
         } else {
             Animation anim = AnimationUtils.loadAnimation(button.getContext(),
-                    android.support.design.R.anim.design_fab_in);
+                    R.anim.design_fab_in);
             anim.setDuration(200L);
             anim.setInterpolator(INTERPOLATOR);
             button.startAnimation(anim);

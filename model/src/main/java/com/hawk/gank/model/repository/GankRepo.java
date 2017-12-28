@@ -33,8 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 @ActivityScope
 public class GankRepo {
-    public final String[] typeArray = new String[]{"Android", "iOS", "前端", "拓展资源", "福利",
-            "休息视频"};
+    public final String[] typeArray = new String[]{"Android", "iOS", "前端", "拓展资源", "福利"};
     private final GankIO mGankIO;
     private final GankDbDelegate mGankDb;
     private final GankState mGankState;

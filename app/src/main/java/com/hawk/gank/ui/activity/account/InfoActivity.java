@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.AccountBean;
+import com.hawk.gank.model.bean.entity.AccountBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 
 import butterknife.BindView;

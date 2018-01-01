@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
-            android:layout_gravity="right|bottom"
+            android:layout_gravity="end|bottom"
             android:src="@mipmap/ic_up"
             app:elevation="4dp"
             app:layout_anchor="@id/content"
@@ -36,12 +36,21 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.hawk.gank.widget.ScrimInsetsFrameLayout
-        android:id="@+id/slidemenu"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:fitsSystemWindows="?attr/fits_windows"
-        app:appInsetForeground="#4000"/>
+        app:headerLayout="@layout/inclue_menu_header"
+        app:menu="@menu/menu_drawer"/>
+
+    <!--<com.hawk.gank.widget.ScrimInsetsFrameLayout-->
+        <!--android:id="@+id/slidemenu"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:fitsSystemWindows="?attr/fits_windows"-->
+        <!--app:appInsetForeground="#4000"/>-->
 
 </android.support.v4.widget.DrawerLayout>

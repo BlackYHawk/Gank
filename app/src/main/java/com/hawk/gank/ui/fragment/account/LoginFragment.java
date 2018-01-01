@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.AccountBean;
-import com.hawk.gank.data.entity.AccountType;
+import com.hawk.gank.model.bean.entity.AccountBean;
+import com.hawk.gank.model.bean.entity.AccountType;
 import com.hawk.gank.interfaces.impl.ValidMinLenTextWatcher;
 import com.hawk.gank.interfaces.impl.ValidPhoneTextWatcher;
 import com.hawk.gank.ui.activity.account.LoginActivity;

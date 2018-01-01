@@ -28,10 +28,8 @@ import android.support.annotation.NonNull;
 
 import com.hawk.gank.BuildConfig;
 import com.hawk.gank.model.DbOpenHelper;
-import com.hawk.gank.util.Constant;
 import com.hawk.lib.base.model.provider.BriteDbConfig;
 import com.hawk.lib.base.model.provider.HttpClientConfig;
-import com.hawk.lib.base.model.provider.RetrofitConfig;
 
 import javax.inject.Singleton;
 
@@ -52,12 +50,6 @@ public class ProviderConfigModule {
     @Provides
     HttpClientConfig provideHttpClientConfig() {
         return HttpClientConfig.builder().enableLog(DEBUG).build();
-    }
-
-    @Singleton
-    @Provides
-    RetrofitConfig provideRestConfig() {
-        return RetrofitConfig.builder().baseUrl(Constant.GANK_SITE).build();
     }
 
     @Provides

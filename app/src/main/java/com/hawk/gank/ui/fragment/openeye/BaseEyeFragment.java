@@ -2,7 +2,7 @@ package com.hawk.gank.ui.fragment.openeye;
 
 import android.os.Bundle;
 
-import com.hawk.gank.http.OpenEyeIO;
+import com.hawk.gank.model.http.OpenEyeIO;
 import com.hawk.gank.ui.fragment.base.BaseFragment;
 
 import javax.inject.Inject;
@@ -11,7 +11,8 @@ import javax.inject.Inject;
  * Created by heyong on 16/7/18.
  */
 public abstract class BaseEyeFragment extends BaseFragment {
-    protected @Inject OpenEyeIO openEyeIO;
+    protected @Inject
+    OpenEyeIO openEyeIO;
 
 
     @Override

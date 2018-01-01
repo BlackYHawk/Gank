@@ -1,7 +1,7 @@
 package com.hawk.gank.util;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.MenuBean;
+import com.hawk.gank.model.bean.entity.MenuBean;
 
 import java.util.ArrayList;
 

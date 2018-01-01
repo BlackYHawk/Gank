@@ -5,9 +5,12 @@ import android.support.annotation.NonNull;
 import com.hawk.gank.R;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.bean.entity.ItemBean;
 import com.hawk.gank.model.qualifier.GankType;
+import com.hawk.gank.model.repository.EyeRepo;
 import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.state.GankState;
+import com.hawk.gank.model.state.OpenEyeState;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.model.type.ListItem;
 import com.hawk.lib.base.model.util.ResDelegate;
@@ -37,14 +40,19 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
     private final ResDelegate mResDel;
     private final GankState mGankState;
     private final GankRepo mGankRepo;
+    private final OpenEyeState mEyeState;
+    private final EyeRepo mEyeRepo;
     private CompositeDisposable mDbDisposables;
 
     @Inject
-    GankPresenter(final ResDelegate resDelegate, final GankRepo gankRepo, final GankState gankState) {
+    GankPresenter(final ResDelegate resDelegate, final GankRepo gankRepo, final GankState gankState,
+                  final OpenEyeState eyeState, final EyeRepo eyeRepo) {
         super();
         mResDel = resDelegate;
         mGankRepo = gankRepo;
         mGankState = gankState;
+        mEyeRepo = eyeRepo;
+        mEyeState = eyeState;
     }
 
     @Subscribe
@@ -112,6 +120,29 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         display.collectGank(event.type);
     }
 
+    @Subscribe
+    public void onEyeListChanged(OpenEyeState.EyeListChangedEvent event) {
+        V view = findView(event.callingId);
+
+        if(view != null) {
+            populateView(view);
+        }
+        else {
+            populateViews();
+        }
+    }
+
+    @Subscribe
+    public void onEyeRxError(OpenEyeState.EyeRxErrorEvent event) {
+        V view = findView(event.callingId);
+
+        if(view != null && event.item != null) {
+            if (view instanceof GankView) {
+                ((GankView) view).showError(event.item);
+            }
+        }
+    }
+
     @Override
     protected void onInited() {
         Timber.tag(TAG).e("onInited");
@@ -156,6 +187,8 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                     return mResDel.getStringRes(R.string.gank_title);
                 case COLLECTLIST:
                     return mResDel.getStringRes(R.string.gank_collect_title);
+                case OPENEYE:
+                    return mResDel.getStringRes(R.string.gank_openeye_title);
             }
         }
         return null;
@@ -210,6 +243,12 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             }
 
             @Override
+            public void showOpenEye(ItemBean itemBean) {
+                GankDisplay display = (GankDisplay) getDisplay();
+                display.showOpenEye(itemBean);
+            }
+
+            @Override
             public void onPulledToTop() {
                 if(view instanceof GankListView) {
                     clearDbDisposables();
@@ -234,6 +273,10 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                             break;
                         case COLLECTLIST :
                             fetchCollectList(getId(view), 1);
+                            break;
+                        case OPENEYE :
+                            String date = String.valueOf(System.currentTimeMillis());
+                            fetchEyeList(getId(view), date);
                             break;
                     }
                 }
@@ -286,6 +329,13 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                                 fetchCollectList(getId(view), collect.page + 1);
                             }
                             break;
+                        case OPENEYE :
+                            OpenEyeState.EyePagedResult result = mEyeState.getOpenEye();
+                            if(result != null) {
+                                String date = result.date;
+                                fetchEyeList(getId(view), StringUtil.getSpecifiedDayBefore(date));
+                            }
+                            break;
                     }
                 }
             }
@@ -330,6 +380,11 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
                     fetchCollectList(viewId, 1);
                     title = getViewTitle(view);
                     break;
+                case OPENEYE:
+                    String date = String.valueOf(System.currentTimeMillis());
+                    fetchEyeIfNeeded(viewId, date);
+                    title = getViewTitle(view);
+                    break;
             }
 
             final GankDisplay display = (GankDisplay) getDisplay();
@@ -350,6 +405,8 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
             populateListView((GankListView)view);
         } else if(view instanceof TagListView) {
             populateTagListView((TagListView) view);
+        } else if(view instanceof OpenEyeListView) {
+            populateEyeListView((OpenEyeListView) view);
         }
     }
 
@@ -426,6 +483,13 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
+    private void fetchEyeIfNeeded(@NonNull int viewId, @NonNull String date) {
+        if (ObjectUtil.isEmpty(mEyeState.getOpenEye()) ||
+                ObjectUtil.isEmpty(mEyeState.getOpenEye().items)) {
+            fetchEyeList(viewId, date);
+        }
+    }
+
     private void fetchTabTypeList(@NonNull int viewId) {
         addUtilDestroy(mGankRepo.getTagList());
     }
@@ -456,6 +520,10 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
     private void fetchCollectList(@NonNull int viewId, @NonNull int page) {
         addUtilDestroy(mGankRepo.getCollectData(viewId, page));
+    }
+
+    private void fetchEyeList(@NonNull int viewId, @NonNull String date) {
+        addUtilStop(mEyeRepo.getOpenEyeData(viewId, date));
     }
 
     private void populateTabView(GankTabView view) {
@@ -557,6 +625,29 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         }
     }
 
+    private void populateEyeListView(OpenEyeListView view) {
+        final GankQueryType queryType = view.getGankQueryType();
+
+        List<ItemBean> items = null;
+
+        switch (queryType) {
+            case OPENEYE:
+                OpenEyeState.EyePagedResult result = mEyeState.getOpenEye();
+                if (result != null) {
+                    items = result.items;
+                 //   scrollBottom = video.full();
+                }
+                break;
+        }
+
+        if (ObjectUtil.isEmpty(items)) {
+            view.setItems(null);
+        } else {
+         //   view.enableScrollBottom(scrollBottom);
+            view.setItems(items);
+        }
+    }
+
     private final void populateUiFromQueryType(GankQueryType queryType) {
         V ui = findUiFromQueryType(queryType);
         if (ui != null) {
@@ -588,10 +679,6 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
         ANDROID, IOS, WELFARE, VIDEO, FROANT, EXPAND
     }
 
-    public interface GankSideMenuView extends GankView {
-
-    }
-
     public interface GankTabView extends GankView {
         void setTabs(List<GankTab> tabList);
     }
@@ -606,8 +693,10 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
     public interface TagListView extends BaseGankListView<Tag> {}
 
+    public interface OpenEyeListView extends BaseGankListView<ItemBean> {}
+
     public enum GankQueryType {
-        TAB, ANDROID, IOS, WELFARE, VIDEO, FROANT, EXPAND, TAGLIST, COLLECTLIST;
+        TAB, ANDROID, IOS, WELFARE, VIDEO, FROANT, EXPAND, TAGLIST, COLLECTLIST, OPENEYE;
 
         public boolean showUpNavigation() {
             switch (this) {

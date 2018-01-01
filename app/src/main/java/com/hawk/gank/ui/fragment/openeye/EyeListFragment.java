@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.ItemBean;
+import com.hawk.gank.model.bean.entity.ItemBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.adapter.EyeAdapter;
 import com.hawk.gank.ui.adapter.decoration.EyeSpaceItemDecoration;

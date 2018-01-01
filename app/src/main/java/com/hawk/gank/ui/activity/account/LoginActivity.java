@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.AccountBean;
-import com.hawk.gank.data.entity.AccountType;
+import com.hawk.gank.model.bean.entity.AccountBean;
+import com.hawk.gank.model.bean.entity.AccountType;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.ui.fragment.account.BaseAccountFragment;
 import com.hawk.gank.ui.fragment.account.LoginFragment;

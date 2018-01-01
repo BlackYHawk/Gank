@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.ItemBean;
+import com.hawk.gank.model.bean.entity.ItemBean;
 import com.hawk.gank.ui.activity.video.VideoShowActivity;
 import com.hawk.gank.ui.widget.RatioImageView;
 

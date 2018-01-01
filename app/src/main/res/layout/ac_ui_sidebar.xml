@@ -32,8 +32,7 @@
         android:id="@+id/layCollect"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sidbar_icon_h"
-        android:paddingLeft="@dimen/sidbar_layout_padding"
-        android:clickable="true">
+        android:paddingLeft="@dimen/sidbar_layout_padding" >
 
         <ImageView
             android:id="@+id/ivCollect"

@@ -2,7 +2,7 @@ package com.hawk.gank.http;
 
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
-import com.hawk.gank.data.entity.AccountBean;
+import com.hawk.gank.model.bean.entity.AccountBean;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;

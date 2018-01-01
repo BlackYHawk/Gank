@@ -6,11 +6,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.hawk.gank.R;
-import com.hawk.gank.data.entity.ItemBean;
+import com.hawk.gank.model.bean.entity.ItemBean;
 import com.hawk.gank.ui.activity.base.BaseActivity;
 import com.hawk.gank.util.StringUtil;
 
-import butterknife.BindView;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
@@ -19,7 +18,7 @@ import io.vov.vitamio.widget.VideoView;
  * Created by heyong on 16/7/19.
  */
 public class VideoShowActivity extends BaseActivity {
-    @BindView(R.id.videoView) VideoView mVideoView;
+    private VideoView mVideoView;
     private MediaController mMediaController;
     private ItemBean itemBean;
 
@@ -46,6 +45,7 @@ public class VideoShowActivity extends BaseActivity {
         }
 
         mMediaController = new MediaController(this);
+        mVideoView = (VideoView) findViewById(R.id.videoView);
         mVideoView.setVideoPath(itemBean.getData().getPlayUrl());
         mVideoView.setMediaController(mMediaController);
         mVideoView.requestFocus();

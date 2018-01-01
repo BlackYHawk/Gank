@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/menu_header"
     android:background="@color/colorPrimary"
-    android:gravity="center"
-    android:clickable="true" >
+    android:gravity="center" >
 
     <com.hawk.gank.ui.widget.CircleImageView
         android:id="@+id/ivHead"

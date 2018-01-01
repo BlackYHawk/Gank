@@ -11,10 +11,12 @@ import android.view.View;
 import com.hawk.gank.R;
 import com.hawk.gank.data.LoadBugClass;
 import com.hawk.gank.features.gank.detail.DetailWelfareActivity;
-import com.hawk.gank.features.gank.home.fragments.CollectListFragment;
-import com.hawk.gank.features.gank.home.fragments.TagListFragment;
+import com.hawk.gank.features.gank.home.gank.CollectListFragment;
+import com.hawk.gank.features.gank.home.gank.TagListFragment;
 import com.hawk.gank.model.bean.Gank;
+import com.hawk.gank.model.bean.entity.ItemBean;
 import com.hawk.gank.model.qualifier.CollectType;
+import com.hawk.gank.ui.activity.video.VideoShowActivity;
 import com.hawk.lib.base.ui.activity.BaseActivity;
 import com.hawk.lib.base.util.UIHelper;
 import com.hawk.lib.mvp.ui.display.BaseDisplay;
@@ -85,6 +87,12 @@ public class GankDisplay implements BaseDisplay {
                     break;
             }
         }
+    }
+
+    public void showOpenEye(ItemBean itemBean) {
+        Intent intent = new Intent(mActivity, VideoShowActivity.class);
+        intent.putExtra("eyeBean", itemBean);
+        mActivity.startActivity(intent);
     }
 
     @Override

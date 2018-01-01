@@ -5,13 +5,6 @@ package com.hawk.gank.util;
  */
 public class Constant {
 
-    //Gank
-    public static final String GANK_SITE = "http://gank.io/api/";
-
-    //开眼每日精选
-    public static final String EYE_DAILY_SITE = "http://baobab.wandoujia.com/api/v2/";
-    public static final int EYE_DAILY_NUM = 1;
-
     //LeanCloud
     public static final String LEAN_CLOUD_SITE = "https://api.leancloud.cn/";
 

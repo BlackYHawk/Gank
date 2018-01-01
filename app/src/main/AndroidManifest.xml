@@ -38,12 +38,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.hawk.gank.ui.activity.base.MainActivity"
-            android:launchMode="singleTask"
-            android:label="@string/app_name" >
-        </activity>
-
         <activity android:name="com.hawk.gank.ui.activity.account.LoginActivity" />
         <activity android:name="com.hawk.gank.ui.activity.account.InfoActivity"
             android:theme="@style/AppTheme.Translucent" />

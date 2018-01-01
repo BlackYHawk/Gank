@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
-import com.hawk.gank.features.gank.home.fragments.CollectListFragment;
-import com.hawk.gank.features.gank.home.fragments.TagListFragment;
+import com.hawk.gank.features.gank.home.gank.CollectListFragment;
+import com.hawk.gank.features.gank.home.gank.TagListFragment;
 import com.hawk.gank.util.StringUtil;
 import com.hawk.lib.base.ui.activity.BaseActivity;
 import com.hawk.lib.base.util.ObjectUtil;

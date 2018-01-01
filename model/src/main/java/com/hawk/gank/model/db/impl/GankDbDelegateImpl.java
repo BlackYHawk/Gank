@@ -8,7 +8,6 @@ import com.hawk.gank.model.bean.GankCollect;
 import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.http.GankIO;
-import com.hawk.lib.mvp.qualifiers.ActivityScope;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqldelight.SqlDelightStatement;
 
@@ -17,13 +16,14 @@ import org.threeten.bp.ZonedDateTime;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import rx.Observable;
 
 /**
  * Created by heyong on 2016/11/27.
  */
-@ActivityScope
+@Singleton
 public class GankDbDelegateImpl implements GankDbDelegate {
     private final BriteDatabase mBriteDb;
 

@@ -15,6 +15,7 @@ import org.threeten.bp.temporal.ChronoField;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -121,6 +122,28 @@ public class StringUtil {
         return tabs;
     }
 
+    /**
+     * 获得指定时间戳的前一天时间戳
+     * @param specifiedDay
+     * @return
+     * @throws Exception
+     */
+    public static String getSpecifiedDayBefore(String specifiedDay){
+        Calendar c = Calendar.getInstance();
+        Date date = null;
+
+        try {
+            long timestamp = Long.valueOf(specifiedDay);
+            date = new Date(timestamp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        c.setTime(date);
+        int day = c.get(Calendar.DATE);
+        c.set(Calendar.DATE, day-1);
+
+        return String.valueOf(c.getTime().getTime());
+    }
     /**
      * 格式化时间（输出类似于今天、 昨天这样的时间）
      *

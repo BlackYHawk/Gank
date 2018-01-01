@@ -2,6 +2,7 @@ package com.hawk.gank.features.gank.home;
 
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
+import com.hawk.gank.model.bean.entity.ItemBean;
 
 /**
  * Created by heyong on 2016/11/8.
@@ -22,6 +23,8 @@ public interface GankUiCallbacks {
     void showBug();
 
     void updateTag(Tag tag);
+
+    void showOpenEye(ItemBean itemBean);
 
     void onPulledToTop();
 

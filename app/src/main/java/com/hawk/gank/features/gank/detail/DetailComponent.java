@@ -1,6 +1,5 @@
 package com.hawk.gank.features.gank.detail;
 
-import com.hawk.gank.model.bean.GankModule;
 import com.hawk.lib.base.component.ExtendComponent;
 import com.hawk.lib.base.module.ActModule;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
@@ -12,7 +11,7 @@ import dagger.Subcomponent;
  */
 @ActivityScope
 @Subcomponent(modules = {
-        ActModule.class, GankModule.class
+        ActModule.class
 })
 public interface DetailComponent extends ExtendComponent<DetailPresenter> {
 

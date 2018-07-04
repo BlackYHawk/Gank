@@ -30,51 +30,53 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':lib.mvp')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["support-v4"]
-    compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["recyclerview-v7"]
-    compile rootProject.ext.dependencies["cardview-v7"]
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':lib.mvp')
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["annotation"]
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["cardview-v7"]
 
-    compile rootProject.ext.dependencies["dagger"]
-    compile rootProject.ext.dependencies["okhttp"]
-    compile rootProject.ext.dependencies["okHttpLogging"]
-    compile rootProject.ext.dependencies["stetho"]
-    compile rootProject.ext.dependencies["stetho-okhttp"]
-    compile rootProject.ext.dependencies["butterknife"]
+    api rootProject.ext.dependencies["dagger"]
+    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["okHttpLogging"]
+    api rootProject.ext.dependencies["stetho"]
+    api rootProject.ext.dependencies["stetho-okhttp"]
+    api rootProject.ext.dependencies["butterknife"]
 
-    compile rootProject.ext.dependencies["sqlBrite"]
-    compile rootProject.ext.dependencies["sqlDelightRuntime"]
+    api rootProject.ext.dependencies["sqlBrite"]
+    api rootProject.ext.dependencies["sqlDelightRuntime"]
 
-    compile rootProject.ext.dependencies["fresco"]
-    compile rootProject.ext.dependencies["subsampling-scale-image"]
-    compile rootProject.ext.dependencies["commons-io"]
+    api rootProject.ext.dependencies["fresco"]
+    api rootProject.ext.dependencies["subsampling-scale-image"]
+    api rootProject.ext.dependencies["commons-io"]
 
-    compile rootProject.ext.dependencies["systembartint"]
-    compile rootProject.ext.dependencies["smoothprogressbar"]
-    compile rootProject.ext.dependencies["progresspieview"]
+    api rootProject.ext.dependencies["systembartint"]
+    api rootProject.ext.dependencies["smoothprogressbar"]
+    api rootProject.ext.dependencies["progresspieview"]
 
-    compile rootProject.ext.dependencies["gson"]
-    compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["converter-gson"]
-    compile rootProject.ext.dependencies["retrofitRxJava2Adapter"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["retrofitRxJava2Adapter"]
 
-    compile rootProject.ext.dependencies["otto"]
-    compile rootProject.ext.dependencies["rxjava2"]
-    compile rootProject.ext.dependencies["rxandroid2"]
-    compile rootProject.ext.dependencies["rxJava2Interop"]
-    compile rootProject.ext.dependencies["rxpermissions"]
+    api rootProject.ext.dependencies["otto"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["rxandroid2"]
+    api rootProject.ext.dependencies["rxJava2Interop"]
+    api rootProject.ext.dependencies["rxpermissions"]
 
-    compile rootProject.ext.dependencies["threetenabp"]
-    compile rootProject.ext.dependencies["timber"]
-    provided rootProject.ext.aptDependencies["auto-value"]
+    api rootProject.ext.dependencies["threetenabp"]
+    api rootProject.ext.dependencies["timber"]
+    compileOnly rootProject.ext.aptDependencies["auto-value"]
 
     annotationProcessor rootProject.ext.aptDependencies["auto-parcel"]
     annotationProcessor rootProject.ext.aptDependencies["dagger-compiler"]
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
 }

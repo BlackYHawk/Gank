@@ -18,6 +18,9 @@ android {
             // 设置支持的SO库架构
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
         }
+        javaCompileOptions {
+            annotationProcessorOptions { includeCompileClasspath = true }
+        }
         // 开启multidex
         multiDexEnabled true
         // 以Proguard的方式手动加入要放到Main.dex中的类
@@ -79,27 +82,30 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':model')
-    compile project(':lib.vitamio')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':model')
+    implementation project(':lib.vitamio')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["percent"]
-    compile rootProject.ext.dependencies["appbarspring"]
-    compile rootProject.ext.modelDependencies["multiDex"]
-    compile rootProject.ext.dependencies["avoscloud-sdk"]
-    compile rootProject.ext.dependencies["avoscloud-statistics"]
-    compile rootProject.ext.dependencies["bugly:upgrade"]
-    compile rootProject.ext.dependencies["bugly:ndk"]
+    testImplementation 'junit:junit:4.12'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["percent"]
+    implementation (rootProject.ext.dependencies["appbarspring"], {
+        exclude group: 'com.android.support', module: 'design'
+    })
+
+    implementation rootProject.ext.modelDependencies["multiDex"]
+    implementation rootProject.ext.dependencies["avoscloud-sdk"]
+    implementation rootProject.ext.dependencies["avoscloud-statistics"]
+    implementation rootProject.ext.dependencies["bugly:upgrade"]
+    implementation rootProject.ext.dependencies["bugly:ndk"]
 
     annotationProcessor rootProject.ext.aptDependencies["dagger-compiler"]
     annotationProcessor rootProject.ext.aptDependencies["butterknife-compiler"]
 
-    debugCompile rootProject.ext.dependencies["freeline:runtime"]
-    releaseCompile rootProject.ext.dependencies["freeline:runtime-no-op"]
+    debugImplementation rootProject.ext.dependencies["freeline:runtime"]
+    releaseImplementation rootProject.ext.dependencies["freeline:runtime-no-op"]
 }
 
 // 依赖插件脚本

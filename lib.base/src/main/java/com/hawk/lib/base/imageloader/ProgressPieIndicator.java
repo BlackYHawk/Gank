@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Piasy
+ * Copyright (c) 2018 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@ public class ProgressPieIndicator implements ProgressIndicator {
 
     @Override
     public void onProgress(int progress) {
-        if (progress < 0 || progress > 100) {
+        if (progress < 0 || progress > 100 || mProgressPieView == null) {
             return;
         }
         mProgressPieView.setProgress(progress);

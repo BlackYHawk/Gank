@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Piasy
+ * Copyright (c) 2018 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,6 @@
 package com.hawk.lib.base.imageloader.indicator;
 
 import android.view.View;
-
 import com.hawk.lib.base.imageloader.view.BigImageView;
 
 /**

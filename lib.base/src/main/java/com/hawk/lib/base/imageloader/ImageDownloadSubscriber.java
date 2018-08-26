@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Piasy
+ * Copyright (c) 2018 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,13 +27,12 @@ package com.hawk.lib.base.imageloader;
 import android.content.Context;
 import android.support.annotation.WorkerThread;
 
+import com.facebook.common.memory.PooledByteBuffer;
+import com.facebook.common.memory.PooledByteBufferInputStream;
 import com.facebook.common.references.CloseableReference;
 import com.facebook.datasource.BaseDataSubscriber;
 import com.facebook.datasource.DataSource;
-import com.facebook.imagepipeline.memory.PooledByteBuffer;
-import com.facebook.imagepipeline.memory.PooledByteBufferInputStream;
-
-import org.apache.commons.io.IOUtils;
+import com.hawk.lib.base.imageloader.utils.IOUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;

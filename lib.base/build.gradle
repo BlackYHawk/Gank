@@ -50,6 +50,7 @@ dependencies {
     api rootProject.ext.dependencies["sqlDelightRuntime"]
 
     api rootProject.ext.dependencies["fresco"]
+    api rootProject.ext.dependencies["frescoGif"]
     api rootProject.ext.dependencies["subsampling-scale-image"]
     api rootProject.ext.dependencies["commons-io"]
 

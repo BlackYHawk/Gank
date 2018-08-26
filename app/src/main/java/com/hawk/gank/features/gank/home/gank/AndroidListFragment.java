@@ -11,10 +11,12 @@ import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.util.StringUtil;
+import com.hawk.lib.base.imageloader.FrescoUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 import com.hawk.lib.base.util.ObjectUtil;
 
 import butterknife.BindView;
+import io.vov.vitamio.utils.Log;
 
 /**
  * Created by heyong on 2016/11/7.
@@ -78,9 +80,10 @@ public class AndroidListFragment extends BaseGankListFragment<Gank> implements G
             tvTime.setText(publishTime);
 
             if(!StringUtil.isEmpty(imgUrl)) {
-                ivAverator.setImageURI(Uri.parse(imgUrl));
+                FrescoUtil.load(ivAverator, Uri.parse(imgUrl));
             }
             else {
+                Log.e("test", "1");
                 ivAverator.setImageURI(Uri.EMPTY);
             }
         }

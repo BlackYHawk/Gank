@@ -12,6 +12,7 @@ ext {
     okHttpVersion = '3.4.1'
     dagger2Version = '2.4'
     butterknifeVersion = '8.1.0'
+    frescoVersion = '1.10.0'
     stethoVersion = '1.4.1'
     sqlDelightVersion = '0.5.1'
     freelineVersion = '0.8.7'
@@ -47,8 +48,9 @@ ext {
                     "rxlifecycle-components"   : "com.trello:rxlifecycle-components:0.8.0",
                     "rxlifecycle-android"      : "com.trello:rxlifecycle-android:0.8.0",
 
-                    "fresco"                   : "com.facebook.fresco:fresco:0.14.1",
-                    "subsampling-scale-image"  : "com.davemorrissey.labs:subsampling-scale-image-view:3.6.0",
+                    "fresco"                   : "com.facebook.fresco:fresco:$frescoVersion",
+                    "frescoGif"                : "com.facebook.fresco:animated-gif:$frescoVersion",
+                    "subsampling-scale-image"  : "com.davemorrissey.labs:subsampling-scale-image-view:3.10.0",
                     "commons-io"               : "commons-io:commons-io:2.5",
                     "gson"                     : "com.google.code.gson:gson:2.8.0",
                     "ThinDownloadManager"      : "com.mani:ThinDownloadManager:1.2.5",

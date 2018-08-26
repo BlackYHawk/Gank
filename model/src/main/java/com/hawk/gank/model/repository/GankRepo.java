@@ -10,7 +10,6 @@ import com.hawk.gank.model.db.GankDbDelegate;
 import com.hawk.gank.model.error.RxErrorProcessor;
 import com.hawk.gank.model.http.GankIO;
 import com.hawk.gank.model.qualifier.CollectType;
-import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.gank.model.state.GankState;
 import com.hawk.lib.base.util.ObjectUtil;
 import com.hawk.lib.mvp.qualifiers.ActivityScope;
@@ -91,60 +90,6 @@ public class GankRepo {
 
     @SuppressLint("NewApi")
     @NonNull
-    public Disposable loadAndroidData(@NonNull int viewId, @NonNull int page) {
-        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[0], page))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks));
-    }
-
-    @SuppressLint("NewApi")
-    @NonNull
-    public Disposable loadIosData(@NonNull int viewId, @NonNull int page) {
-        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[1], page))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks));
-    }
-
-    @SuppressLint("NewApi")
-    @NonNull
-    public Disposable loadFrontData(@NonNull int viewId, @NonNull int page) {
-        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[2], page))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks));
-    }
-
-    @SuppressLint("NewApi")
-    @NonNull
-    public Disposable loadExpandData(@NonNull int viewId, @NonNull int page) {
-        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[3], page))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks));
-    }
-
-    @SuppressLint("NewApi")
-    @NonNull
-    public Disposable loadWelfareData(@NonNull int viewId, @NonNull int page) {
-        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[4], page))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks));
-    }
-
-    @SuppressLint("NewApi")
-    @NonNull
-    public Disposable loadVideoData(@NonNull int viewId, @NonNull int page) {
-        return RxJavaInterop.toV2Flowable(mGankDb.getGankList(typeArray[5], page))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks));
-    }
-
-    @SuppressLint("NewApi")
-    @NonNull
     public Disposable getAndroidData(@NonNull int viewId, @NonNull int page) {
         return mGankIO.getAndroidData(page)
                 .subscribeOn(Schedulers.io())
@@ -152,16 +97,11 @@ public class GankRepo {
                 .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankAndroid(viewId, page, ganks),
                         t -> {
                             mRxErrorProcessor.tryWithRxError(t,
                                 rxError -> mGankState.notifyRxError(viewId, rxError));
-
-                            if (page == 1) {
-                                mGankState.notifyDbLoad(viewId, GankType.ANDROID);
-                            }
                 });
     }
 
@@ -174,16 +114,11 @@ public class GankRepo {
                 .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankIos(viewId, page, ganks),
                         t -> {
                             mRxErrorProcessor.tryWithRxError(t,
                                     rxError -> mGankState.notifyRxError(viewId, rxError));
-
-                            if (page == 1) {
-                                mGankState.notifyDbLoad(viewId, GankType.IOS);
-                            }
                 });
     }
 
@@ -196,16 +131,11 @@ public class GankRepo {
                 .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankWelfare(viewId, page, ganks),
                         t -> {
                             mRxErrorProcessor.tryWithRxError(t,
                                     rxError -> mGankState.notifyRxError(viewId, rxError));
-
-                            if (page == 1) {
-                                mGankState.notifyDbLoad(viewId, GankType.WELFARE);
-                            }
                 });
     }
 
@@ -218,16 +148,11 @@ public class GankRepo {
                 .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankFront(viewId, page, ganks),
                         t -> {
                             mRxErrorProcessor.tryWithRxError(t,
                                     rxError -> mGankState.notifyRxError(viewId, rxError));
-
-                            if (page == 1) {
-                                mGankState.notifyDbLoad(viewId, GankType.FROANT);
-                            }
                 });
     }
 
@@ -240,16 +165,11 @@ public class GankRepo {
                 .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankExpand(viewId, page, ganks),
                         t -> {
                             mRxErrorProcessor.tryWithRxError(t,
                                     rxError -> mGankState.notifyRxError(viewId, rxError));
-
-                            if (page == 1) {
-                                mGankState.notifyDbLoad(viewId, GankType.EXPAND);
-                            }
                 });
     }
 
@@ -262,16 +182,11 @@ public class GankRepo {
                 .flatMap(Flowable::fromIterable)
                 .toSortedList((gankData1, gankData2) ->
                         gankData2.publishedAt().compareTo(gankData1.publishedAt()))
-                .doOnSuccess(mGankDb::putGankList)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ganks -> mGankState.setGankVideo(viewId, page, ganks),
                         t -> {
                             mRxErrorProcessor.tryWithRxError(t,
                                     rxError -> mGankState.notifyRxError(viewId, rxError));
-
-                            if (page == 1) {
-                                mGankState.notifyDbLoad(viewId, GankType.VIDEO);
-                            }
                 });
     }
 

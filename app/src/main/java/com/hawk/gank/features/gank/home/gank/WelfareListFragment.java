@@ -11,6 +11,7 @@ import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.util.StringUtil;
+import com.hawk.lib.base.imageloader.FrescoUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 
 import butterknife.BindView;
@@ -69,7 +70,7 @@ public class WelfareListFragment extends BaseGankListFragment<Gank> implements G
             titleView.setText(text);
 
             if(!StringUtil.isEmpty(imgUrl)) {
-                mmView.setImageURI(Uri.parse(imgUrl));
+                FrescoUtil.load(mmView, Uri.parse(imgUrl));
             }
             else {
                 mmView.setImageURI(Uri.EMPTY);

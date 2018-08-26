@@ -70,6 +70,11 @@ public class PullRecycler extends FrameLayout implements SwipeRefreshLayout.OnRe
                     case RecyclerView.SCROLL_STATE_SETTLING://惯性滑动
                         Fresco.getImagePipeline().pause();
                         break;
+                    default:
+                        if (Fresco.getImagePipeline().isPaused())
+                            Fresco.getImagePipeline().resume();
+                        break;
+
                 }
                 preScrollState = newState;
             }

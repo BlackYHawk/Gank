@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.hawk.gank.AppContext;
 import com.hawk.gank.R;
 import com.hawk.gank.util.StringUtil;
+import com.hawk.lib.base.imageloader.FrescoImageViewFactory;
 import com.hawk.lib.base.imageloader.ProgressPieIndicator;
 import com.hawk.lib.base.imageloader.view.BigImageView;
 import com.hawk.lib.base.ui.activity.ExtendActivity;
@@ -39,6 +40,7 @@ public class DetailWelfareActivity extends ExtendActivity<DetailPresenter, Detai
             finish();
         }
 
+        mImageView.setImageViewFactory(new FrescoImageViewFactory());
         mImageView.setProgressIndicator(new ProgressPieIndicator());
         mImageView.showImage(Uri.parse(url));
     }

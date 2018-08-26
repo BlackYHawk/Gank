@@ -86,30 +86,6 @@ public class GankDbDelegateImpl implements GankDbDelegate {
     }
 
     @Override
-    public void putGankList(@NonNull List<Gank> gankList) {
-        final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
-
-        try {
-            for (Gank gank : gankList) {
-                mBriteDb.insert(Gank.TABLE_NAME, Gank.FACTORY.marshal(gank).asContentValues(),
-                        SQLiteDatabase.CONFLICT_REPLACE);
-            }
-            transaction.markSuccessful();
-        } finally {
-            transaction.end();
-        }
-    }
-
-    @Override
-    public Observable<List<Gank>> getGankList(@NonNull String type, @NonNull int page) {
-        final int size = GankIO.PAGE_SIZE;
-        SqlDelightStatement query = Gank.FACTORY.select_page(type, size, size * (page-1));
-
-        return mBriteDb.createQuery(Gank.TABLE_NAME, query.statement, query.args)
-                .mapToList(Gank.MAPPER::map);
-    }
-
-    @Override
     public Observable<List<Gank>> getCollectList(@NonNull int page) {
         final int size = GankIO.PAGE_SIZE;
         SqlDelightStatement query = Gank.FACTORY.select_collect(size, size * (page-1));
@@ -124,6 +100,9 @@ public class GankDbDelegateImpl implements GankDbDelegate {
 
         GankCollect collect = GankCollect.builder()._id(gank._id()).collectedAt(ZonedDateTime.now()).build();
         try {
+            mBriteDb.insert(Gank.TABLE_NAME, Gank.FACTORY.marshal(gank).asContentValues(),
+                    SQLiteDatabase.CONFLICT_REPLACE);
+
             long rowId = mBriteDb.insert(GankCollect.TABLE_NAME, GankCollect.FACTORY.marshal(collect).asContentValues(),
                     SQLiteDatabase.CONFLICT_REPLACE);
             transaction.markSuccessful();
@@ -139,6 +118,8 @@ public class GankDbDelegateImpl implements GankDbDelegate {
         final BriteDatabase.Transaction transaction = mBriteDb.newTransaction();
 
         try {
+            mBriteDb.delete(Gank.TABLE_NAME, Gank._ID + "=?", gank._id());
+
             int count = mBriteDb.delete(GankCollect.TABLE_NAME, GankCollect._ID + "=?", gank._id());
             transaction.markSuccessful();
 

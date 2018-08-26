@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Piasy
+ * Copyright (c) 2018 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,11 +26,6 @@ package com.hawk.lib.base.imageloader.loader;
 
 import android.net.Uri;
 import android.support.annotation.UiThread;
-import android.support.annotation.WorkerThread;
-import android.view.View;
-
-import com.hawk.lib.base.imageloader.view.BigImageView;
-
 import java.io.File;
 
 /**
@@ -39,26 +34,26 @@ import java.io.File;
 
 public interface ImageLoader {
 
-    void loadImage(Uri uri, Callback callback);
-
-    View showThumbnail(BigImageView parent, Uri thumbnail);
+    void loadImage(int requestId, Uri uri, Callback callback);
 
     void prefetch(Uri uri);
 
+    void cancel(int requestId);
+
+    @UiThread
     interface Callback {
-        @UiThread
-        void onCacheHit(File image);
+        void onCacheHit(int imageType, File image);
 
-        @WorkerThread
-        void onCacheMiss(File image);
+        void onCacheMiss(int imageType, File image);
 
-        @WorkerThread
         void onStart();
 
-        @WorkerThread
         void onProgress(int progress);
 
-        @WorkerThread
         void onFinish();
+
+        void onSuccess(File image);
+
+        void onFail(Exception error);
     }
 }

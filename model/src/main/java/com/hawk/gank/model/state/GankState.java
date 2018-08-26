@@ -7,7 +7,6 @@ import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.error.RxError;
 import com.hawk.gank.model.qualifier.CollectType;
-import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.lib.base.state.BaseState;
 
 import java.util.List;
@@ -65,21 +64,9 @@ public interface GankState extends BaseState {
     void notifyRxError(int viewId, RxError rxError);
 
     @MainThread
-    void notifyDbLoad(int viewId, @NonNull @GankType int type);
-
-    @MainThread
     void notifyCollect(@NonNull @CollectType int type);
 
     class GankTabEvent {}
-
-    class GankLoadEvent extends UiCausedEvent {
-        public final @GankType int type;
-
-        public GankLoadEvent(int callingId, @GankType int type) {
-            super(callingId);
-            this.type = type;
-        }
-    }
 
     class GankListChangedEvent extends UiCausedEvent {
         public GankListChangedEvent(int callingId) {

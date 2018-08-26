@@ -6,7 +6,6 @@ import com.hawk.gank.R;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.model.bean.Tag;
 import com.hawk.gank.model.bean.entity.ItemBean;
-import com.hawk.gank.model.qualifier.GankType;
 import com.hawk.gank.model.repository.EyeRepo;
 import com.hawk.gank.model.repository.GankRepo;
 import com.hawk.gank.model.state.GankState;
@@ -61,33 +60,6 @@ public class GankPresenter<V extends BaseView<GankUiCallbacks>> extends BaseRxPr
 
         if(view != null) {
             populateView(view);
-        }
-    }
-
-    @Subscribe
-    public void onGankTabLoad(GankState.GankLoadEvent event) {
-        @GankType int type = event.type;
-        int viewId = event.callingId;
-
-        switch (type) {
-            case GankType.ANDROID :
-                addDbDisposable(mGankRepo.loadAndroidData(viewId, 1));
-                break;
-            case GankType.IOS :
-                addDbDisposable(mGankRepo.loadIosData(viewId, 1));
-                break;
-            case GankType.WELFARE :
-                addDbDisposable(mGankRepo.loadWelfareData(viewId, 1));
-                break;
-            case GankType.EXPAND :
-                addDbDisposable(mGankRepo.loadExpandData(viewId, 1));
-                break;
-            case GankType.FROANT :
-                addDbDisposable(mGankRepo.loadFrontData(viewId, 1));
-                break;
-            case GankType.VIDEO :
-                addDbDisposable(mGankRepo.loadVideoData(viewId, 1));
-                break;
         }
     }
 

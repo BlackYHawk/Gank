@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Piasy
+ * Copyright (c) 2018 Piasy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,37 @@
 
 package com.hawk.lib.base.imageloader.view;
 
-/**
- * reuse this runnable
- */
-abstract class ProgressNotifyRunnable implements Runnable {
-    protected int mProgress = -1;
+import android.content.Context;
+import android.net.Uri;
+import android.view.View;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.hawk.lib.base.imageloader.metadata.ImageInfoExtractor;
+import java.io.File;
 
-    public boolean update(int progress) {
-        boolean notified = mProgress == -1;
-        mProgress = progress;
-        return notified;
+/**
+ * Created by Piasy{github.com/Piasy} on 2018/8/12.
+ */
+public class ImageViewFactory {
+
+    public final View createMainView(Context context, int imageType, File imageFile,
+            int initScaleType) {
+        if (imageType == ImageInfoExtractor.TYPE_STILL_IMAGE) {
+            return createStillImageView(context);
+        } else {
+            return createAnimatedImageView(context, imageType, imageFile, initScaleType);
+        }
     }
 
-    public void notified() {
-        mProgress = -1;
+    protected SubsamplingScaleImageView createStillImageView(Context context) {
+        return new SubsamplingScaleImageView(context);
+    }
+
+    protected View createAnimatedImageView(Context context, int imageType, File imageFile,
+            int initScaleType) {
+        return null;
+    }
+
+    public View createThumbnailView(Context context, Uri thumbnail, int scaleType) {
+        return null;
     }
 }

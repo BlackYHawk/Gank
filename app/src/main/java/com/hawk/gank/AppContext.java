@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -108,8 +109,10 @@ public class AppContext extends DefaultApplicationLike implements IApplicatioin 
                 .setMaxCacheSizeOnVeryLowDiskSpace(5 * 1024 * 1024)
                 .setVersion(1)
                 .build();
+
         return ImagePipelineConfig.newBuilder(_context)
                 .setDownsampleEnabled(true)
+                .setBitmapsConfig(Bitmap.Config.RGB_565)
                 .setMainDiskCacheConfig(mainDiskCacheConfig)
                 .build();
     }

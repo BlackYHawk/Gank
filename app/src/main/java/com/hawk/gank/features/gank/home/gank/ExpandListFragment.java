@@ -11,6 +11,7 @@ import com.hawk.gank.R;
 import com.hawk.gank.features.gank.home.GankPresenter;
 import com.hawk.gank.model.bean.Gank;
 import com.hawk.gank.util.StringUtil;
+import com.hawk.lib.base.imageloader.FrescoUtil;
 import com.hawk.lib.base.ui.adapter.BaseViewHolder;
 import com.hawk.lib.base.util.ObjectUtil;
 
@@ -73,7 +74,7 @@ public class ExpandListFragment extends BaseGankListFragment<Gank> implements Ga
             tvTime.setText(publishTime);
 
             if(!StringUtil.isEmpty(imgUrl)) {
-                ivAverator.setImageURI(Uri.parse(imgUrl));
+                FrescoUtil.load(ivAverator, Uri.parse(imgUrl));
             }
             else {
                 ivAverator.setImageURI(Uri.EMPTY);

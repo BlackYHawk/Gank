@@ -24,10 +24,6 @@ public interface GankDbDelegate {
 
     Observable<List<Tag>> getTagList();
 
-    void putGankList(@NonNull List<Gank> gankList);
-
-    Observable<List<Gank>> getGankList(@NonNull String type, @NonNull int page);
-
     Observable<List<Gank>> getCollectList(@NonNull int page);
 
     long collectGank(@NonNull Gank gank);
